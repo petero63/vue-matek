@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<img alt="Vue logo" src="./assets/logo.png">
+<h2>xRoland</h2>
 		<PageFormula msgPageFormula="Page Formula Ajax API request"/>
 		<HelloWorld msg="x Welcome to Your Vue.js App"/>
 	</div>

@@ -2,9 +2,7 @@
 	<div class="hello">
 
 		<p>xEz végre egy képlet az adatbázisból:</p>
-		<div class="well"  v-show="isNight" v-html=formula></div>
-		<div class="well"  v-show="isNight" v-html=id></div>
-		<div class="well"  v-show="isNight" v-html=sort_order></div>
+		<div class="well"  v-show="isNight" v-html=aaa.body></div>
 		<div>
 			<button type="button" class="btn btn-danger" v-on:click="isNight=!isNight">Rejts el</button>
 			<button type="button" class="btn btn-success" @click="loadFormula()">Olvasd be a képletet az adatbázisból</button>
@@ -32,25 +30,23 @@ export default {
 			infoajax: {"name":"Roland","korte":145},
 			infoajaxfull: {"name":"Roland","korte":145},
 			onedimjson: {"alma":100.91,"korte":145},
-			id:0,
 			formula:"sin x",
-			sort_order:"x",
+			aaa:"xxx",
 		}
 	},
 	mounted () {
 
 
+		axios
+			.get('http://localhost:3000/getpost/2')
+			.then(response => (this.aaa = response.data));
+
 		//axios .get('http://localhost:3000/getformulas/1') .then(response => (this.infoajaxfull = response));
-		axios .get('http://localhost:3000/getformulas/1') .then(response => {
-			console.log(response);
-			var id=response.data[0].id;
-			var sort_order=response.data[0].sort_order;
-			var formula=response.data[0].formula.replace(/\\/g, '');
-			this.id=id;
-			this.formula=formula;
-			this.sort_order=sort_order;
-		}
-		);
+axios .get('http://localhost:3000/getformulas/1') .then(response => {
+console.log(response);
+
+}
+);
 
 		//var a={"name":"Roland","korte":145};
 		var a=this.infoajaxfull;
@@ -71,6 +67,10 @@ export default {
 				.get('http://localhost:3000/getformula/1/110')
 				.then(response => (this.infoajax = response));
 
+
+
+			//			this.formula="log x";
+			//			this.aaa="Otto";
 		}
 
 	}

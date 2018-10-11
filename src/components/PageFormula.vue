@@ -1,22 +1,19 @@
 <template>
-	<div class="hello">
+<div class="hello" >
+<button type="button" class="btn btn-danger" v-on:click="showFormula(0)">Rejts el</button>
+<button type="button" class="btn btn-success" v-on:click="showFormula(1)">Mutasd</button>
+<br>
+<button type="button" class="btn btn-primary" v-on:click="isNight=!isNight">Rejts el 2</button>
+<div v-bind:class="(formulaClass)">
+<div class="well" v-for="(item, index) in steps" v-html=item.formula v-on:click="otto(index+1)" v-bind:id="index"></div>
+<div>
+</div>
+<hr>
+<h3>Ez a json az AIP bol</h3>
+</div>
 
-		<p>xEz végre egy képlet az adatbázisból:</p>
-		<div class="well"  v-show="isNight" v-html=formula></div>
-		<div class="well"  v-show="isNight" v-html=id></div>
-		<div class="well"  v-show="isNight" v-html=sort_order></div>
-		<div>
-			<button type="button" class="btn btn-danger" v-on:click="isNight=!isNight">Rejts el</button>
-			<button type="button" class="btn btn-success" @click="loadFormula()">Olvasd be a képletet az adatbázisból</button>
-			<p>Ez végre egy képlet az adatbázisból:</p>
+</div>
 
-			<div class="well"  v-show="isNight" v-html=formula>{{ formula }}</div>
-			<div class="well"  v-show="isNight">Alma ára: {{ onedimjson.alma }} DIN</div>
-		</div>
-		<hr>
-		<h3>Ez a json az AIP bol</h3>
-		<div class="alert alert-success"  v-show="isNight"> {{ infoajaxfull.data }}</div>
-	</div>
 </template>
 
 <script>
@@ -25,72 +22,69 @@ export default {
 	name: 'HelloWorld',
 	props: {
 		msgPageFormula: String
-	},
-	data () {
-		return {
-			isNight:true,
-			infoajax: {"name":"Roland","korte":145},
-			infoajaxfull: {"name":"Roland","korte":145},
-			onedimjson: {"alma":100.91,"korte":145},
-			id:0,
-			formula:"sin x",
-			sort_order:"x",
-		}
-	},
-	mounted () {
+		},
+			data () {
+				return {
+isNight:true,
+isActive:true,
+formulaClass:"showFormula",
+
+		  steps:"y",
+				}
+			},
+			mounted () {
 
 
-		//axios .get('http://localhost:3000/getformulas/1') .then(response => (this.infoajaxfull = response));
-		axios .get('http://localhost:3000/getformulas/1') .then(response => {
-			console.log(response);
-			var id=response.data[0].id;
-			var sort_order=response.data[0].sort_order;
-			var formula=response.data[0].formula.replace(/\\/g, '');
-			this.id=id;
-			this.formula=formula;
-			this.sort_order=sort_order;
-		}
-		);
+				//axios .get('http://localhost:3000/getformulas/1') .then(response => (this.infoajaxfull = response));
+				axios .get('http://localhost:3000/getformulas/1') .then(response => {
+					//console.log(response);
+				var steps=[];
 
-		//var a={"name":"Roland","korte":145};
-		var a=this.infoajaxfull;
-		//axios .get('http://localhost:3000/getformula/1/110') .then(response => (this.infoajaxfull = response));
-	},
-	methods: {
-		goHome () {var a="Rám kattintottál";alert (a);},
-		otto () {var a="Otto";alert (a);},
+				const data = response.data;
+				const steps = [];
+				for (let key in data) { 
+					const step = data[key]; 
+					step.id = key; 
+					step.formula=step.formula.replace(/\\/g, '');
+					steps.push(step);
+					//console.log(step.formula);
+				}
 
-		loadFormula () {
+				//console.log(steps);
+				this.steps=steps;
+			}
+			);
 
-			//frm: {"id":"3","title":"tttt","body":"bbb"};
-			axios
-				.get('http://localhost:3000/getpost/2')
-				.then(response => (this.formula = response.data.body));
+			//var a={"name":"Roland","korte":145};
+			var a=this.infoajaxfull;
+			//axios .get('http://localhost:3000/getformula/1/110') .then(response => (this.infoajaxfull = response));
+			},
+methods: {
+				goHome () {var a="Rám kattintottál";alert (a);},
+				showFormula (n) {
+					//var a="Otto allert";alert (n);
+					if (n==0) {this.formulaClass="hideFormula";}
+					if (n==1) {this.formulaClass="showFormula";}
+					
+					},
 
-			axios
-				.get('http://localhost:3000/getformula/1/110')
-				.then(response => (this.infoajax = response));
+				loadFormula () {
+					alert("Formula is loaded.");
 
-		}
 
-	}
+				},
+
+				otto (n) {
+					alert(n);
+
+
+				}
+			}
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-	margin: 40px 0 0;
-}
-ul {
-	list-style-type: none;
-	padding: 0;
-}
-li {
-	display: inline-block;
-	margin: 0 10px;
-}
-a {
-	color: #42b983;
-}
+.showFormula { display: block; }
+.hideFormula { display: none; }
 </style>

@@ -1,6 +1,5 @@
 <template>
 	<div id="app">
-<h2>xRoland</h2>
 		<PageFormula msgPageFormula="Page Formula Ajax API request"/>
 		<HelloWorld msg="x Welcome to Your Vue.js App"/>
 	</div>

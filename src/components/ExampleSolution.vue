@@ -20,7 +20,7 @@ export default {
 			response => {
 				const data = response.data;
 				data.pageContent=data.pageContent.replace(/\\/g, '');
-				console.log(data);
+//				console.log(data);
 				this.example=data;
 			}
 		

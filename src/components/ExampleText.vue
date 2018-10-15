@@ -3,10 +3,13 @@
 
 	<h1 class="mathFormula">Pelda</h1>
 	<div class="alert alert-warning"  v-html=example.pageContent ></div>
-		<div class="d-inline-block"><img src="../assets/images/start.svg" width="40px"></div> 
-		<div class="d-inline-block"><img src="../assets/images/solution.svg" width="40px"></div> 
-		<div class="d-inline-block"><img src="../assets/images/showall.svg" width="40px"></div> 
-		<div class="d-inline-block"><img src="../assets/images/theory.svg" width="40px"></div> 
+<img v-bind:src="'/images/'+imgbtn" width="40px" @click="showSolution()"/>
+<hr>
+		<div class="d-inline-block"> </div> 
+		<div class="d-inline-block"><img src="/images/start1.svg" width="40px"></div> 
+		<div class="d-inline-block"><img src="/images/solution1.svg" width="40px"></div> 
+		<div class="d-inline-block"><img src="/images/showall1.svg" width="40px"></div> 
+		<div class="d-inline-block"><img src="/images/theory1.svg" width="40px"></div> 
 	<div class="clearfix"></div>
 	</div>
 </template>
@@ -19,6 +22,8 @@ export default {
 	data () {
 		return {
 			example:"xxx",
+			showall:"showall1.svg",
+			imgbtn:"solution1.svg"
 		}
 	},
 	mounted () {
@@ -27,13 +32,18 @@ export default {
 			response => {
 				const data = response.data;
 				data.pageContent=data.pageContent.replace(/\\/g, '');
-				console.log(data);
+		//		console.log(data);
 				this.example=data;
 			}
 		
 		);
 	},
 	methods: {
+		showSolution () {
+			if (this.imgbtn=="solution1.svg") { console.log("aaa");this.imgbtn="solution0.svg";console.log(this.imgbtn);}
+			else { console.log("bbb");this.imgbtn="solution1.svg";console.log(this.imgbtn);}
+			}
+		
 	}
 }
 </script>

@@ -1,20 +1,23 @@
 <template>
 	<div id="app">
-		<PageFormula msgPageFormula="Page Formula Ajax API request"/>
-		<HelloWorld msg="x Welcome to Your Vue.js App"/>
+		<ExampleText msgPageFormula="Page Formula Ajax API request"/>
+		<ExampleSteps/>
+		<ExampleSolution/>
 	</div>
 </template>
 
 <script>
 import axios from 'axios'
-import HelloWorld from './components/HelloWorld.vue'
-import PageFormula from './components/PageFormula.vue'
+import ExampleText from './components/ExampleText.vue'
+import ExampleSteps from './components/ExampleSteps.vue'
+import ExampleSolution from './components/ExampleSolution.vue'
 
 export default {
 	name: 'app',
 	components: {
-		HelloWorld,
-		PageFormula
+		ExampleText,
+		ExampleSteps,
+		ExampleSolution
 	}
 }
 </script>

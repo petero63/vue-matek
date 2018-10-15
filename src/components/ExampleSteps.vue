@@ -1,8 +1,5 @@
 <template>
 	<div>
-		<button type="button" class="btn btn-danger" v-on:click="showFormula(0)">Rejts el</button>
-		<button type="button" class="btn btn-success" v-on:click="showFormula(1)">Mutasd</button>
-		<br>
 <div class="mathFormula d-inline-block ">
 		<div v-bind:class="(formulaClass)">
 			<div 
@@ -23,7 +20,7 @@
 <script>
 import axios from 'axios'
 export default {
-	name: 'HelloWorld',
+	name: 'ExampleSteps',
 	props: {
 		msgPageFormula: String
 	},

@@ -1,17 +1,20 @@
 <template>
-<div v-show="okToShow">
-	<div class="alert alert-success">
+<div v-show="okToShowSolution" id="solution">
+
+<div class="mathFormulaSolution">
+	<div class="alert alert-success border-success">
 	<h5>Megodldás:</h5>
-	<div v-html=example.formula class="mathFormula"></div>
+	<div v-html=example.formula></div>
+	</div>
 	</div>
 	</div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 export default {
 	name: 'ExampleSolution',
-	props: ['okToShow'],
+	props: ['okToShowSolution'],
 	data () {
 		return {
 			example:"xxx",
@@ -47,5 +50,5 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .test { background-color:blue;  }
-.mathFormula { font-size: 20px; color:#333333;cursor: pointer;  }
+.mathFormulaSolution { font-size: 1.4em; color:#333333; margin-top: 0}
 </style >

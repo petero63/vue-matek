@@ -1,8 +1,5 @@
 <template>
-	<div>
-		<button type="button" class="btn btn-danger" v-on:click="showFormula(0)">Rejts el</button>
-		<button type="button" class="btn btn-success" v-on:click="showFormula(1)">Mutasd</button>
-		<br>
+<div v-show="ok">
 <div class="mathFormula d-inline-block ">
 		<div v-bind:class="(formulaClass)">
 			<div 
@@ -15,15 +12,14 @@
 			</div>
 		</div>
 </div>
-
-	</div>
+</div>
 
 </template>
 
 <script>
 import axios from 'axios'
 export default {
-	name: 'HelloWorld',
+	name: 'ExampleSteps',
 	props: {
 		msgPageFormula: String
 	},
@@ -34,6 +30,7 @@ export default {
 			isActive:true,
 			formulaClass:"showFormula ",
 			steps:[],
+			ok:true
 		}
 	},
 	mounted () {
@@ -48,6 +45,7 @@ export default {
 					const step = data[key]; 
 					step.id = key; 
 					step.formula=step.formula.replace(/\\/g, '');
+					step.formula=step.formula.replace(/MathML/g, 'MathML\" display=\"block');
 					step.class = "hideFormula"; 
 					steps.push(step);
 				}
@@ -88,7 +86,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .test { background-color:blue;  }
-.mathFormula { font-size: 20px; color:#333333;cursor: pointer;  }
+.mathFormula { font-size: 1.4em; color:#333333;cursor: pointer;  }
 .showFormula { display: block; }
 .hideFormula { display: none; }
+.showCompomnent { display: block; }
+.hideComponent { display: none; }
 </style >

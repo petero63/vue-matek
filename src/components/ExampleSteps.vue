@@ -1,5 +1,5 @@
 <template>
-	<div>
+<div v-show="ok">
 <div class="mathFormula d-inline-block ">
 		<div v-bind:class="(formulaClass)">
 			<div 
@@ -12,8 +12,7 @@
 			</div>
 		</div>
 </div>
-
-	</div>
+</div>
 
 </template>
 
@@ -31,6 +30,7 @@ export default {
 			isActive:true,
 			formulaClass:"showFormula ",
 			steps:[],
+			ok:true
 		}
 	},
 	mounted () {
@@ -45,6 +45,7 @@ export default {
 					const step = data[key]; 
 					step.id = key; 
 					step.formula=step.formula.replace(/\\/g, '');
+					step.formula=step.formula.replace(/MathML/g, 'MathML\" display=\"block');
 					step.class = "hideFormula"; 
 					steps.push(step);
 				}
@@ -88,4 +89,6 @@ export default {
 .mathFormula { font-size: 20px; color:#333333;cursor: pointer;  }
 .showFormula { display: block; }
 .hideFormula { display: none; }
+.showCompomnent { display: block; }
+.hideComponent { display: none; }
 </style >

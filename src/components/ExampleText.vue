@@ -2,15 +2,7 @@
 	<div>
 
 	<h1 class="mathFormula">Pelda</h1>
-	<div class="alert alert-warning"  v-html=example.pageContent ></div>
-<img v-bind:src="'/images/'+imgbtn" width="40px" @click="showSolution()"/>
-<hr>
-		<div class="d-inline-block"> </div> 
-		<div class="d-inline-block"><img src="/images/start1.svg" width="40px"></div> 
-		<div class="d-inline-block"><img src="/images/solution1.svg" width="40px"></div> 
-		<div class="d-inline-block"><img src="/images/showall1.svg" width="40px"></div> 
-		<div class="d-inline-block"><img src="/images/theory1.svg" width="40px"></div> 
-	<div class="clearfix"></div>
+	<div class="alert alert-warning mathFormula"  v-html=example.pageContent ></div>
 	</div>
 </template>
 
@@ -32,6 +24,7 @@ export default {
 			response => {
 				const data = response.data;
 				data.pageContent=data.pageContent.replace(/\\/g, '');
+				data.pageContent=data.pageContent.replace(/MathML/g, 'MathML\" display=\"block');
 		//		console.log(data);
 				this.example=data;
 			}
@@ -39,11 +32,6 @@ export default {
 		);
 	},
 	methods: {
-		showSolution () {
-			if (this.imgbtn=="solution1.svg") { console.log("aaa");this.imgbtn="solution0.svg";console.log(this.imgbtn);}
-			else { console.log("bbb");this.imgbtn="solution1.svg";console.log(this.imgbtn);}
-			}
-		
 	}
 }
 </script>
@@ -51,4 +39,5 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .test { background-color:blue;  }
+.mathFormula { font-size: 20px; color:#333333;cursor: pointer;  }
 </style >

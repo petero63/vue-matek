@@ -1,6 +1,8 @@
 <template>
 <div id="app">
 <ExampleText/>
+<ExampleSteps :okToShowFirstStep="okToShowFirstStep"/>
+<div class="alert alert-success">
 <img v-bind:src="'/images/'+imgBtnStart" width="40px" @click="showFirstStep()" class="actionbuttons"/>
 <img v-bind:src="'/images/'+imgBtnSolution" width="40px" @click="showSolution()" class="actionbuttons"/>
 
@@ -8,8 +10,7 @@
 <img v-else  v-bind:src="'/images/'+imgBtnAll"  width="40px" @click="hideAll()" class="actionbuttons"/>
 
 <img v-bind:src="'/images/'+imgBtnTheory" width="40px" @click="hideAll()" class="actionbuttons"/>
-<div class="clearfix"></div>
-<ExampleSteps :okToShowFirstStep="okToShowFirstStep" ref="child"/>
+</div>
 <ExampleSolution :okToShowSolution="okToShowSolution"/>
 	<div id="xxx"></div>
 	</div>
@@ -17,6 +18,7 @@
 
 <script>
 import axios from 'axios'
+import Tutorial from './components/Tutorial.vue'
 import ExampleText from './components/ExampleText.vue'
 import ExampleSteps from './components/ExampleSteps.vue'
 import ExampleSolution from './components/ExampleSolution.vue'
@@ -64,6 +66,7 @@ export default {
 		}
 	},
 	components: {
+		Tutorial,
 		ExampleText,
 		ExampleSteps,
 		ExampleSolution
@@ -85,3 +88,4 @@ cursor: pointer;
 margin: 0px 5px 0px 5px;
 }
 </style>
+

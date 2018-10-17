@@ -1,7 +1,5 @@
 <template>
 	<div>
-<h1 id="element">Hi. I'm element</h1>
-
 	<h1 class="mathFormula ">Példa</h1>
 	<div class="alert alert-primary mathFormula border-primary" v-html=example.pageContent ></div>
 	</div>

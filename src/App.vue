@@ -1,13 +1,15 @@
 <template>
 <div id="app">
-<div id="xxx">xxx</div>
 <ExampleText/>
 <img v-bind:src="'/images/'+imgBtnStart" width="40px" @click="showFirstStep()" class="actionbuttons"/>
 <img v-bind:src="'/images/'+imgBtnSolution" width="40px" @click="showSolution()" class="actionbuttons"/>
-<img v-bind:src="'/images/'+imgBtnAll" width="40px" @click="showAll()" class="actionbuttons"/>
-<img v-bind:src="'/images/'+imgBtnTheory" width="40px" @click="showSolution()" class="actionbuttons"/>
-	<div class="clearfix"></div>
-<ExampleSteps :okToShowFirstStep="okToShowFirstStep"/>
+
+<img v-if="test"  v-bind:src="'/images/'+imgBtnAll" width="40px" @click="showAll()" class="actionbuttons"/>
+<img v-else  v-bind:src="'/images/'+imgBtnAll"  width="40px" @click="hideAll()" class="actionbuttons"/>
+
+<img v-bind:src="'/images/'+imgBtnTheory" width="40px" @click="hideAll()" class="actionbuttons"/>
+<div class="clearfix"></div>
+<ExampleSteps :okToShowFirstStep="okToShowFirstStep" ref="child"/>
 <ExampleSolution :okToShowSolution="okToShowSolution"/>
 	<div id="xxx"></div>
 	</div>
@@ -27,6 +29,7 @@ export default {
 	name: 'app',
 	data () {
 		return {
+			test:true,
 			imgBtnStart:"start1.svg",
 			imgBtnSolution:"solution1.svg",
 			imgBtnAll:"all1.svg",
@@ -49,16 +52,16 @@ export default {
 			else { this.imgBtnStart="start1.svg";this.okToShowFirstStep=false;}
 			},
 		showAll () {
-			if (this.imgBtnAll=="all1.svg") {
-				this.imgBtnAll="all0.svg";
-				//document.getElementById("exampleSteps").style.display = "block";
-				document.getElementById("xxx").style.display = "none";
-				//document.getElementById("1").setAttribute("class", "showFormula");
-			}
-			else { 
-				this.imgBtnAll="all1.svg";
-			}
-			}
+				document.getElementById("exampleSteps").style.display = "block";
+				this.$children[1].showAllSteps();
+			this.test=false;
+		},
+		hideAll (){
+				//document.getElementById("exampleSteps").style.display = "none";
+					this.$children[1].hideAllSteps();
+
+			this.test=true;
+		}
 	},
 	components: {
 		ExampleText,

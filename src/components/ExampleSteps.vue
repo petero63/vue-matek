@@ -2,13 +2,13 @@
 	<div>
 		<div v-show="okToShowFirstStep" id="exampleSteps">
 
-			<div class="mathFormula animated rollIn" name="list">
+			<div class="mathFormula animated rollIn">
 				<div 
 				  v-bind:class=item.class 
 				  v-for="(item, index) in steps" 
 				  v-html=item.formula v-on:click="nextStep(index)" 
 				  v-bind:id="index"
-					v-bind:key="index">
+				>
 				</div>
 
 			</div>
@@ -26,15 +26,11 @@ export default {
 	props: ['okToShowFirstStep'],
 	data () {
 		return {
-			w3class:"animated zoomIn",
-			example:"xxx",
 			isNight:true,
 			isActive:true,
 			formulaClass:"showFormula ",
 			steps:[],
 			ok:true,
-			 items: [1,2,3,4,5,6,7,8,9],
- 			 nextNum: 100
 		}
 	},
 	mounted () {
@@ -54,10 +50,11 @@ export default {
 					if (step.nl==0) {step.class = "hideFormula";}
 					else {step.class = "hideFormula";}
 					steps.push(step);
+					console.log(step);
 				}
 				steps[0].class="showFormula";
 
-				//				console.log(steps);
+//				console.log(steps);
 				this.steps=steps;
 			}
 		);
@@ -88,7 +85,8 @@ export default {
 			var elmnt = document.getElementById(m);
     		elmnt.scrollIntoView();
 
-			console.log("n="+n+" nl="+this.steps[n].nl);
+			//console.log("n="+n+" nl="+this.steps[n].nl);
+			console.log("help: "+this.steps[n].help);
 
 		},
 
@@ -116,7 +114,10 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
+
+
+.red {color:#CC0000;}
 .test { background-color:blue;  }
 .result {color:#009900;cursor:default;}
 .mathFormula { font-size: 3.4em; color:#333333;cursor: pointer;  }
@@ -125,16 +126,4 @@ export default {
 .hideFormula { display: none; }
 .showCompomnent { display: block; }
 .hideComponent { display: none; }
-
-	 .list-item {
-  display: inline-block;
-  margin-right: 10px;
-}
-.list-enter-active, .list-leave-active {
-  transition: all 1s;
-}
-.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
-  opacity: 0;
-  transform: translateY(30px);
-}
 </style >

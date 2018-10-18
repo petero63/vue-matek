@@ -2,7 +2,8 @@
 <div id="app">
 <ExampleText/>
 <ExampleSteps :okToShowFirstStep="okToShowFirstStep"/>
-<div class="alert alert-success">
+
+<div class="badge badge-warning actionbox">
 <img v-bind:src="'/images/'+imgBtnStart" width="40px" @click="showFirstStep()" class="actionbuttons"/>
 <img v-bind:src="'/images/'+imgBtnSolution" width="40px" @click="showSolution()" class="actionbuttons"/>
 
@@ -86,6 +87,10 @@ export default {
 .actionbuttons { 
 cursor: pointer;
 margin: 0px 5px 0px 5px;
+}
+.actionbox {
+	background:#DDDDDD;
+	align:center;
 }
 </style>
 

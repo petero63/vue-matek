@@ -1,7 +1,7 @@
 <template>
 <div v-show="okToShowSolution" id="solution">
 
-<div class="mathFormulaSolution">
+<div class="mathFormulaSolution animated flipInY slow">
 	<div class="alert alert-success border-success">
 	<h5>Megodldás:</h5>
 	<div v-html=example.formula></div>

@@ -1,7 +1,5 @@
 <template>
-	<div>
 		<div v-show="okToShowFirstStep" id="exampleSteps">
-
 			<div class="mathFormula animated rollIn">
 				<div 
 				  v-bind:class=item.class 
@@ -11,11 +9,10 @@
 				>
 				</div>
 
+<div v-if="helpAvailable" v-bind:class="helpClass" id="help" v-on:click="showHelp(currentStep)" > Segítség elérhető </div>
 			</div>
 		</div>
-	</div>
-	</div>
-	</div>
+
 
 </template>
 
@@ -26,11 +23,14 @@ export default {
 	props: ['okToShowFirstStep'],
 	data () {
 		return {
+			helpAvailable:false,
+			helpClass:"alert alert-warning animated slideInLeft",
 			isNight:true,
 			isActive:true,
 			formulaClass:"showFormula ",
 			steps:[],
 			ok:true,
+			currentStep:88
 		}
 	},
 	mounted () {
@@ -50,7 +50,7 @@ export default {
 					if (step.nl==0) {step.class = "hideFormula";}
 					else {step.class = "hideFormula";}
 					steps.push(step);
-					console.log(step);
+					//console.log(step);
 				}
 				steps[0].class="showFormula";
 
@@ -64,12 +64,13 @@ export default {
 
 
 		goHome () {var a="Rám kattintottál";alert (a);},
+		showHelp (n) {var a="Rám kattintottál: "+n;alert (a);},
 
 		nextStep (n) {
 			//alert(n);
 			var m=n+1;
 			var lastIndex=this.steps.length;
-			console.log(lastIndex);
+			//console.log(lastIndex);
 
 			if (this.steps[0].nl==0) {document.getElementById(0).setAttribute("class", "d-inline-block showFormula"); }
 			else { document.getElementById(0).setAttribute("class", "showFormula"); }
@@ -86,8 +87,18 @@ export default {
     		elmnt.scrollIntoView();
 
 			//console.log("n="+n+" nl="+this.steps[n].nl);
-			console.log("help: "+this.steps[n].help);
+		//	console.log("help: "+this.steps[n].help);
+		if (n==1){
+			this.helpAvailable=true;
+		}
+		if (n==2){
+			this.helpClass="alert alert-warning animated slideOutRight"
+			//this.helpAvailable=false;
 
+			console.log("itt vagyok ");
+		}
+		this.currentStep=n;
+		console.log("n: "+n);
 		},
 
 		showAllSteps () {

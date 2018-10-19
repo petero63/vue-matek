@@ -1,19 +1,17 @@
 <template>
-		<div v-show="okToShowFirstStep" id="exampleSteps">
-			<div class="mathFormula animated rollIn">
-				<div 
-				  v-bind:class=item.class 
-				  v-for="(item, index) in steps" 
-				  v-html=item.formula v-on:click="nextStep(index)" 
-				  v-bind:id="index"
-				>
-				</div>
-
-<div v-if="helpAvailable" v-bind:class="helpClass" id="help" v-on:click="showHelp(currentStep)" > Segítség elérhető </div>
-			</div>
+<div v-show="okToShowFirstStep" id="exampleSteps">
+		<div class="mathFormula animated rollIn">
+			<div 
+			  v-bind:class=item.class 
+			  v-for="(item, index) in steps" 
+			  v-html=item.formula v-on:click="nextStep(index)" 
+			  v-bind:id="index"
+			>
 		</div>
-
-
+		<div id="helpContent" v-if="helpAvailableContent" v-bind:class="helpContentClass"v-on:click="hideHelpContent()" >Kutya füle magának :)</div>
+		<div v-if="helpAvailableButton" v-bind:class="helpButtonClass" id="help" v-on:click="showHelpContent(currentStep)">Segítség elérhető</div>
+	</div>
+</div>
 </template>
 
 <script>
@@ -23,8 +21,10 @@ export default {
 	props: ['okToShowFirstStep'],
 	data () {
 		return {
-			helpAvailable:false,
-			helpClass:"alert alert-warning animated slideInLeft",
+			helpAvailableContent:false,
+			helpAvailableButton:false,
+			helpcContentClass:"badge helpBaseContentClass animated flipInY slow",
+			helpButtonClass:"badge helpBaseButtonClass animated slideInLeft",
 			isNight:true,
 			isActive:true,
 			formulaClass:"showFormula ",
@@ -64,8 +64,27 @@ export default {
 
 
 		goHome () {var a="Rám kattintottál";alert (a);},
-		showHelp (n) {var a="Rám kattintottál: "+n;alert (a);},
+		showHelpContent (n) {
+			//var a="Rám kattintottál: "+n;alert (a);
+			this.helpAvailableContent=true;
+			this.helpContentClass="badge helpBaseContentClass animated flipInY slow"
+		},
 
+		hideHelpContent () {
+			//var a="Rám kattintottál: "+n;alert (a);
+			//this.helpContentClass="badge helpBaseClass animated flipOutY slow"
+//			this.helpContentClass="badge badge-danger"
+			//this.helpAvailableContent=false;
+			//document.getElementById("helpContent").setAttribute("class", "badge badge-danger");
+			document.getElementById("helpContent").setAttribute("class", "badge helpBaseContentClass animated flipOutY");
+//			setTimeout(this.helpAvailableContent=false, 2000);
+//			setInterval(function(){ this.doHideHelpContent ();}, 3000);
+			setInterval(function(){this.helpAvailableContent=false;}, 3000);
+//			setInterval(function(){ alert("Hello"); }, 3000);
+			//this.helpAvailableContent=false;
+			console.log("Segitseg elrejt ");
+		},
+//		doHideHelpContent () { this.helpAvailableContent=false; },
 		nextStep (n) {
 			//alert(n);
 			var m=n+1;
@@ -88,17 +107,18 @@ export default {
 
 			//console.log("n="+n+" nl="+this.steps[n].nl);
 		//	console.log("help: "+this.steps[n].help);
-		if (n==1){
-			this.helpAvailable=true;
+			var hs=0;
+		if (n==hs){
+			this.helpAvailableButton=true;
 		}
-		if (n==2){
-			this.helpClass="alert alert-warning animated slideOutRight"
-			//this.helpAvailable=false;
+		if (n==hs+1){
+			this.helpButtonClass="badge helpBaseContentClass animated slideOutRight"
+			//this.helpAvailableButton=false;
 
-			console.log("itt vagyok ");
+//			console.log("itt vagyok ");
 		}
-		this.currentStep=n;
-		console.log("n: "+n);
+//		this.currentStep=n;
+//		console.log("n: "+n);
 		},
 
 		showAllSteps () {
@@ -137,4 +157,28 @@ export default {
 .hideFormula { display: none; }
 .showCompomnent { display: block; }
 .hideComponent { display: none; }
+.helpBaseButtonClass { 
+	background:#ffb90c;
+	padding: 20px;
+	border-style: solid;
+  border-width: 1px;
+  border-color: #835e03;
+  width:60%;
+	font-size: 0.3em;
+  border-width: 1px;
+	margin: 10px;
+	font-weight:normal;
+  }
+.helpBaseContentClass { 
+	background:#fdda94;
+	padding: 20px;
+	border-style: solid;
+  border-width: 1px;
+  border-color: #835e03;
+  width:60%;
+	font-size: 0.3em;
+  border-width: 1px;
+	margin: 10px;
+	font-weight:normal;
+  }
 </style >

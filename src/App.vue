@@ -3,7 +3,7 @@
 <ExampleText/>
 <ExampleSteps :okToShowFirstStep="okToShowFirstStep"/>
 
-<div class="badge badge-warning actionbox">
+<div class="badge actionbox">
 <img v-bind:src="'/images/'+imgBtnStart" width="40px" @click="showFirstStep()" class="actionbuttons"/>
 <img v-bind:src="'/images/'+imgBtnSolution" width="40px" @click="showSolution()" class="actionbuttons"/>
 
@@ -89,7 +89,11 @@ cursor: pointer;
 margin: 0px 5px 0px 5px;
 }
 .actionbox {
-	background:#DDDDDD;
+	background:#c5e1ff;
+	margin: 10px;
+	border-style: solid;
+  border-width: 1px;
+  border-color: #0070ff;
 	align:center;
 }
 </style>

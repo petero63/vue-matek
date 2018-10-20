@@ -1,20 +1,17 @@
 <template>
-<div v-show="okToShowSolution" id="solution">
-
-<div class="mathFormulaSolution animated flipInY slow">
+<div v-show="showSolutionContainer" id="solutionContainer">
 	<div class="alert alert-success border-success">
 	<h5>Megodldás:</h5>
 	<div v-html=example.formula></div>
 	</div>
-	</div>
-	</div>
+</div>
 </template>
 
 <script>
 import axios from 'axios';
 export default {
 	name: 'ExampleSolution',
-	props: ['okToShowSolution'],
+	props: ['showSolutionContainer'],
 	data () {
 		return {
 			example:"xxx",

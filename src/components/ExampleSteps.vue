@@ -1,5 +1,5 @@
 <template>
-<div v-show="okToShowFirstStep" id="exampleSteps">
+<div v-show="showExampleStepsContainer" id="exampleStepsContainer">
 		<div class="mathFormula animated rollIn">
 			<div 
 			  v-bind:class=item.class 
@@ -8,8 +8,8 @@
 			  v-bind:id="index"
 			>
 		</div>
-		<div id="helpContent" v-show=helpAvailableContent v-bind:class="helpContentClass" v-on:click="hideHelpContent()" v-html=steps[currentStep+1].help></div>
-		<div id="helpButton" v-if="helpAvailableButton" v-bind:class="helpButtonClass"v-on:click="showHelpContent(currentSortOrder)">Segítség elérhető</div>
+		<div id="helpContent" v-show=helpAvailableContent class="badge helpBaseContentClass animated flipInY slow" v-on:click="hideHelpContent()" v-html=steps[currentStepIndex+1].help></div>
+		<div id="helpButton" v-if="helpAvailableButton" class="badge helpBaseButtonClass animated slideInLeft" v-on:click="showHelpContent(currentSortOrder)">Segítség elérhető</div>
 	</div>
 </div>
 </template>
@@ -18,24 +18,20 @@
 import axios from 'axios'
 export default {
 	name: 'ExampleSteps',
-	props: ['okToShowFirstStep'],
+	props: ['showExampleStepsContainer'],
 	data () {
 		return {
 			helpAvailableContent:false,
 			helpAvailableButton:false,
-			helpContentClass:"badge helpBaseContentClass animated flipInY slow",
-			helpContent:"<h2>OK</h2>",
-			helpButtonClass:"badge helpBaseButtonClass animated slideInLeft",
-			isNight:true,
-			isActive:true,
+			helpContent:"",
 			formulaClass:"showFormula ",
 			steps:[
 			{"id":0,"id_controler":0,"formula":"","help":"","formula_lg":null,"sort_order":100,"subq":0,"subs":0,"nl":0,"mobile_font_size":null,"formulacharacters":0},
 			{"id":0,"id_controler":0,"formula":"","help":"","formula_lg":null,"sort_order":100,"subq":0,"subs":0,"nl":0,"mobile_font_size":null,"formulacharacters":0}
 			],
-			ok:true,
 			currentSortOrder:100,
-			currentStep:0,
+			currentStepIndex:0,
+			lastStepIndex:0,
 		}
 	},
 	methods: {
@@ -44,7 +40,7 @@ export default {
 			//alert(n);
 			var m=n+1;
 			var lastIndex=this.steps.length;
-			//console.log(lastIndex);
+			console.log("lastIndex: "+lastIndex);
 
 			if (this.steps[0].nl==0) {document.getElementById(0).setAttribute("class", "d-inline-block showFormula"); }
 			else { document.getElementById(0).setAttribute("class", "showFormula"); }
@@ -80,41 +76,22 @@ export default {
 		//this.helpContent=this.steps[n+1].formula;
 
 		console.log("n: "+n);
-		this.currentStep=n;
-		console.log("current step: "+this.currentStep);
+		this.currentStepIndex=n;
+		console.log("current step: "+this.currentStepIndex);
 		},
 
 		showHelpContent (n) {
-			//var a="Rám kattintottál: "+n;alert (a);
 			this.helpAvailableContent=true;
-//			this.helpContentClass="badge helpBaseContentClass animated flipInY slow";
-			//alert("xxx");
-		//	this.helpContent="<h3>n: "+n+"</h3>";
-			//this.helpContent=this.steps[n+1].help;
-		//	this.helpContent=this.steps[n+1].formula;
-			//this.helpContent=this.steps[n+1].help;
+			this.helpContentClass="badge helpBaseContentClass animated flipInY slow";
+			document.getElementById("helpButton").style.display = 'none';
 		},
 
-		goHome () {var a="Rám kattintottál";alert (a);},
 
 		hideHelpContent () {
-			//var a="Rám kattintottál: "+n;alert (a);
-			//this.helpContentClass="badge helpBaseClass animated flipOutY slow"
-//			this.helpContentClass="badge badge-danger"
-			//this.helpAvailableContent=false;
-			//document.getElementById("helpContent").setAttribute("class", "badge badge-danger");
 			document.getElementById("helpContent").setAttribute("class", "badge helpBaseContentClass animated flipOutY");
-			document.getElementById("helpContent").style.display = 'none';;
+			//document.getElementById("helpContent").style.display = 'none';;
 			
-//			setTimeout(this.helpAvailableContent=false, 2000);
-//			setInterval(function(){ this.doHideHelpContent ();}, 3000);
-			setInterval(function(){this.helpAvailableContent=false;}, 3000);
-//			setInterval(function(){ alert("Hello"); }, 3000);
-			//this.helpAvailableContent=false;
-			console.log("Segitseg elrejt ");
 		},
-//		doHideHelpContent () { this.helpAvailableContent=false; },
-
 
 		showAllSteps () {
 			if (this.steps[0].nl==0) {document.getElementById(0).setAttribute("class", "d-inline-block showFormula"); }
@@ -145,7 +122,9 @@ export default {
 
 				const data = response.data;
 				//const steps = [];
+				var n=0;
 				for (let key in data) { 
+					n++;
 					const step = data[key]; 
 					step.id = key; 
 					step.formula=step.formula.replace(/\\/g, '');
@@ -160,9 +139,10 @@ export default {
 					//console.log(step);
 				}
 				steps[0].class="showFormula";
+				this.lastStepIndex=n;
+				this.steps=steps;
 
 //				console.log(steps);
-				this.steps=steps;
 			}
 		);
 
@@ -171,10 +151,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-
-
-.red {color:#CC0000;}
+<style scoped>
 .test { background-color:blue;  }
 .result {color:#009900;cursor:default;}
 .mathFormula { font-size: 3.4em; color:#333333;cursor: pointer; }

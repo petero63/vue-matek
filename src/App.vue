@@ -1,20 +1,22 @@
 <template>
 <div id="app">
 <ExampleText/>
-<ExampleSteps :okToShowFirstStep="okToShowFirstStep"/>
+<ExampleSteps :showExampleStepsContainer="showExampleStepsContainer"/>
 
 <div class="badge actionbox">
-<img v-bind:src="'/images/'+imgBtnStart" width="40px" @click="showFirstStep()" class="actionbuttons"/>
+
+<img  v-if="startSolutionBtnVisible" src="/images/start1.svg" width="40px" @click="startSolution()" class="actionbuttons"/>
+<img  v-else  src="/images/start0.svg" width="40px" @click="restartSolution()" class="actionbuttons"/>
+
 <img v-bind:src="'/images/'+imgBtnSolution" width="40px" @click="showSolution()" class="actionbuttons"/>
 
-<img v-if="test"  v-bind:src="'/images/'+imgBtnAll" width="40px" @click="showAll()" class="actionbuttons"/>
+<img v-if="showAllBtnVisible"  v-bind:src="'/images/'+imgBtnAll" width="40px" @click="showAll()" class="actionbuttons"/>
 <img v-else  v-bind:src="'/images/'+imgBtnAll"  width="40px" @click="hideAll()" class="actionbuttons"/>
 
 <img v-bind:src="'/images/'+imgBtnTheory" width="40px" @click="hideAll()" class="actionbuttons"/>
 </div>
-<ExampleSolution :okToShowSolution="okToShowSolution"/>
-	<div id="xxx"></div>
-	</div>
+<ExampleSolution :showSolutionContainer="showSolutionContainer"/>
+</div>
 </template>
 
 <script>
@@ -32,38 +34,63 @@ export default {
 	name: 'app',
 	data () {
 		return {
-			test:true,
-			imgBtnStart:"start1.svg",
+			showAllBtnVisible:true,
+			startSolutionBtnVisible:true,
 			imgBtnSolution:"solution1.svg",
 			imgBtnAll:"all1.svg",
 			imgBtnTheory:"theory1.svg",
-			okToShowSolution:false,
-			okToShowFirstStep:false
-
+			showSolutionContainer:false,
+			showExampleStepsContainer:false
 		}
 	},
 	methods: {
 		showSolution () {
-			if (this.imgBtnSolution=="solution1.svg") {this.imgBtnSolution="solution0.svg";this.okToShowSolution=true;}
-			else { this.imgBtnSolution="solution1.svg";this.okToShowSolution=false;}
-			//document.getElementById("xxx").scrollIntoView();
-			document.getElementById("xxx").scrollTop;
-			},
+			if (this.imgBtnSolution=="solution1.svg") {
+				this.imgBtnSolution="solution0.svg";
+				this.showSolutionContainer=true;
+				document.getElementById("solutionContainer").setAttribute("class", "showFormula  animated flipInY slow");
+			}
+			else { 
+				this.imgBtnSolution="solution1.svg";
+				document.getElementById("solutionContainer").setAttribute("class", "showFormula  animated flipOutY fast");
+				//this.showSolutionContainer=false;
+			}
+		},
 		
-		showFirstStep () {
-			if (this.imgBtnStart=="start1.svg") {this.imgBtnStart="start0.svg";this.okToShowFirstStep=true;}
-			else { this.imgBtnStart="start1.svg";this.okToShowFirstStep=false;}
+		hideSolution () {
+			if (this.imgBtnSolution=="solution1.svg") {this.imgBtnSolution="solution0.svg";this.showSolutionContainer=true;}
+			else { this.imgBtnSolution="solution1.svg";this.showSolutionContainer=false;}
+			},
+	
+		startSolution () {
+			if (this.startSolutionBtnVisible) {this.startSolutionBtnVisible=false;this.showExampleStepsContainer=true;}
+//			else { this.imgBtnStart="start1.svg";this.showExampleStepsContainer=false;}
+			},
+
+		restartSolution () {
+			this.hideAll();
+			this.startSolutionBtnVisible=true;
+			this.showExampleStepsContainer=true;
+			document.getElementById(0).style.display = "block";
 			},
 		showAll () {
-				document.getElementById("exampleSteps").style.display = "block";
-				this.$children[1].showAllSteps();
-			this.test=false;
+			this.$children[1].lastStepIndex;
+			document.getElementById("exampleStepsContainer").style.display = "block";
+			for (var i = 0; i < this.$children[1].lastStepIndex; i++) {
+				document.getElementById(i).style.display = "block";
+			}
+			this.showAllBtnVisible=false;
+			this.startSolutionBtnVisible=false,
+			this.imgBtnAll="all0.svg"
 		},
 		hideAll (){
-				//document.getElementById("exampleSteps").style.display = "none";
-					this.$children[1].hideAllSteps();
-
-			this.test=true;
+			document.getElementById("exampleStepsContainer").style.display = "none";
+			for (var i = 0; i < this.$children[1].lastStepIndex; i++) {
+				document.getElementById(i).style.display = "none";
+			}
+			this.showAllBtnVisible=true;
+			this.startSolutionBtnVisible=true;
+			this.imgBtnAll="all1.svg"
 		}
 	},
 	components: {

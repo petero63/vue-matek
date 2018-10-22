@@ -1,6 +1,7 @@
 <template>
-<div v-show="showExampleStepsContainer" id="exampleStepsContainer">
-		<div class="mathFormula animated rollIn">
+<div v-show="showExampleStepsContainer" id="exampleStepsContainer" class="animated zoomIn">
+exampleStepsContainer	
+		<div class="mathFormula animated zoomIn">
 			<div 
 			  v-bind:class=item.class 
 			  v-for="(item, index) in steps" 
@@ -92,7 +93,7 @@ export default {
 			//document.getElementById("helpContent").style.display = 'none';;
 			
 		},
-
+/*
 		showAllSteps () {
 			if (this.steps[0].nl==0) {document.getElementById(0).setAttribute("class", "d-inline-block showFormula"); }
 			else { document.getElementById(0).setAttribute("class", "showFormula"); }
@@ -112,6 +113,8 @@ export default {
 			}
 			this.$parent.imgBtnAll="all1.svg";
 		}
+*/
+
 	},
 
 	mounted () {
@@ -132,13 +135,11 @@ export default {
 					step.formula=step.formula.replace(/MathML/g, 'MathML\" display=\"block');
 					step.help=step.help.replace(/MathML/g, 'MathML\" display=\"block');
 
-					//if (step.nl==0) {step.class = "hideFormula d-inline-block";}
-					if (step.nl==0) {step.class = "hideFormula";}
+					if (step.nl==0) {step.class = "showFormula";}
 					else {step.class = "hideFormula";}
 					steps.push(step);
 					//console.log(step);
 				}
-				steps[0].class="showFormula";
 				this.lastStepIndex=n;
 				this.steps=steps;
 
@@ -155,9 +156,10 @@ export default {
 .test { background-color:blue;  }
 .result {color:#009900;cursor:default;}
 .mathFormula { font-size: 3.4em; color:#333333;cursor: pointer; }
-.showFormula { display: block; margin-top:-30px; margin-bottom:-25px }
 
+.showFormula { display: block; margin-top:-30px; margin-bottom:-25px }
 .hideFormula { display: none; }
+
 .showCompomnent { display: block; }
 .hideComponent { display: none; }
 .helpBaseButtonClass { 

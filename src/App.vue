@@ -1,14 +1,14 @@
 <template>
 <div id="app">
 <ExampleText/>
-<ExampleSteps :showExampleStepsContainer="showExampleStepsContainer"/>
+<ExampleSteps/>
 
 <div class="badge actionbox">
 
 <img  v-if="startBtnVisible" src="/images/start1.svg" width="40px" @click="startSolution()" class="actionbuttons"/>
 <img  v-if="restartBtnVisible"  src="/images/start0.svg" width="40px" @click="restartSolution()" class="actionbuttons"/>
 
-<img  v-if="autoplayBtnVisible" src="/images/autoplay.svg" width="40px" @click="autoplaySolution()" class="actionbuttons"/>
+<img  v-if="autoplayBtnVisible" src="/images/autoplay.svg" width="40px" @click="autoplaySolutionNew()" class="actionbuttons"/>
 
 <img v-if="showAllBtnVisible"  v-bind:src="'/images/'+imgBtnAll" width="40px" @click="showAll()" class="actionbuttons"/>
 <img v-else  v-bind:src="'/images/'+imgBtnAll"  width="40px" @click="hideAll()" class="actionbuttons"/>
@@ -45,7 +45,7 @@ export default {
 			imgBtnAll:"all1.svg",
 			imgBtnTheory:"theory1.svg",
 			showSolutionContainer:false,
-			showExampleStepsContainer:false
+			showExampleStepsContainer:false,
 		}
 	},
 	methods: {
@@ -84,9 +84,7 @@ export default {
 			//alert("xxxx");
 
 
-			for (var i = 1; i < this.$children[1].lastStepIndex; i++) {
-				document.getElementById(i).style.display = "none";
-			}
+//			for (var i = 1; i < this.$children[1].lastStepIndex; i++) { document.getElementById(i).style.display = "none"; }
 
 			document.getElementById(0).style.display = "block";
 			//this.hideAll();
@@ -99,22 +97,40 @@ export default {
 			console.log("showExampleStepsContainer= "+this.showExampleStepsContainer);
 			},
 
-		autoplaySolution  () {
-
+		autoplaySolutionNew  () {
+			this.$children[1].autoplaySolution();
+		},
+		autoplaySolutionOld  () {
+			var nnn=this.$children[1].steps.length;
+			//var nnn=this.$children[1].steps[2].nl;
+			console.log("nnn="+nnn);
 			this.showExampleStepsContainer=true;
 			this.$children[1].lastStepIndex;
-			document.getElementById("exampleStepsContainer").style.display = "block";
+//			document.getElementById("exampleStepsContainer").style.display = "block";
 
-			document.getElementById("exampleStepsContainer").style.display = "none";
+	//		document.getElementById("exampleStepsContainer").style.display = "none";
 			for (var i = 0; i < this.$children[1].lastStepIndex; i++) {
 				document.getElementById(i).style.display = "none";
 			}
 
-				document.getElementById(0).style.display = "block";
-			setTimeout(function() { document.getElementById(1).style.display = "block"; }, 1000);
-			setTimeout(function() { document.getElementById(2).style.display = "block"; }, 2000);
-			setTimeout(function() { document.getElementById(3).style.display = "block"; }, 3000);
-//			this.hideAll();
+			document.getElementById(0).setAttribute("class", "d-inline-block showFormula animated zoomIn");
+			//for (var i = 1; i < this.$children[1].lastStepIndex; i++) {
+			for (let i=1; i<this.$children[1].lastStepIndex; i++) {
+			    setTimeout( function timer(){
+
+				document.getElementById(i).setAttribute("class", "d-inline-block showFormula animated zoomIn");
+
+				var elmnt = document.getElementById(i);
+    			elmnt.scrollIntoView();
+		//		console.log("i="+i);
+//				nl=this.$children[1].steps[i].nl;
+//			 nl=this.$children[1].steps[2].nl;
+	//			console.log("nl="+nl);
+
+//			var nnn=this.$children[1].steps.length;
+	//		console.log("nnn="+nnn);
+		   }, i*this.autoplaySpeed );
+			}
 
 		},
 
@@ -139,7 +155,9 @@ export default {
 			this.$children[1].lastStepIndex;
 			document.getElementById("exampleStepsContainer").style.display = "block";
 			for (var i = 0; i < this.$children[1].lastStepIndex; i++) {
-				document.getElementById(i).style.display = "block";
+					if (this.$children[1].steps[i].nl==0) { document.getElementById(i).setAttribute("class", "d-inline-block showFormula animated zoomIn"); }
+					else { document.getElementById(i).setAttribute("class", "showFormula animated zoomIn");}
+				//document.getElementById(i).style.display = "block";
 			}
 			this.startBtnVisible=false;
 			this.restartBtnVisible=false;

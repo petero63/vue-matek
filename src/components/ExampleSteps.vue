@@ -1,6 +1,9 @@
 <template>
 <div v-show="showExampleStepsContainer" id="exampleStepsContainer" class="animated zoomIn">
 exampleStepsContainer	
+<div class="d-inline-block">xxx</div>
+<div class="d-inline-block">yyy</div>
+<div class="d-inline-block">xxx</div>
 		<div class="mathFormula animated zoomIn">
 			<div 
 			  v-bind:class=item.class 
@@ -19,9 +22,10 @@ exampleStepsContainer
 import axios from 'axios'
 export default {
 	name: 'ExampleSteps',
-	props: ['showExampleStepsContainer'],
+	props: [''],
 	data () {
 		return {
+			showExampleStepsContainer:true,
 			helpAvailableContent:false,
 			helpAvailableButton:false,
 			helpContent:"",
@@ -33,9 +37,56 @@ export default {
 			currentSortOrder:100,
 			currentStepIndex:0,
 			lastStepIndex:0,
+			autoplaySpeed:1000
 		}
 	},
 	methods: {
+		otto () {
+			alert("xxx "+this.steps.length);
+			return this.steps.length;
+		},
+
+		autoplaySolution  () {
+			//this.otto(444);
+
+			console.log("length="+this.steps.length);
+			this.showExampleStepsContainer=true;
+//			document.getElementById("exampleStepsContainer").style.display = "block";
+
+	//		document.getElementById("exampleStepsContainer").style.display = "none";
+			for (var i = 0; i < this.steps.lastStepIndex; i++) {
+				document.getElementById(i).style.display = "none";
+			}
+
+			document.getElementById(0).setAttribute("class", "d-inline-block showFormula animated zoomIn");
+			//for (var i = 1; i < this.$children[1].lastStepIndex; i++) {
+			for (let i=1; i<this.lastStepIndex; i++) {
+
+			console.log("length="+this.steps.length);
+				var a="ooo";
+
+				//this.otto(444);
+		    	setTimeout( function timer(a){
+
+					console.log("aaa="+a);
+					//console.log("length="+this.steps.length);
+					 var aaa=a;
+
+					document.getElementById(i).setAttribute("class", "d-inline-block showFormula animated zoomIn");
+
+					//this.otto(444);
+					//if (this.steps[i].nl==0) { document.getElementById(i).setAttribute("class", "d-inline-block showFormula animated zoomIn"); }
+					//else { document.getElementById(i).setAttribute("class", "showFormula animated zoomIn");}
+
+					//var nnn=this.steps.length;
+					//console.log("xxx="+aaa);
+
+					var elmnt = document.getElementById(i);
+	    			elmnt.scrollIntoView();
+			   }, i*this.autoplaySpeed );
+			}
+
+		},
 
 		nextStep (n) {
 			//alert(n);
@@ -57,28 +108,26 @@ export default {
 			var elmnt = document.getElementById(m);
     		elmnt.scrollIntoView();
 
-			//console.log("n="+n+" nl="+this.steps[n].nl);
-		//	console.log("help: "+this.steps[n].help);
 			var hs=0;
 			// Itt kell kivizsgálni létezik-e segítség
-		if (n==hs){
-			this.helpAvailableButton=true;
-		}
-		if (n==hs+1){
-			this.helpButtonClass="badge helpBaseContentClass animated slideOutRight"
-			document.getElementById("helpButton").style.display = 'none';;
+			if (n==hs){
+				this.helpAvailableButton=true;
+			}
+			if (n==hs+1){
+				this.helpButtonClass="badge helpBaseContentClass animated slideOutRight"
+				document.getElementById("helpButton").style.display = 'none';;
 			//this.helpAvailableButton=false;
 
-//			console.log("itt vagyok ");
-		}
-		this.currentSortOrder=this.steps[n+1].sort_order;
+			//	console.log("itt vagyok ");
+			}
+			this.currentSortOrder=this.steps[n+1].sort_order;
 
-		this.helpContent=this.steps[n+1].help;
-		//this.helpContent=this.steps[n+1].formula;
+			this.helpContent=this.steps[n+1].help;
+			//this.helpContent=this.steps[n+1].formula;
 
-		console.log("n: "+n);
-		this.currentStepIndex=n;
-		console.log("current step: "+this.currentStepIndex);
+			console.log("n: "+n);
+			this.currentStepIndex=n;
+			console.log("current step: "+this.currentStepIndex);
 		},
 
 		showHelpContent (n) {
@@ -114,7 +163,6 @@ export default {
 			this.$parent.imgBtnAll="all1.svg";
 		}
 */
-
 	},
 
 	mounted () {
@@ -135,8 +183,10 @@ export default {
 					step.formula=step.formula.replace(/MathML/g, 'MathML\" display=\"block');
 					step.help=step.help.replace(/MathML/g, 'MathML\" display=\"block');
 
-					if (step.nl==0) {step.class = "showFormula";}
-					else {step.class = "hideFormula";}
+					if (step.nl==0) {step.class = "d-inline-block showFormula animated zoomIn";} 
+					else { step.class = "showFormula animated zoomIn";}
+
+					step.class = "hideFormula";
 					steps.push(step);
 					//console.log(step);
 				}

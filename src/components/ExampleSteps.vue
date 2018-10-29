@@ -1,5 +1,7 @@
 <template>
 <div v-show="showExampleStepsContainer" id="exampleStepsContainer" class="animated zoomIn">
+
+<button type="button"  v-on:click="hideSomeSteps()" class="btn btn-warning">x Hide Some Steps</button>
 exampleStepsContainer	
 <div class="d-inline-block">xxx</div>
 <div class="d-inline-block">yyy</div>
@@ -46,6 +48,15 @@ export default {
 			return this.steps.length;
 		},
 
+		hideSomeSteps () {
+			alert("xxx");
+			console.log("hideSomeStpes");
+			document.getElementById(0).setAttribute("class", "hideFormula");
+			document.getElementById(1).setAttribute("class", "hideFormula");
+			document.getElementById(2).setAttribute("class", "hideFormula");
+			document.getElementById(3).setAttribute("class", "hideFormula");
+		},
+
 		autoplaySolution  () {
 			//this.otto(444);
 
@@ -89,6 +100,23 @@ export default {
 		},
 
 		nextStep (n) {
+			//alert(n);
+			var m=n+1;
+			var lastIndex=this.steps.length;
+			console.log("lastIndex: "+lastIndex);
+//			document.getElementById(m).setAttribute("class", "d-inline-block showFormula animated zoomIn");
+
+			if (this.steps[0].nl==0) {document.getElementById(0).setAttribute("class", "d-inline-block showFormula"); }
+			else { document.getElementById(0).setAttribute("class", "showFormula"); }
+			if (m < lastIndex) {
+				if (this.steps[m].nl==0) { document.getElementById(m).setAttribute("class", "d-inline-block showFormula animated zoomIn"); }
+				else { document.getElementById(m).setAttribute("class", "showFormula animated zoomIn");}
+			}
+			console.log("n: "+n);
+			this.currentStepIndex=n;
+			console.log("current step: "+this.currentStepIndex);
+		},
+		nextStepOld (n) {
 			//alert(n);
 			var m=n+1;
 			var lastIndex=this.steps.length;
@@ -209,6 +237,10 @@ export default {
 
 .showFormula { display: block; margin-top:-30px; margin-bottom:-25px }
 .hideFormula { display: none; }
+.marski { 
+display: none; 
+background:#ffb90c;
+}
 
 .showCompomnent { display: block; }
 .hideComponent { display: none; }

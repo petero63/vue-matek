@@ -16,7 +16,13 @@
 <img v-bind:src="'/images/'+imgBtnSolution" width="40px" @click="showSolution()" class="actionbuttons"/>
 
 
-<img v-bind:src="'/images/'+imgBtnTheory" width="40px" @click="test()" class="actionbuttons"/>
+<img v-bind:src="'/images/'+imgBtnTheory" width="40px" @click="test1()" class="actionbuttons"/>
+x
+
+<button type="button" class="btn btn-success" @click="test2()">Show Steps Cntr</button>
+<button type="button" class="btn btn-danger" @click="test3()">Hide Steps Cntr</button>
+x
+<button type="button" class="btn btn-danger" @click="test4()">Hide Some Steps</button>
 </div>
 <ExampleSolution :showSolutionContainer="showSolutionContainer"/>
 </div>
@@ -49,6 +55,37 @@ export default {
 		}
 	},
 	methods: {
+
+		test1 () {
+
+			for (var i = 0; i < this.$children[1].lastStepIndex; i++) {
+				document.getElementById(i).style.display = "none";
+				var a=document.getElementById(i);
+				console.log(a);
+			}
+				document.getElementById("exampleStepsContainer").style.display = "block";
+				document.getElementById(0).style.display = "block";
+//				document.getElementById(0).setAttribute("class", "showFormula  animated flipOutY fast");
+				document.getElementById(0).setAttribute("class", "showFormula  animated flipInY fast");
+			console.log("test");
+		},
+
+		test2 () {
+				document.getElementById("exampleStepsContainer").style.display = "block";
+		},
+
+		test3 () {
+				document.getElementById("exampleStepsContainer").style.display = "none";
+		},
+
+		test4 () {
+			//document.getElementById(2).style.display = "none";
+			document.getElementById(0).setAttribute("class", "hideFormula");
+			document.getElementById(1).setAttribute("class", "hideFormula");
+			document.getElementById(2).setAttribute("class", "hideFormula");
+			document.getElementById(3).setAttribute("class", "hideFormula");
+		},
+
 		showSolution () {
 			if (this.imgBtnSolution=="solution1.svg") {
 				this.imgBtnSolution="solution0.svg";
@@ -67,18 +104,6 @@ export default {
 			else { this.imgBtnSolution="solution1.svg";this.showSolutionContainer=false;}
 			},
 
-		test () {
-
-			for (var i = 0; i < this.$children[1].lastStepIndex; i++) {
-				document.getElementById(i).style.display = "none";
-				var a=document.getElementById(i);
-				console.log(a);
-			}
-				document.getElementById("exampleStepsContainer").style.display = "none";
-				document.getElementById(0).style.display = "none";
-//				document.getElementById(1).style.display = "none";
-			console.log("test");
-		},
 	
 		startSolution () {
 			//alert("xxxx");
@@ -143,9 +168,13 @@ export default {
 			this.startBtnVisible=true;
 		//	this.showExampleStepsContainer=true;
 			document.getElementById(0).style.display = "block";
-			this.startBtnVisible=true;;
+//			this.startBtnVisible=true;;
 
 			console.log("showExampleStepsContainer= "+this.showExampleStepsContainer);
+
+			for (var i = 0; i < this.$children[1].lastStepIndex; i++) {
+				document.getElementById(i).setAttribute("class", "hideFormula");
+			}
 
 			},
 
@@ -164,12 +193,12 @@ export default {
 			this.showAllBtnVisible=false;
 			this.imgBtnAll="all0.svg"
 		},
-		hideAll (){
 
+		hideAll (){
 			this.showExampleStepsContainer=false;
 			document.getElementById("exampleStepsContainer").style.display = "none";
 			for (var i = 0; i < this.$children[1].lastStepIndex; i++) {
-				document.getElementById(i).style.display = "none";
+				document.getElementById(i).setAttribute("class", "hideFormula");
 			}
 			this.showAllBtnVisible=true;
 			this.startBtnVisible=true;
@@ -195,6 +224,7 @@ export default {
 	margin-top: 10px;
 
 }
+.hideFormula { display: none; }
 .actionbuttons { 
 cursor: pointer;
 margin: 0px 5px 0px 5px;

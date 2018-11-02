@@ -11,6 +11,9 @@
 		<div id="helpContent" v-show=helpAvailableContent class="badge helpBaseContentClass animated flipInY slow" v-on:click="hideHelpContent()" v-html=steps[currentStepIndex+1].help></div>
 		<div id="helpButton" v-if="helpAvailableButton" class="badge helpBaseButtonClass animated slideInLeft" v-on:click="showHelpContent(currentSortOrder)">Segítség elérhető</div>
 	</div>
+<div id="myProgress">
+  <div id="myBar"></div>
+</div>
 </div>
 </template>
 
@@ -33,26 +36,18 @@ export default {
 			currentSortOrder:100,
 			currentStepIndex:0,
 			lastStepIndex:0,
-			autoplaySpeed:1000
+			autoplaySpeed:2000
 		}
 	},
 	methods: {
 
-		hideSomeSteps () {
-			alert("xxx");
-			console.log("hideSomeStpes");
-			document.getElementById(0).setAttribute("class", "hideFormula");
-			document.getElementById(1).setAttribute("class", "hideFormula");
-			document.getElementById(2).setAttribute("class", "hideFormula");
-			document.getElementById(3).setAttribute("class", "hideFormula");
-		},
-
 		autoplaySolution  () {
-			//this.otto(444);
 
+//			this.progressbar (10);
+//			this.move (2);
+			//this.otto(444);
 			console.log("length="+this.steps.length);
 			this.showExampleStepsContainer=true;
-
 			for (var i = 0; i < this.steps.lastStepIndex; i++) {
 				document.getElementById(i).style.display = "none";
 			}
@@ -65,12 +60,11 @@ export default {
 				var a="ooo";
 
 			var steps=this.steps;
+			var aps=this.autoplaySpeed;
 				//this.otto(444);
-		    	setTimeout( function timer(a){
+		    	setInterval( function timer(){
 
-					console.log("aaa="+a);
 					//console.log("length="+this.steps.length);
-					 var aaa=a;
 
 			//		document.getElementById(i).setAttribute("class", "d-inline-block showFormula animated zoomIn");
 
@@ -83,7 +77,25 @@ export default {
 					// A képernyőt az aktuális képletre fókuszálja
 					var elmnt = document.getElementById(i);
 	    			elmnt.scrollIntoView();
-			   }, i*this.autoplaySpeed, steps);
+					// Bar
+
+ 			 		var elem = document.getElementById("myBar");   
+				  var width = 1;
+					var t=aps/100;
+
+				console.log("t="+t);
+				  var id = setInterval(frame, t);
+				  function frame() {
+				    if (width >= 100) {
+				      clearInterval(id);
+  					  } else {
+				      width++; 
+				      elem.style.width = width + '%'; 
+			  		  }
+			  		}
+					// Bar
+			//		move (5);
+			   }, i*this.autoplaySpeed, steps, aps);
 			}
 
 		},
@@ -262,4 +274,14 @@ background:#ffb90c;
 	margin: 10px;
 	font-weight:normal;
   }
+#myProgress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+#myBar {
+  width: 1%;
+  height: 5px;
+  background-color: #4CAF50;
+}
 </style >

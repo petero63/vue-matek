@@ -17,6 +17,9 @@
 
 
 <img v-bind:src="'/images/'+imgBtnTheory" width="40px" @click="test1()" class="actionbuttons"/>
+<button type="button" class="btn btn-primary" @click="speedUp()">+</button>
+<div class="d-inline-block p-3" v-html=speed></div>
+<button type="button" class="btn btn-primary" @click="speedDown()">-</button>
 
 </div>
 <ExampleSolution :showSolutionContainer="showSolutionContainer"/>
@@ -47,6 +50,7 @@ export default {
 			imgBtnTheory:"theory1.svg",
 			showSolutionContainer:false,
 			showExampleStepsContainer:false,
+			speed:"1.0 s"
 		}
 	},
 	methods: {
@@ -56,6 +60,18 @@ export default {
 		},
 
 
+		speedUp () { 
+			this.$children[1].autoplaySpeed=this.$children[1].autoplaySpeed+500;
+			var seconds=this.$children[1].autoplaySpeed/1000;
+			this.speed=seconds+ " s";
+		
+		},
+		speedDown () { 
+			this.$children[1].autoplaySpeed=this.$children[1].autoplaySpeed-500;
+			var seconds=this.$children[1].autoplaySpeed/1000;
+			this.speed=seconds+ " s";
+
+		},
 
 		showSolution () {
 			if (this.imgBtnSolution=="solution1.svg") {

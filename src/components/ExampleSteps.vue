@@ -1,11 +1,5 @@
 <template>
 <div v-show="showExampleStepsContainer" id="exampleStepsContainer" class="animated zoomIn">
-
-<button type="button"  v-on:click="hideSomeSteps()" class="btn btn-warning">x Hide Some Steps</button>
-exampleStepsContainer	
-<div class="d-inline-block">xxx</div>
-<div class="d-inline-block">yyy</div>
-<div class="d-inline-block">xxx</div>
 		<div class="mathFormula animated zoomIn">
 			<div 
 			  v-bind:class=item.class 
@@ -43,10 +37,6 @@ export default {
 		}
 	},
 	methods: {
-		otto () {
-			alert("xxx "+this.steps.length);
-			return this.steps.length;
-		},
 
 		hideSomeSteps () {
 			alert("xxx");
@@ -62,9 +52,7 @@ export default {
 
 			console.log("length="+this.steps.length);
 			this.showExampleStepsContainer=true;
-//			document.getElementById("exampleStepsContainer").style.display = "block";
 
-	//		document.getElementById("exampleStepsContainer").style.display = "none";
 			for (var i = 0; i < this.steps.lastStepIndex; i++) {
 				document.getElementById(i).style.display = "none";
 			}
@@ -76,6 +64,7 @@ export default {
 			console.log("length="+this.steps.length);
 				var a="ooo";
 
+			var steps=this.steps;
 				//this.otto(444);
 		    	setTimeout( function timer(a){
 
@@ -83,18 +72,18 @@ export default {
 					//console.log("length="+this.steps.length);
 					 var aaa=a;
 
-					document.getElementById(i).setAttribute("class", "d-inline-block showFormula animated zoomIn");
+			//		document.getElementById(i).setAttribute("class", "d-inline-block showFormula animated zoomIn");
 
 					//this.otto(444);
-					//if (this.steps[i].nl==0) { document.getElementById(i).setAttribute("class", "d-inline-block showFormula animated zoomIn"); }
-					//else { document.getElementById(i).setAttribute("class", "showFormula animated zoomIn");}
+					if (steps[i].nl==0) { document.getElementById(i).setAttribute("class", "d-inline-block showFormula animated zoomIn"); }
+					else { document.getElementById(i).setAttribute("class", "showFormula animated zoomIn");}
 
 					//var nnn=this.steps.length;
 					//console.log("xxx="+aaa);
-
+					// A képernyőt az aktuális képletre fókuszálja
 					var elmnt = document.getElementById(i);
 	    			elmnt.scrollIntoView();
-			   }, i*this.autoplaySpeed );
+			   }, i*this.autoplaySpeed, steps);
 			}
 
 		},
@@ -111,10 +100,15 @@ export default {
 			if (m < lastIndex) {
 				if (this.steps[m].nl==0) { document.getElementById(m).setAttribute("class", "d-inline-block showFormula animated zoomIn"); }
 				else { document.getElementById(m).setAttribute("class", "showFormula animated zoomIn");}
+
+				// A képernyőt az aktuális képletre fókuszálja
+				var elmnt = document.getElementById(n);
+  				elmnt.scrollIntoView();
 			}
 			console.log("n: "+n);
 			this.currentStepIndex=n;
 			console.log("current step: "+this.currentStepIndex);
+
 		},
 		nextStepOld (n) {
 			//alert(n);

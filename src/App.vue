@@ -17,12 +17,7 @@
 
 
 <img v-bind:src="'/images/'+imgBtnTheory" width="40px" @click="test1()" class="actionbuttons"/>
-x
 
-<button type="button" class="btn btn-success" @click="test2()">Show Steps Cntr</button>
-<button type="button" class="btn btn-danger" @click="test3()">Hide Steps Cntr</button>
-x
-<button type="button" class="btn btn-danger" @click="test4()">Hide Some Steps</button>
 </div>
 <ExampleSolution :showSolutionContainer="showSolutionContainer"/>
 </div>
@@ -56,35 +51,11 @@ export default {
 	},
 	methods: {
 
-		test1 () {
-
-			for (var i = 0; i < this.$children[1].lastStepIndex; i++) {
-				document.getElementById(i).style.display = "none";
-				var a=document.getElementById(i);
-				console.log(a);
-			}
-				document.getElementById("exampleStepsContainer").style.display = "block";
-				document.getElementById(0).style.display = "block";
-//				document.getElementById(0).setAttribute("class", "showFormula  animated flipOutY fast");
-				document.getElementById(0).setAttribute("class", "showFormula  animated flipInY fast");
-			console.log("test");
+		autoplaySolutionTest () {
+			this.$children[1].otto();
 		},
 
-		test2 () {
-				document.getElementById("exampleStepsContainer").style.display = "block";
-		},
 
-		test3 () {
-				document.getElementById("exampleStepsContainer").style.display = "none";
-		},
-
-		test4 () {
-			//document.getElementById(2).style.display = "none";
-			document.getElementById(0).setAttribute("class", "hideFormula");
-			document.getElementById(1).setAttribute("class", "hideFormula");
-			document.getElementById(2).setAttribute("class", "hideFormula");
-			document.getElementById(3).setAttribute("class", "hideFormula");
-		},
 
 		showSolution () {
 			if (this.imgBtnSolution=="solution1.svg") {

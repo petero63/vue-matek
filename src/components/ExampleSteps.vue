@@ -8,8 +8,8 @@
 			  v-bind:id="index"
 			>
 		</div>
-		<div id="helpContent" v-show=helpAvailableContent class="badge helpBaseContentClass animated flipInY slow" v-on:click="hideHelpContent()" v-html=steps[currentStepIndex+1].help></div>
-		<div id="helpButton" v-if="helpAvailableButton" class="badge helpBaseButtonClass animated slideInLeft" v-on:click="showHelpContent(currentSortOrder)">Segítség elérhető</div>
+		<div id="helpContent" v-show=helpAvailableContent class="helpBaseContentClass animated flipInY slow" v-on:click="hideHelpContent()" v-html=steps[currentStepIndex+1].help></div>
+		<div id="helpButton" v-if="helpAvailableButton" class="helpBaseButtonClass animated slideInLeft" v-on:click="showHelpContent(currentSortOrder)">Segítség elérhető</div>
 	</div>
 <div id="myProgress">
   <div id="myBar"></div>
@@ -61,19 +61,11 @@ export default {
 
 			var steps=this.steps;
 			var aps=this.autoplaySpeed;
-				//this.otto(444);
 		    	setInterval( function timer(){
 
-					//console.log("length="+this.steps.length);
-
-			//		document.getElementById(i).setAttribute("class", "d-inline-block showFormula animated zoomIn");
-
-					//this.otto(444);
 					if (steps[i].nl==0) { document.getElementById(i).setAttribute("class", "d-inline-block showFormula animated zoomIn"); }
 					else { document.getElementById(i).setAttribute("class", "showFormula animated zoomIn");}
 
-					//var nnn=this.steps.length;
-					//console.log("xxx="+aaa);
 					// A képernyőt az aktuális képletre fókuszálja
 					var elmnt = document.getElementById(i);
 	    			elmnt.scrollIntoView();
@@ -117,23 +109,6 @@ export default {
 				var elmnt = document.getElementById(n);
   				elmnt.scrollIntoView();
 			}
-			console.log("n: "+n);
-			this.currentStepIndex=n;
-			console.log("current step: "+this.currentStepIndex);
-
-		},
-		nextStepOld (n) {
-			//alert(n);
-			var m=n+1;
-			var lastIndex=this.steps.length;
-			console.log("lastIndex: "+lastIndex);
-
-			if (this.steps[0].nl==0) {document.getElementById(0).setAttribute("class", "d-inline-block showFormula"); }
-			else { document.getElementById(0).setAttribute("class", "showFormula"); }
-			if (m < lastIndex) {
-				if (this.steps[m].nl==0) { document.getElementById(m).setAttribute("class", "d-inline-block showFormula animated zoomIn"); }
-				else { document.getElementById(m).setAttribute("class", "showFormula animated zoomIn");}
-			}
 			// Eredményt zöldre festjük
 			if (m == lastIndex-1) {
 				if (this.steps[m].nl==0) { document.getElementById(m).setAttribute("class", "d-inline-block result"); }
@@ -142,13 +117,19 @@ export default {
 			var elmnt = document.getElementById(m);
     		elmnt.scrollIntoView();
 
+			// HELP
+
 			var hs=0;
+
+			if (this.steps[n+1].help.length > 0){
+				hs=n+1;
+			} 
 			// Itt kell kivizsgálni létezik-e segítség
 			if (n==hs){
 				this.helpAvailableButton=true;
 			}
 			if (n==hs+1){
-				this.helpButtonClass="badge helpBaseContentClass animated slideOutRight"
+				this.helpButtonClass="helpBaseContentClass animated slideOutRight"
 				document.getElementById("helpButton").style.display = 'none';;
 			//this.helpAvailableButton=false;
 
@@ -162,17 +143,20 @@ export default {
 			console.log("n: "+n);
 			this.currentStepIndex=n;
 			console.log("current step: "+this.currentStepIndex);
+
+			var helpLength=this.steps[n+1].help.length;
+			console.log("Help Length: "+helpLength);
 		},
 
 		showHelpContent (n) {
 			this.helpAvailableContent=true;
-			this.helpContentClass="badge helpBaseContentClass animated flipInY slow";
+			this.helpContentClass="helpBaseContentClass animated flipInY slow";
 			document.getElementById("helpButton").style.display = 'none';
 		},
 
 
 		hideHelpContent () {
-			document.getElementById("helpContent").setAttribute("class", "badge helpBaseContentClass animated flipOutY");
+			document.getElementById("helpContent").setAttribute("class", "helpBaseContentClass animated flipOutY");
 			//document.getElementById("helpContent").style.display = 'none';;
 			
 		},
@@ -255,12 +239,14 @@ background:#ffb90c;
 	padding: 20px;
 	border-style: solid;
   border-width: 1px;
+  border-radius: 5px;
   border-color: #835e03;
   width:60%;
 	font-size: 0.3em;
   border-width: 1px;
 	margin: 10px;
 	font-weight:normal;
+	margin: 0 auto;
   }
 .helpBaseContentClass { 
 	background:#fdda94;
@@ -268,11 +254,12 @@ background:#ffb90c;
 	border-style: solid;
   border-width: 1px;
   border-color: #835e03;
+  border-radius: 5px;
   width:60%;
 	font-size: 0.3em;
   border-width: 1px;
-	margin: 10px;
 	font-weight:normal;
+	margin: 0 auto;
   }
 #myProgress {
   width: 100%;

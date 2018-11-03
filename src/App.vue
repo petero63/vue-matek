@@ -55,11 +55,6 @@ export default {
 	},
 	methods: {
 
-		autoplaySolutionTest () {
-			this.$children[1].otto();
-		},
-
-
 		speedUp () { 
 			this.$children[1].autoplaySpeed=this.$children[1].autoplaySpeed+500;
 			var seconds=this.$children[1].autoplaySpeed/1000;
@@ -98,7 +93,17 @@ export default {
 
 //			for (var i = 1; i < this.$children[1].lastStepIndex; i++) { document.getElementById(i).style.display = "none"; }
 
-			document.getElementById(0).style.display = "block";
+			//document.getElementById(0).style.display = "block";
+			document.getElementById(0).setAttribute("class", "d-inline-block showFormula animated zoomIn");
+			//Létezik-e help az első lépésre
+
+			if (this.$children[1].steps[0].help.length > 0){
+				this.$children[1].helpAvailableButton=true;
+				this.$children[1].currentStepIndex=-1;
+			} 
+			else { 
+				this.helpAvailableButton=false;
+			}
 			//this.hideAll();
 			console.log("Start Solution");
 			this.startBtnVisible=false;

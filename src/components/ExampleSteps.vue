@@ -9,11 +9,12 @@
 			>
 		</div>
 		<div id="helpContent" v-show=helpAvailableContent class="helpBaseContentClass animated flipInY slow" v-on:click="hideHelpContent()" v-html=steps[currentStepIndex+1].help></div>
-		<div id="helpButton" v-if="helpAvailableButton" class="helpBaseButtonClass animated slideInLeft" v-on:click="showHelpContent(currentSortOrder)">Segítség elérhető</div>
+		<div id="helpButton" v-if="helpAvailableButton" class="helpBaseButtonClass animated slideInLeft" v-on:click="showHelpContent()">Segítség elérhető</div>
 	</div>
 <div id="myProgress">
   <div id="myBar"></div>
 </div>
+<audio id="audiohelp" src="/helpsounds/help.mp3"></audio>
 </div>
 </template>
 
@@ -40,6 +41,10 @@ export default {
 		}
 	},
 	methods: {
+		playsound(){
+       var audio = document.getElementById("audiohelp");
+       audio.play();
+		},
 
 		autoplaySolution  () {
 
@@ -94,71 +99,61 @@ export default {
 
 		nextStep (n) {
 			//alert(n);
-			var m=n+1;
+			//var m=n+1;
 			var lastIndex=this.steps.length;
-			console.log("lastIndex: "+lastIndex);
-//			document.getElementById(m).setAttribute("class", "d-inline-block showFormula animated zoomIn");
-
+			this.currentStepIndex=n;
 			if (this.steps[0].nl==0) {document.getElementById(0).setAttribute("class", "d-inline-block showFormula"); }
 			else { document.getElementById(0).setAttribute("class", "showFormula"); }
-			if (m < lastIndex) {
-				if (this.steps[m].nl==0) { document.getElementById(m).setAttribute("class", "d-inline-block showFormula animated zoomIn"); }
-				else { document.getElementById(m).setAttribute("class", "showFormula animated zoomIn");}
+			if (n+1 < lastIndex) {
+				if (this.steps[n+1].nl==0) { document.getElementById(n+1).setAttribute("class", "d-inline-block showFormula animated zoomIn"); }
+				else { document.getElementById(n+1).setAttribute("class", "showFormula animated zoomIn");}
 
 				// A képernyőt az aktuális képletre fókuszálja
 				var elmnt = document.getElementById(n);
   				elmnt.scrollIntoView();
 			}
 			// Eredményt zöldre festjük
-			if (m == lastIndex-1) {
-				if (this.steps[m].nl==0) { document.getElementById(m).setAttribute("class", "d-inline-block result"); }
-				else { document.getElementById(m).setAttribute("class", "result"); }
+			if (n+1 == lastIndex-1) {
+				if (this.steps[n+1].nl==0) { document.getElementById(n+1).setAttribute("class", "d-inline-block result"); }
+				else { document.getElementById(n+1).setAttribute("class", "result"); }
 			}
-			var elmnt = document.getElementById(m);
+			var elmnt = document.getElementById(n+1);
     		elmnt.scrollIntoView();
 
 			// HELP
 
-			var hs=0;
+			var helpStep=0;
 
 			if (this.steps[n+1].help.length > 0){
-				hs=n+1;
-			} 
-			// Itt kell kivizsgálni létezik-e segítség
-			if (n==hs){
+				helpStep=n;
 				this.helpAvailableButton=true;
-			}
-			if (n==hs+1){
+			} 
+			else { 
+				this.helpAvailableButton=false;
+				}
+
+			// Itt kell kivizsgálni létezik-e segítség
+			if (n==helpStep+1){
 				this.helpButtonClass="helpBaseContentClass animated slideOutRight"
 				document.getElementById("helpButton").style.display = 'none';;
-			//this.helpAvailableButton=false;
-
-			//	console.log("itt vagyok ");
 			}
-			this.currentSortOrder=this.steps[n+1].sort_order;
-
-			this.helpContent=this.steps[n+1].help;
-			//this.helpContent=this.steps[n+1].formula;
-
-			console.log("n: "+n);
-			this.currentStepIndex=n;
-			console.log("current step: "+this.currentStepIndex);
-
-			var helpLength=this.steps[n+1].help.length;
-			console.log("Help Length: "+helpLength);
 		},
 
-		showHelpContent (n) {
+		showHelpContent () {
 			this.helpAvailableContent=true;
+			document.getElementById("helpContent").setAttribute("class", "helpBaseContentClass animated flipInY");
+			document.getElementById("helpContent").style.display = 'block';;
 			this.helpContentClass="helpBaseContentClass animated flipInY slow";
-			document.getElementById("helpButton").style.display = 'none';
+			this.helpAvailableButton=false;
+       var audio = document.getElementById("audiohelp");
+       audio.play();
 		},
 
 
 		hideHelpContent () {
 			document.getElementById("helpContent").setAttribute("class", "helpBaseContentClass animated flipOutY");
-			//document.getElementById("helpContent").style.display = 'none';;
-			
+			setTimeout(function(){ document.getElementById("helpContent").style.display = 'none';}, 1000);
+			this.helpAvailableButton=false;
 		},
 /*
 		showAllSteps () {

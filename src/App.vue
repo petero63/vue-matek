@@ -1,5 +1,12 @@
 <template>
 <div id="app">
+	<hr>
+	<ul class="nav nav-pills">
+		<li role="presentation"><router-link to="/">Címoldal</router-link></li>
+		<li role="presentation"><router-link to="/teacher">Tanár</router-link></li>
+		<li role="presentation"><router-link to="/student">Diák</router-link></li>
+		</ul>
+	<router-view></router-view>
 <ExampleText/>
 <ExampleSteps/>
 
@@ -27,11 +34,12 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Tutorial from './components/Tutorial.vue'
-import ExampleText from './components/ExampleText.vue'
-import ExampleSteps from './components/ExampleSteps.vue'
-import ExampleSolution from './components/ExampleSolution.vue'
+import axios from 'axios';
+import Tutorial from './components/Tutorial.vue';
+import Header from './components/Header.vue';
+import ExampleText from './components/ExampleText.vue';
+import ExampleSteps from './components/ExampleSteps.vue';
+import ExampleSolution from './components/ExampleSolution.vue';
 
 console.log("Done OK");
 //console.log($refs);
@@ -39,6 +47,9 @@ console.log("Done OK");
 
 export default {
 	name: 'app',
+        components: {
+            appHeader: Header
+        },
 	data () {
 		return {
 			startBtnVisible:true,

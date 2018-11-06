@@ -4,7 +4,6 @@
 <ExampleSteps/>
 
 <div class="badge actionbox">
-
 <img  v-if="startBtnVisible" src="/images/start1.svg" width="40px" @click="startSolution()" class="actionbuttons"/>
 <img  v-if="restartBtnVisible"  src="/images/start0.svg" width="40px" @click="restartSolution()" class="actionbuttons"/>
 
@@ -20,17 +19,20 @@
 <button type="button" class="btn btn-primary" @click="speedUp()">+</button>
 <div class="d-inline-block p-3" v-html=speed></div>
 <button type="button" class="btn btn-primary" @click="speedDown()">-</button>
-
 </div>
+
 <ExampleSolution :showSolutionContainer="showSolutionContainer"/>
 <hr>
 <button type="button" class="btn btn-primary" @click="otto()">otto</button>
 <div>Counter is: {{scounter}} Token: {{token}}</div>
 	<ul class="nav nav-pills">
-		<li role="presentation"><router-link to="/"> Címoldal </router-link></li>
-		<li role="presentation"><router-link to="/teacher"> Tanár </router-link></li>
-		<li role="presentation"><router-link to="/student">Diák</router-link></li>
-		<li class="nav-item"> <a class="nav-link active" href="/#/teacher">Protected</a> </li>
+		<li role="presentation"><router-link to="/">&nbsp;Címoldal&nbsp; </router-link></li>
+		<li role="presentation"><router-link to="/examplesteps">&nbsp;Példa&nbsp; </router-link></li>
+		<li role="presentation"><router-link to="/teacher">&nbsp; Tanár&nbsp; </router-link></li>
+		<li role="presentation"><router-link to="/student">&nbsp;Diák&nbsp;</router-link></li>
+		<li role="presentation"> <a href="/#/teacher">&nbsp;Protected&nbsp;</a> </li>
+		<li role="presentation"><router-link to="/signup">&nbsp;Sign Up&nbsp;</router-link></li>
+		<li role="presentation"><router-link to="/signin">&nbsp;Sign In&nbsp;</router-link></li>
 	</ul>
 	<router-view></router-view>
 <hr>

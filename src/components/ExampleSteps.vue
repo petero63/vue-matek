@@ -1,4 +1,6 @@
 <template>
+<div>
+<h2>Példa lépések</h2>
 <div v-show="showExampleStepsContainer" id="exampleStepsContainer" class="animated zoomIn">
 		<div class="mathFormula animated zoomIn">
 			<div 
@@ -15,6 +17,8 @@
   <div id="myBar"></div>
 </div>
 <audio id="audiohelp" src="/helpsounds/help.mp3"></audio>
+
+</div>
 </div>
 </template>
 

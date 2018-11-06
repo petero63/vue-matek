@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-		 <h2>Home</h2>
+		 <h2>Címoldal</h2>
 	 </div>
 
 </template>

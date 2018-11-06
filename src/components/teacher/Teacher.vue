@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-		 <h2>Teacher</h2>
+		 <h2>Tanár</h2>
 	 </div>
 
 </template>

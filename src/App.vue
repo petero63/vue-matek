@@ -1,12 +1,5 @@
 <template>
 <div id="app">
-	<hr>
-	<ul class="nav nav-pills">
-		<li role="presentation"><router-link to="/">Címoldal</router-link></li>
-		<li role="presentation"><router-link to="/teacher">Tanár</router-link></li>
-		<li role="presentation"><router-link to="/student">Diák</router-link></li>
-		</ul>
-	<router-view></router-view>
 <ExampleText/>
 <ExampleSteps/>
 
@@ -30,6 +23,17 @@
 
 </div>
 <ExampleSolution :showSolutionContainer="showSolutionContainer"/>
+<hr>
+<button type="button" class="btn btn-primary" @click="otto()">otto</button>
+<div>Counter is: {{scounter}} Token: {{token}}</div>
+	<ul class="nav nav-pills">
+		<li role="presentation"><router-link to="/"> Címoldal </router-link></li>
+		<li role="presentation"><router-link to="/teacher"> Tanár </router-link></li>
+		<li role="presentation"><router-link to="/student">Diák</router-link></li>
+		<li class="nav-item"> <a class="nav-link active" href="/#/teacher">Protected</a> </li>
+	</ul>
+	<router-view></router-view>
+<hr>
 </div>
 </template>
 
@@ -52,6 +56,7 @@ export default {
         },
 	data () {
 		return {
+			counter:88,
 			startBtnVisible:true,
 			restartBtnVisible:false,
 			autoplayBtnVisible:true,
@@ -64,7 +69,22 @@ export default {
 			speed:"1.0 s"
 		}
 	},
+	computed: {
+		scounter () {
+			return this.$store.state.storeCounter;
+			//return 333;
+		},
+		token () {
+			return this.$store.state.idToken;
+		}
+	},
 	methods: {
+
+	  otto () {
+		  //alert("otto");
+			this.$store.state.storeCounter=333;
+			this.$store.state.idToken="dfkjasd4234KDljfsaldkx";
+	  },
 
 		speedUp () { 
 			this.$children[1].autoplaySpeed=this.$children[1].autoplaySpeed+500;

@@ -1,6 +1,5 @@
 <template>
 <div id="app">
-<ExampleText/>
 <ExampleSteps/>
 
 <div class="badge actionbox">
@@ -23,7 +22,7 @@
 
 <ExampleSolution :showSolutionContainer="showSolutionContainer"/>
 <hr>
-<button type="button" class="btn btn-primary" @click="otto()">otto</button>
+<button type="button" class="btn btn-primary" @click="signIn()">SignIn</button>
 <div>Counter is: {{scounter}} Token: {{token}}</div>
 	<ul class="nav nav-pills">
 		<li role="presentation"><router-link to="/">&nbsp;Címoldal&nbsp; </router-link></li>
@@ -43,9 +42,8 @@
 import axios from 'axios';
 import Tutorial from './components/Tutorial.vue';
 import Header from './components/Header.vue';
-import ExampleText from './components/ExampleText.vue';
-import ExampleSteps from './components/ExampleSteps.vue';
-import ExampleSolution from './components/ExampleSolution.vue';
+import ExampleSteps from './components/example/ExampleSteps.vue';
+import ExampleSolution from './components/example/ExampleSolution.vue';
 
 console.log("Done OK");
 //console.log($refs);
@@ -82,7 +80,7 @@ export default {
 	},
 	methods: {
 
-	  otto () {
+	  signIn () {
 		  //alert("otto");
 			this.$store.state.storeCounter=333;
 			this.$store.state.idToken="dfkjasd4234KDljfsaldkx";
@@ -233,7 +231,6 @@ export default {
 	},
 	components: {
 		Tutorial,
-		ExampleText,
 		ExampleSteps,
 		ExampleSolution
 	}

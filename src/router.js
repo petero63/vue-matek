@@ -6,7 +6,7 @@ import store from './store'
 import Home from './components/Home.vue';
 import SignupPage from './components/auth/Signup.vue'
 import SigninPage from './components/auth/Signin.vue'
-import ExampleSteps from './components/ExampleSteps.vue'
+import ExampleSteps from './components/example/ExampleSteps.vue'
 import Student from './components/student/Student.vue';
 import Teacher from './components/teacher/Teacher.vue';
 

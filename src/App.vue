@@ -29,7 +29,7 @@
 		<li role="presentation"><router-link to="/examplesteps">&nbsp;Példa&nbsp; </router-link></li>
 		<li role="presentation"><router-link to="/teacher">&nbsp; Tanár&nbsp; </router-link></li>
 		<li role="presentation"><router-link to="/student">&nbsp;Diák&nbsp;</router-link></li>
-		<li role="presentation"> <a href="/#/teacher">&nbsp;Protected&nbsp;</a> </li>
+		<li role="presentation"> <a href="/#/student">&nbsp;Diák (Protected)&nbsp;</a> </li>
 		<li role="presentation"><router-link to="/signup">&nbsp;Sign Up&nbsp;</router-link></li>
 		<li role="presentation"><router-link to="/signin">&nbsp;Sign In&nbsp;</router-link></li>
 	</ul>

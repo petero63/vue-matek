@@ -2,8 +2,8 @@
 <div>
 
 <button type="button" class="btn btn-primary" @click="reloadExampleText()">Reload Example Test</button>
-	<div> <h1 class="mathFormula ">Példa</h1>
-	<div class="alert alert-primary mathFormulaText border-primary" :key="componentKey" v-html=example.pageContent ></div>
+	<div> <h1 class="mathFormula">Példa {{componentKey}}</h1>
+	<div class="alert alert-primary mathFormulaText border-primary animated flipInY slow" :key="componentKey" v-html=example.pageContent ></div>
 	</div>
 <h2>Példa lépések</h2>
 <div v-show="showExampleStepsContainer" id="exampleStepsContainer" class="animated zoomIn">
@@ -26,10 +26,15 @@
 </template>
 
 <script>
+
 import axios from 'axios'
+import {VueMathjax} from 'vue-mathjax'
 export default {
 	name: 'ExampleSteps',
 	props: [''],
+	components:{
+		'vue-mathjax': VueMathjax
+		},
 	data () {
 		return {
 			example:"xxx",
@@ -54,22 +59,15 @@ export default {
 	},
 	methods: {
 
-		reloadExampleText () {
-			this.componentKey += 1;
+		reloadMathJax () {
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			//MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			//this.componentKey += 1;
 			//vm.$forceUpdate();
-			this.$router.go(0);
-			console.log(this.componentKey);
-		axios.get('http://localhost:3000/getexample/1/hu').then(
-			response => {
-				const data = response.data;
-				data.pageContent=data.pageContent.replace(/\\/g, '');
-				data.pageContent=data.pageContent.replace(/MathML/g, 'MathML\" display=\"block');
-//				console.log(data);
-				this.example=data;
-//			this.example.pageContent="xxx";
-			}
-		);
-			//alert("Reload Text");
+			//this.$router.go(0);
+			//console.log(this.componentKey);
 		},
 
 		playsound(){
@@ -219,9 +217,12 @@ export default {
 		//		console.log(data);
 				this.example=data;
 			}
+
 		
 		);
 
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		//this.$router.go(0);
 
 		// Example Steps 

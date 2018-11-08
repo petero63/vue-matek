@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueMathjax from 'vue-mathjax'
 import App from './App.vue'
 //import {routes} from './router'
 import router from './router'
 import store from './store'
 Vue.use(VueRouter);
-
+Vue.use(VueMathjax);
 //const router = new VueRouter ({ routes });
 
 Vue.config.productionTip = false

@@ -10,7 +10,9 @@
   "dependencies": {
     "animate.css": "^3.7.0",
     "axios": "^0.18.0",
+    "mathjax": "^2.7.5",
     "vue": "^2.5.17",
+    "vue-mathjax": "0.0.5",
     "vue-router": "^3.0.1",
     "vue-scrollto": "^2.13.0",
     "vuex": "^3.0.1"

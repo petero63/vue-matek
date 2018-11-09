@@ -1,10 +1,12 @@
 <template>
 <div>
+<!-- Example Text-->
 
-<button type="button" class="btn btn-primary" @click="reloadExampleText()">Reload Example Test</button>
-	<div> <h1 class="mathFormula">Példa {{componentKey}}</h1>
-	<div class="alert alert-primary mathFormulaText border-primary animated flipInY slow" :key="componentKey" v-html=example.pageContent ></div>
-	</div>
+<button type="button" class="btn btn-primary" @click="signIn()">SignIn</button>
+	<div class="alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=example.pageContent ></div>
+<!-- Example Text-->
+
+<!-- Example Steps-->
 <h2>Példa lépések</h2>
 <div v-show="showExampleStepsContainer" id="exampleStepsContainer" class="animated zoomIn">
 		<div class="mathFormula animated zoomIn">
@@ -15,13 +17,46 @@
 			  v-bind:id="index"
 			>
 		</div>
+
 		<div id="helpContent" v-show=helpAvailableContent class="helpBaseContentClass animated flipInY slow" v-on:click="hideHelpContent()" v-html=steps[currentStepIndex+1].help></div>
 		<div id="helpButton" v-if="helpAvailableButton" class="helpBaseButtonClass animated slideInLeft" v-on:click="showHelpContent()">Segítség elérhető</div>
 	</div>
-<div id="myProgress"><div id="myBar"></div></div>
+<div id="myProgress" v-if="showProgressBar"><div id="myBar"></div></div>
 <audio id="audiohelp" src="/helpsounds/help.mp3"></audio>
-
 </div>
+<!-- Example Steps-->
+
+<!-- Example Buttons-->
+<div class="badge actionbox">
+<img  v-if="startBtnVisible" src="/images/start1.svg" width="40px" @click="startSolution()" class="actionbuttons"/>
+<img  v-if="restartBtnVisible"  src="/images/start0.svg" width="40px" @click="restartSolution()" class="actionbuttons"/>
+
+<img  v-if="autoplayBtnVisible" src="/images/autoplay.svg" width="40px" @click="autoplaySolution()" class="actionbuttons"/>
+
+<img v-if="showAllBtnVisible"  v-bind:src="'/images/'+imgBtnAll" width="40px" @click="showAll()" class="actionbuttons"/>
+<img v-else  v-bind:src="'/images/'+imgBtnAll"  width="40px" @click="hideAll()" class="actionbuttons"/>
+
+<img v-bind:src="'/images/'+imgBtnSolution" width="40px" @click="showSolution()" class="actionbuttons"/>
+
+<img v-bind:src="'/images/'+imgBtnTheory" width="40px" @click="test1()" class="actionbuttons"/>
+<button type="button" class="btn btn-primary" @click="speedUp()">+</button>
+<div class="d-inline-block p-3" v-html=speed></div>
+<button type="button" class="btn btn-primary" @click="speedDown()">-</button>
+</div>
+<button type="button" class="btn btn-primary" @click="reloadExampleText()">Reload Example Test</button>
+<!-- Example Buttons-->
+
+
+
+<!-- Example Solution-->
+<div v-show="showSolutionContainer" id="solutionContainer">
+	<div class="alert alert-success border-success">
+	<h5>Megodldás:</h5>
+	<div v-html=exampleSolution.formula></div>
+	</div>
+</div>
+<!-- Example Solution-->
+
 </div>
 </template>
 
@@ -37,8 +72,20 @@ export default {
 		},
 	data () {
 		return {
-			example:"xxx",
-			componentKey: 0,
+			counter:88,
+			startBtnVisible:true,
+			restartBtnVisible:false,
+			autoplayBtnVisible:true,
+			showAllBtnVisible:true,
+			imgBtnSolution:"solution1.svg",
+			imgBtnAll:"all1.svg",
+			imgBtnTheory:"theory1.svg",
+			showSolutionContainer:false,
+			showExampleStepsContainer:false,
+			speed:"1.0 s",
+			// Solution 
+			example:"",
+			exampleSolution:"",
 			showExampleStepsContainer:true,
 			showall:"showall1.svg",
 			imgbtn:"solution1.svg",
@@ -54,20 +101,56 @@ export default {
 			currentSortOrder:100,
 			currentStepIndex:0,
 			lastStepIndex:0,
-			autoplaySpeed:2000
+			autoplaySpeed:2000,
+			showProgressBar:false
 		}
 	},
 	methods: {
+
+	  signIn () {
+		  //alert("otto");
+			this.$store.state.storeCounter=333;
+			this.$store.state.idToken="dfkjasd4234KDljfsaldkx";
+	  },
+
+		speedUp () { 
+			this.autoplaySpeed=this.autoplaySpeed+500;
+			var seconds=this.autoplaySpeed/1000;
+			this.speed=seconds+ " s";
+		
+		},
+		speedDown () { 
+			this.autoplaySpeed=this.autoplaySpeed-500;
+			var seconds=this.autoplaySpeed/1000;
+			this.speed=seconds+ " s";
+
+		},
+
+		showSolution () {
+			if (this.imgBtnSolution=="solution1.svg") {
+				this.imgBtnSolution="solution0.svg";
+				this.showSolutionContainer=true;
+				document.getElementById("solutionContainer").setAttribute("class", "showFormula  animated flipInY slow");
+			}
+			else { 
+				this.imgBtnSolution="solution1.svg";
+				document.getElementById("solutionContainer").setAttribute("class", "showFormula  animated flipOutY fast");
+				//this.showSolutionContainer=false;
+			}
+		},
+		
+		hideSolution () {
+			if (this.imgBtnSolution=="solution1.svg") {this.imgBtnSolution="solution0.svg";this.showSolutionContainer=true;}
+			else { this.imgBtnSolution="solution1.svg";this.showSolutionContainer=false;}
+			},
 
 		reloadMathJax () {
 			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 			//MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-			//this.componentKey += 1;
 			//vm.$forceUpdate();
 			//this.$router.go(0);
-			//console.log(this.componentKey);
 		},
 
 		playsound(){
@@ -75,8 +158,10 @@ export default {
        audio.play();
 		},
 
+// Autoplay Solution
 		autoplaySolution  () {
 
+			this.showProgressBar =true;
 //			this.progressbar (10);
 //			this.move (2);
 			//this.otto(444);
@@ -87,7 +172,7 @@ export default {
 			}
 
 			document.getElementById(0).setAttribute("class", "d-inline-block showFormula animated zoomIn");
-			//for (var i = 1; i < this.$children[1].lastStepIndex; i++) {
+			//for (var i = 1; i < this.lastStepIndex; i++) {
 			for (let i=1; i<this.lastStepIndex; i++) {
 
 			console.log("length="+this.steps.length);
@@ -126,6 +211,55 @@ export default {
 
 		},
 
+// \Autoplay Solution
+
+// Example Steps
+
+		startSolution () {
+			//alert("xxxx");
+
+
+//			for (var i = 1; i < this.lastStepIndex; i++) { document.getElementById(i).style.display = "none"; }
+
+			//document.getElementById(0).style.display = "block";
+			document.getElementById(0).setAttribute("class", "d-inline-block showFormula animated zoomIn");
+			//Létezik-e help az első lépésre
+
+			if (this.steps[0].help.length > 0){
+				this.helpAvailableButton=true;
+				this.currentStepIndex=-1;
+			} 
+			else { 
+				this.helpAvailableButton=false;
+			}
+			//this.hideAll();
+			console.log("Start Solution");
+			this.startBtnVisible=false;
+			this.restartBtnVisible=true;
+			this.showExampleStepsContainer=true;
+
+			document.getElementById("exampleStepsContainer").style.display = "block";
+			console.log("showExampleStepsContainer= "+this.showExampleStepsContainer);
+			},
+
+		restartSolution () {
+
+			
+			console.log("Restart Solution");
+			this.restartBtnVisible=false;
+			this.hideAll();
+			this.startBtnVisible=true;
+		//	this.showExampleStepsContainer=true;
+			document.getElementById(0).style.display = "block";
+//			this.startBtnVisible=true;;
+
+			console.log("showExampleStepsContainer= "+this.showExampleStepsContainer);
+
+			for (var i = 0; i < this.lastStepIndex; i++) {
+				document.getElementById(i).setAttribute("class", "hideFormula");
+			}
+
+		},
 		nextStep (n) {
 			//alert(n);
 			//var m=n+1;
@@ -184,6 +318,8 @@ export default {
 			setTimeout(function(){ document.getElementById("helpContent").style.display = 'none';}, 1000);
 			this.helpAvailableButton=false;
 		},
+
+// \Example Steps
 /*
 		showAllSteps () {
 			if (this.steps[0].nl==0) {document.getElementById(0).setAttribute("class", "d-inline-block showFormula"); }
@@ -205,6 +341,35 @@ export default {
 			this.$parent.imgBtnAll="all1.svg";
 		}
 */
+//Show Hide All
+		showAll () {
+
+			this.showExampleStepsContainer=true;
+			this.lastStepIndex;
+			document.getElementById("exampleStepsContainer").style.display = "block";
+			for (var i = 0; i < this.lastStepIndex; i++) {
+					if (this.steps[i].nl==0) { document.getElementById(i).setAttribute("class", "d-inline-block showFormula animated zoomIn"); }
+					else { document.getElementById(i).setAttribute("class", "showFormula animated zoomIn");}
+				//document.getElementById(i).style.display = "block";
+			}
+			this.startBtnVisible=false;
+			this.restartBtnVisible=false;
+			this.showAllBtnVisible=false;
+			this.imgBtnAll="all0.svg"
+		},
+
+		hideAll (){
+			this.showExampleStepsContainer=false;
+			document.getElementById("exampleStepsContainer").style.display = "none";
+			for (var i = 0; i < this.lastStepIndex; i++) {
+				document.getElementById(i).setAttribute("class", "hideFormula");
+			}
+			this.showAllBtnVisible=true;
+			this.startBtnVisible=true;
+			this.restartBtnVisible=false;
+			this.imgBtnAll="all1.svg"
+		}
+// \Show Hide All
 	},
 	mounted () {
 
@@ -248,16 +413,30 @@ export default {
 
 					step.class = "hideFormula";
 					steps.push(step);
-					//console.log(step);
 				}
 				this.lastStepIndex=n;
 				this.steps=steps;
 
-//				console.log(steps);
 			}
+		);
+		// Solution
+
+		axios.get('http://localhost:3000/getformula/1/9999').then(
+			response => {
+				const data = response.data;
+				//var f=data.formula;
+
+				data.formula=data.formula.replace(/\\/g, '');
+				data.formula=data.formula.replace(/MathML/g, 'MathML\" display=\"block');
+				this.exampleSolution=data;
+				//this.ok=false;
+			}
+		
 		);
 
 	},
+	components: {
+	}
 }
 </script>
 

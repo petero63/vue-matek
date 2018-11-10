@@ -4,8 +4,8 @@ import VueRouter from 'vue-router'
 import store from './store'
 
 import Home from './components/Home.vue';
-import SignupPage from './components/auth/Signup.vue'
-import SigninPage from './components/auth/Signin.vue'
+import SignUpPage from './components/auth/SignUp.vue'
+import SignInPage from './components/auth/SignIn.vue'
 import ExampleSteps from './components/example/ExampleSteps.vue'
 import Student from './components/student/Student.vue';
 import Teacher from './components/teacher/Teacher.vue';
@@ -17,8 +17,8 @@ Vue.use(VueRouter)
 { path: '', component: Home},
 { path: '/examplesteps', component: ExampleSteps},
 { path: '/teacher', component: Teacher},
-{ path: '/signup', component: SignupPage },
-{ path: '/signin', component: SigninPage },
+{ path: '/signup', component: SignUpPage },
+{ path: '/signin', component: SignInPage },
 {
 path: '/student',
 		component: Student,

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 //import axios from './axios-auth'
 import globalAxios from 'axios'
-
+import axios from 'axios'
 import router from './router'
 
 
@@ -14,7 +14,8 @@ export default new Vuex.Store({
 	storeCounter: 444,
     idToken: null,
     userId: null,
-    user: null
+    user: null,
+	 signup:null
 
   },
   mutations: {
@@ -33,7 +34,32 @@ export default new Vuex.Store({
   actions: {
 	  otto () {
 		  alert("otto");
-	  }
+	  },
+
+    signup ({commit, dispatch}, formData) {
+      console.log(formData);
+		axios.post('http://localhost:3000/useradd', {
+			email: formData.email,
+			password: formData.password, 
+		})
+		.then(function (response) {
+		console.log(response);
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+
+	 },
+
+    signupTest ({commit, dispatch}, formData) {
+        console.log(formData)
+
+		axios.get('http://localhost:3000/getformula/1/9999').then(
+			response => {
+				const data = response.data;
+        console.log(data)
+			})
+	 },
 /*
     setLogoutTimer ({commit}, expirationTime) {
       setTimeout(() => {

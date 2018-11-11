@@ -10,6 +10,8 @@ import ExampleSteps from './components/example/ExampleSteps.vue'
 import Student from './components/student/Student.vue';
 import Teacher from './components/teacher/Teacher.vue';
 
+import AdminExample from './components/admin/Example.vue';
+
 Vue.use(VueRouter)
 
 	export const routes = [
@@ -19,6 +21,7 @@ Vue.use(VueRouter)
 { path: '/teacher', component: Teacher},
 { path: '/signup', component: SignUpPage },
 { path: '/signin', component: SignInPage },
+{ path: '/adminexample', component: AdminExample },
 {
 path: '/student',
 		component: Student,

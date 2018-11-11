@@ -10,6 +10,7 @@
 		<li role="presentation"> <a href="/#/student">&nbsp;Diák (Protected)&nbsp;</a> </li>
 		<li role="presentation"><router-link to="/signup">&nbsp;Sign Up&nbsp;</router-link></li>
 		<li role="presentation"><router-link to="/signin">&nbsp;Sign In&nbsp;</router-link></li>
+		<li role="presentation"><router-link to="/adminexample">&nbsp;Admin&nbsp;</router-link></li>
 	</ul>
 	<router-view></router-view>
 <hr>

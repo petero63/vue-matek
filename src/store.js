@@ -36,6 +36,32 @@ export default new Vuex.Store({
 		  alert("otto");
 	  },
 
+	  // EXAPMLE STEPS 
+    examplestepadd ({commit, dispatch}, formData) {
+
+		console.log("Form Data");
+      console.log(formData);
+		console.log("Form Data");
+
+		axios.post('http://localhost:3000/examplestepadd', {
+			email: formData.email,
+			examplestep: formData.examplestep, 
+			content: formData.content, 
+		})
+		.then(function (response) {
+		console.log("Store");
+		console.log("Emailx"+examplestep);
+		console.log(response);
+		console.log("Store");
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+
+	 },
+	  // /EXAPMLE STEPS 
+
+	  // USERS
     signup ({commit, dispatch}, formData) {
       console.log(formData);
 		axios.post('http://localhost:3000/useradd', {
@@ -50,7 +76,7 @@ export default new Vuex.Store({
 		});
 
 	 },
-
+	  // /USERS
     signupTest ({commit, dispatch}, formData) {
         console.log(formData)
 

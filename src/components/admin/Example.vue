@@ -11,8 +11,10 @@
                   id="email"
                   v-model="email">
         </div>
- 
-<textarea id="mytextarea"></textarea>
+<!--		  
+<editor plugins="link code"  v-model="content" api-key="apiKey=d1tr83ga33vvezb16obm68acnqpxk3dlhif8hfbl9zyvszrv"></editor> 
+-->
+<textarea id="examplestep" v-model="examplestep"></textarea>
         <div class="submit">
           <button type="submit">Ment</button>
         </div>
@@ -23,26 +25,33 @@
 </template>
 
 <script>
+//import Editor from '@tinymce/tinymce-vue'
+//import '@tinymce/tinymce-vue/plugins/link';
+//var Editor = require('@tinymce/tinymce-vue');
+//var Editor = require('tinymce/tinymce-vue');
   export default {
     data () {
       return {
         email: '',
-        password: '',
+        examplestep: '',
+        content: 'xxx',
         confirmPassword: '',
         status: null,
         terms: false
       }
     },
+
+	components: {
+	//	'editor': Editor
+	},
     methods: {
       onSubmit () {
         const formData = {
           email: this.email,
-          password: this.password,
-          confirmPassword: this.confirmPassword,
-          status: this.status,
-          terms: this.terms
+          examplestep: this.examplestep,
+          content: this.content,
         }
-        this.$store.dispatch('signup', formData)
+        this.$store.dispatch('examplestepadd', formData)
       }
     }
   }

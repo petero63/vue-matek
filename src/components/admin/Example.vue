@@ -24,16 +24,27 @@
 <div> {{saveMessage}} </div>
 </form>
 <!-- FORM  -->
-
+<button type="button" class="btn btn-primary" @click="rerenderTable ()">Rerendel Table</button>
 <!-- LIST  -->
 <div class="alert alert-info">A példa lépései</div>
-
-			<div 
-			  v-for="(item, index) in steps" 
-			  v-html=item.sort_order+item.formula  
-			  v-bind:id="index"
-			>
-		</div>
+<table class="table table-striped">
+<thead class="thead-light">
+    <tr>
+      <th scope="col">Sorszám</th>
+      <th scope="col">Lépés</th>
+      <th scope="col">Segítésg</th>
+      <th scope="col">Sortörés</th>
+    </tr>
+  </thead>
+<tbody>
+<tr v-for="(item, index) in steps">
+<td>{{item.sort_order}}</td>
+<td v-html=item.formula v-on:click="editStep(item.id)"></td>
+<td v-html=item.help></td>
+<td>{{item.nl}}</td>
+</tr>
+</tbody>
+</table>
 <!-- LIST  -->
     </div>
   </div>
@@ -61,10 +72,8 @@ import {VueMathjax} from 'vue-mathjax'
         terms: false,
         saveMessage: "To Save",
 
-			steps:[
-			{"id":1,"email":"aaa"},
-			{"id":2,"email":"aaa"},
-			],
+			steps:[],
+			rerender:0
       }
     },
 
@@ -77,7 +86,11 @@ import {VueMathjax} from 'vue-mathjax'
 		  if (status==200) { return "Sikeres mentés"; }
 		  else { return "Hiba történt! A mentés sikertelen.";}
 	  },
+	  editStep(id) {
+		  alert (id);
+	  },
       onSubmit () {
+			
         const formData = {
           sortOrder: this.sortOrder,
           help: this.help,
@@ -91,13 +104,13 @@ import {VueMathjax} from 'vue-mathjax'
         this.$store.dispatch('examplestepadd', formData)
 			//this.saveMessage=this.checkSaveStatus (this.$store.state.saveStatus);
 			this.saveMessage=this.$store.state.saveStatus;
-			console.log("Example saveStatus"+this.$store.state.saveStatus)
+			console.log("Example saveStatus"+this.$store.state.saveStatus);
+			this.rerender++;
+			
       },
 
-    },
-
-mounted() {
-
+		rerenderTable (){
+		//	alert("remount");
 		// Example Steps 
 		axios .get('http://localhost:3000/getformulas/1') .then(
 			response => {
@@ -126,6 +139,40 @@ mounted() {
 				this.steps=steps;
 				console.log(this.steps);
 				console.log("sort order: "+this.steps[0].sort_order);
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			}
+		);
+		}
+
+    }, // methods
+	 watch: {
+    // whenever question changes, this function will run
+    rerender: function () {
+		 //alert("api called");
+      this.rerenderTable();
+    }
+  },//watch
+
+mounted() {
+
+		// Example Steps 
+		axios .get('http://localhost:3000/getformulas/1') .then(
+			response => {
+				var steps=[];
+				const data = response.data;
+				var n=0;
+				for (let key in data) { 
+					n++;
+					const step = data[key]; 
+					step.formula=step.formula.replace(/\\/g, '');
+					step.help=step.help.replace(/\\/g, '');
+					step.formula=step.formula.replace(/MathML/g, 'MathML\" display=\"block');
+					step.help=step.help.replace(/MathML/g, 'MathML\" display=\"block');
+					steps.push(step);
+				}
+				this.lastStepIndex=n;
+				this.steps=steps;
 			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 			}

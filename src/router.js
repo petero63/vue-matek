@@ -21,7 +21,7 @@ Vue.use(VueRouter)
 { path: '/teacher', component: Teacher},
 { path: '/signup', component: SignUpPage },
 { path: '/signin', component: SignInPage },
-{ path: '/adminexample', component: AdminExample },
+{ path: '/adminexample/:id', component: AdminExample },
 {
 path: '/student',
 		component: Student,

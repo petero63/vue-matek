@@ -15,7 +15,8 @@ export default new Vuex.Store({
     idToken: null,
     userId: null,
     user: null,
-	 signup:null
+	 signup:null,
+	 saveStatus:null, saveStatusText:null,
 
   },
   mutations: {
@@ -37,22 +38,28 @@ export default new Vuex.Store({
 	  },
 
 	  // EXAPMLE STEPS 
-    examplestepadd ({commit, dispatch}, formData) {
+    examplestepadd ({commit, state, dispatch}, formData) {
 
 		console.log("Form Data");
       console.log(formData);
 		console.log("Form Data");
 
 		axios.post('http://localhost:3000/examplestepadd', {
-			email: formData.email,
+			sortOrder: formData.sortOrder,
+			help: formData.help,
 			examplestep: formData.examplestep, 
-			content: formData.content, 
 		})
 		.then(function (response) {
+
+      state.saveStatus =response.status; 
+      state.saveStatusText =response.statusText; 
 		console.log("Store");
-		console.log("Emailx"+examplestep);
 		console.log(response);
+		console.log("Store status: "+response.status);
+//		console.log("Response: "+response);
 		console.log("Store");
+		console.log(state);
+
 		})
 		.catch(function (error) {
 			console.log(error);

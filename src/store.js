@@ -17,6 +17,7 @@ export default new Vuex.Store({
     user: null,
 	 signup:null,
 	 saveStatus:null, saveStatusText:null,
+	  steps:[]
 
   },
   mutations: {

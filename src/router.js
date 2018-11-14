@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import store from './store'
 
 import Home from './components/Home.vue';
+import Test from './components/Test.vue';
 import SignUpPage from './components/auth/SignUp.vue'
 import SignInPage from './components/auth/SignIn.vue'
 import ExampleSteps from './components/example/ExampleSteps.vue'
@@ -17,6 +18,7 @@ Vue.use(VueRouter)
 	export const routes = [
 
 { path: '', component: Home},
+{ path: '/test', component: Test},
 { path: '/examplesteps', component: ExampleSteps},
 { path: '/teacher', component: Teacher},
 { path: '/signup', component: SignUpPage },

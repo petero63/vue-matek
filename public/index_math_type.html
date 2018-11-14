@@ -6,14 +6,12 @@
 <title>Bootstrap Theme Company Page</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- *************** Bootsrap *****************--> 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 <script src="/cdnjs/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="/cdnjs/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="/cdnjs/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<!-- /*************** Bootsrap *****************--> 
+
 <link href="mr.css" rel="stylesheet" type="text/css">
 
 <!-- 
@@ -37,6 +35,7 @@
 
 
 <!-- /*************** Math Type *****************--> 
+<script src="/mathtype-generic/wirisplugin-generic.js"></script> 
 <!-- /*************** Math Type *****************--> 
 
 <!-- 
@@ -66,6 +65,29 @@ tinymce.init({
 
 <!-- /*************** Math Type *****************--> 
 
+ <div id="toolbarLocation"></div>
+ <div id="example" contenteditable="true">Try me!</div>
+ <div id="otto" contenteditable="true">Otto</div>
+<textarea id="example" contenteditable="true" name="comment" form="usrform"></textarea>
+<textarea id="myTextarea1" contenteditable="true" name="comment" form="usrform"></textarea>
+<textarea id="myTextarea2" contenteditable="true" name="comment" form="usrform"></textarea>
+		  <footer>
+    <script>
+        var genericIntegrationProperties = {};
+        genericIntegrationProperties.target = document.getElementById("example");
+        genericIntegrationProperties.toolbar = document.getElementById("toolbarLocation");
+
+        // GenericIntegration instance.
+        var genericIntegrationInstance = new WirisPlugin.GenericIntegration(genericIntegrationProperties);
+        genericIntegrationInstance.init();
+        genericIntegrationInstance.listeners.fire('onTargetReady', {});
+		  var htmlElement = document.getElementById('example');
+		  
+var data = 'Initial data: <math><msqrt><mo>y</mo></msqrt></math>'
+htmlElement.innerHTML = WirisPlugin.Parser.initParse(data);
+document.getElementById("myTextarea1").value = WirisPlugin.Parser.initParse(data);
+document.getElementById("myTextarea2").value = WirisPlugin.Parser.endParse(data);
+document.getElementById("otto").innerHTML = WirisPlugin.Parser.endParse(data);
 <!-- /*************** Math Type *****************--> 
     </script>
 </footer>

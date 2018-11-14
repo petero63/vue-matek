@@ -4,6 +4,7 @@ node_modules
 /public/MathJax
 /public/tinymce
 /public/tiny_mce_3_4_7
+/public/mathtype-generic
 
 # local env files
 .env.local

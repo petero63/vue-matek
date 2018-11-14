@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@tinymce/tinymce-vue": "^1.1.0",
+    "@wiris/mathtype-generic": "^7.8.0",
     "animate.css": "^3.7.0",
     "axios": "^0.18.0",
     "mathjax": "^2.7.5",

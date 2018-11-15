@@ -39,10 +39,25 @@ export default new Vuex.Store({
 		  alert("otto");
 	  },
 
-	  // EXAPMLE STEPS 
+	  // EXAPMLE  
+	  // example text
+    exampletextadd ({commit, state, dispatch}, formData) {
+
+		axios.post('http://localhost:3000/exampletextadd', {
+			id: formData.id,
+			pageContent: formData.pageContent, 
+		})
+		.then(function (response) { console.log("Response: "+response); })
+		.catch(function (error) { console.log(error); });
+
+	 },
+	  // example text
+	  
+	  
+	  // example step
     examplestepadd ({commit, state, dispatch}, formData) {
 
-		console.log( "store.js Form Data ");
+		console.log( "Form Submeted: store.js Form Data ");
       console.log(formData);
 
 		axios.post('http://localhost:3000/examplestepadd', {
@@ -69,7 +84,7 @@ export default new Vuex.Store({
 		});
 
 	 },
-	  // /EXAPMLE STEPS 
+	  // /EXAPMLE  
 
 	  // USERS
     signup ({commit, dispatch}, formData) {

@@ -12,6 +12,7 @@
 		<li role="presentation"><router-link to="/signup">&nbsp;Sign Up&nbsp;</router-link></li>
 		<li role="presentation"><router-link to="/signin">&nbsp;Sign In&nbsp;</router-link></li>
 		<li role="presentation"><router-link to="/adminexample/1">&nbsp;Admin&nbsp;</router-link></li>
+		<li role="presentation"><router-link to="/adminexampletext/1">&nbsp;Admin ET&nbsp;</router-link></li>
 	</ul>
 	<router-view></router-view>
 <hr>

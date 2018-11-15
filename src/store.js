@@ -11,6 +11,7 @@ Vue.use(Vuex)
 //export default new Vuex.Store({
 export default new Vuex.Store({
   state: {
+	 asyncCallCounter:0,
 	 apiCounter:0,
 	storeCounter: 444,
     idToken: null,
@@ -43,6 +44,7 @@ export default new Vuex.Store({
 	  // example text
     exampletextadd ({commit, state, dispatch}, formData) {
 
+		console.log("id: "+formData.id);
 		axios.post('http://localhost:3000/exampletextadd', {
 			id: formData.id,
 			pageContent: formData.pageContent, 
@@ -71,18 +73,26 @@ export default new Vuex.Store({
 
       state.saveStatus =response.status; 
       state.saveStatusText =response.statusText; 
+
+		console.log("Async Post Call Finished");
+      state.asyncCallCounter++; 
+	//	console.log("Async Post status");
+		//console.log(status);
+
 		//console.log("Store");
 		//console.log(response);
-		//console.log("Store status: "+response.status);
+		console.log("Store status: "+response.status);
 //		console.log("Response: "+response);
 		//console.log("Store");
 		//console.log(state);
       state.idToken++; 
+
 		})
 		.catch(function (error) {
 			console.log(error);
 		});
 
+		console.log("Post Call Finished");
 	 },
 	  // /EXAPMLE  
 
@@ -213,11 +223,9 @@ export default new Vuex.Store({
 	 */
   },
   getters: {
-    user (state) {
-      return state.user
-    },
-    isAuthenticated (state) {
-      return state.idToken !== null
-    }
+   something() { return state.asyncCallCounter },
+    user (state) { return state.user },
+    isAuthenticated (state) { return state.idToken !== null }
   }
-})
+});
+

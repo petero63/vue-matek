@@ -7,14 +7,14 @@
 				<!-- FORM  -->
 				<form @submit.prevent="onSubmit">
 
-					<label for="examplestep">A pálda szövege:</label>
+					<h3>{{title}}</h3>
 					<textarea id="pageContent" v-model="pageContent" class="form-control col-xs-12" rows="3" ></textarea>
 					<div class="submit"> <button type="submit">Ment</button><span class="responseMessage"> {{saveMessage}} </span> </div>
 
 				</form>
 				<!-- FORM  --> 
 				<!-- EXAMPLE TEXT  --> 
-	<div v-on:click="editExampleText(1)" class="mousepointer alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=exampleText.pageContent ></div>
+	<div v-on:click="editExampleText($route.params.id)" class="mousepointer alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=exampleText.pageContent ></div>
 				<!-- EXAMPLE TEXT  --> 
 			</div>
 		</div>
@@ -27,10 +27,11 @@ import {VueMathjax} from 'vue-mathjax'
 export default {
 	data () {
 		return {
+			title:"",
 			exampleText:"",
 			pageContent:"",
 			saveMessage: "",
-			currentId:1
+			currentId:0
 		}
 	}, //data
 
@@ -43,7 +44,8 @@ export default {
 		editExampleText(id) {
 			this.pageContent=this.exampleText.pageContent;
 			console.log(id);
-
+			this.currentId=id;
+			//console.log("currentId: "+this.currentId);
 		},
 
 		onSubmit () {
@@ -62,9 +64,17 @@ export default {
 	},//watch
 
 	mounted() {
+		let id=this.$route.params.id;
+		if (id==0) { this.title="Új példa bevitele"; }
+		else { this.title="Példa szövegének módosítása"; }
+		console.log(id);
+		if (id==0) {
 
+		}
+		else {
 		// Example Text
-		axios.get('http://localhost:3000/getexample/1/hu').then(
+		let link="http://localhost:3000/getexample/"+id+"/hu";
+		axios.get(link).then(
 			response => {
 				const data = response.data;
 				data.pageContent=data.pageContent.replace(/\\/g, '');
@@ -76,6 +86,7 @@ export default {
 
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+		}
 
 	} // mounted
 }

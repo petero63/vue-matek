@@ -1,13 +1,18 @@
 <template>
 <div>
+
+  <button @click="testIncrement()">Test Increment!</button>
 	<div class="alert alert-danger">Példa Adminsiztráció ID: {{$route.params.id}} ceID: {{currentExampleId}} csID: {{currentStepId}}</div>
   <div id="signup">
     <div class="signup-form">
 
 <!-- FORM  -->
-      <form @submit.prevent="onSubmit">
-        <div class="input">
-          <input type="sortOrder" id="sortOrder" v-model="sortOrder" size=4> </div>
+<form @submit.prevent="onSubmit">
+
+<div class="input">
+<label for="email">Sorszám:</label>
+<input type="text" id="sortOrder" v-model="sortOrder" size=4>
+</div>
 <!--		  
 <editor plugins="link code"  v-model="content" api-key="apiKey=d1tr83ga33vvezb16obm68acnqpxk3dlhif8hfbl9zyvszrv"></editor> 
 -->
@@ -17,7 +22,6 @@
 
 <label for="help">Segítésg:</label>
 <textarea id="help" v-model="help" class="form-control col-xs-12" rows="2" ></textarea>
-
 <div class="submit"> <button type="submit">Ment</button><span> {{saveMessage}} </span> </div>
 
 </form>
@@ -36,7 +40,7 @@
 <tbody>
 <tr v-for="(item, index) in this.$store.state.steps">
 <td>{{item.sort_order}}</td>
-<td><div v-html=item.formula v-on:click="editStep(item.id)" class="mathFormula"></div></td>
+<td><div v-html=item.formula v-on:click="editStep(item.index)" class="mathFormula"></div></td>
 <td v-html=item.help></td>
 <td>{{item.nl}}</td>
 </tr>
@@ -58,15 +62,21 @@ import {VueMathjax} from 'vue-mathjax'
   export default {
     data () {
       return {
+			apiLocalCounter:0,
 
       name: 'Flavio',
 		temp:0,
+        currentIndex:0,
         currentExampleId:0,
         currentStepId:0,
+        currentSortOrder:'',
+        currentHelp:'',
+        currentFormula:'',
+        currentNl:'',
         id: 0,
         sortOrder: '',
-        help: '',
         examplestep: '',
+        help: '',
         content: 'xxx',
         confirmPassword: '',
         status: null,
@@ -78,17 +88,6 @@ import {VueMathjax} from 'vue-mathjax'
       }
     }, //data
 
-	  watch: {
-		  currentExampleId: function () {
-			  console.log("ooooottoo");
-			  alert ("otto");
-		  },
-		  temp: function () {
-			  console.log("Test changed");
-			  //alert ("otto");
-		  }
-	  
-	  },// watch
 	components: {
 	//	'editor': Editor
 	},
@@ -102,6 +101,7 @@ import {VueMathjax} from 'vue-mathjax'
 		 testIncrement () {
 			 //this.temp++;
 			 this.currentExampleId++;
+			 this.apiLocalCounter++;
 		 },
 
 	  checkSaveStatus (status) {
@@ -109,7 +109,10 @@ import {VueMathjax} from 'vue-mathjax'
 		  else { return "Hiba történt! A mentés sikertelen.";}
 	  },
 	  editStep(id) {
-		  this.currentStepId=id;
+		  this.currentStepId=this.$store.state.steps[id].id;
+		  this.sortOrder= this.$store.state.steps[id].sort_order;
+		  this.examplestep=this.$store.state.steps[id].formula;
+		  this.help=this.$store.state.steps[id].help;
 			this.renderAdminTable ()
 
 	  },
@@ -119,17 +122,20 @@ import {VueMathjax} from 'vue-mathjax'
           sortOrder: this.sortOrder,
           help: this.help,
           examplestep: this.examplestep,
+			 id: this.currentStepId,
+			 id_controler: this.currentExampleId
           //content: this.content,
         }
-			this.sortOrder="";
-			this.help="";
-			this.examplestep="";
 
         this.$store.dispatch('examplestepadd', formData)
 			//this.saveMessage=this.checkSaveStatus (this.$store.state.saveStatus);
 			this.saveMessage=this.$store.state.saveStatus;
-			this.render++;
 			
+			//this.sortOrder=""; this.help=""; this.examplestep="";
+			this.apiLocalCounter++;
+			console.log("apiCounter: "+this.$store.state.apiCounter);
+			this.$store.state.apiCounter++;
+			console.log("apiCounter: "+this.$store.state.apiCounter);
       },
 
 		renderAdminTable (){
@@ -147,6 +153,7 @@ import {VueMathjax} from 'vue-mathjax'
 				for (let key in data) { 
 					n++;
 					const step = data[key]; 
+					step.index=key;
 					step.formula=step.formula.replace(/\\/g, '');
 					step.help=step.help.replace(/\\/g, '');
 					step.formula=step.formula.replace(/MathML/g, 'MathML\" display=\"block');
@@ -155,7 +162,9 @@ import {VueMathjax} from 'vue-mathjax'
 					steps.push(step);
 				}
 
+
 			this.$store.state.steps=steps;
+			//console.log(steps);
 			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 			}
@@ -170,6 +179,10 @@ import {VueMathjax} from 'vue-mathjax'
       this.renderAdminTable();
     },
 
+    apiLocalCounter: function () {
+		//alert("Table rendered");
+      this.renderAdminTable();
+    },
   	  name: function() {
      console.log("Changed by watch")
   	   console.log(this.name)

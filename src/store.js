@@ -11,6 +11,7 @@ Vue.use(Vuex)
 //export default new Vuex.Store({
 export default new Vuex.Store({
   state: {
+	 apiCounter:0,
 	storeCounter: 444,
     idToken: null,
     userId: null,
@@ -41,11 +42,12 @@ export default new Vuex.Store({
 	  // EXAPMLE STEPS 
     examplestepadd ({commit, state, dispatch}, formData) {
 
-		console.log("Form Data");
+		console.log( "store.js Form Data ");
       console.log(formData);
-		console.log("Form Data");
 
 		axios.post('http://localhost:3000/examplestepadd', {
+			id: formData.id,
+			id_controler: formData.id_controler,
 			sortOrder: formData.sortOrder,
 			help: formData.help,
 			examplestep: formData.examplestep, 
@@ -54,13 +56,13 @@ export default new Vuex.Store({
 
       state.saveStatus =response.status; 
       state.saveStatusText =response.statusText; 
-		console.log("Store");
-		console.log(response);
-		console.log("Store status: "+response.status);
+		//console.log("Store");
+		//console.log(response);
+		//console.log("Store status: "+response.status);
 //		console.log("Response: "+response);
-		console.log("Store");
-		console.log(state);
-
+		//console.log("Store");
+		//console.log(state);
+      state.idToken++; 
 		})
 		.catch(function (error) {
 			console.log(error);

@@ -14,6 +14,7 @@ import Teacher from './components/teacher/Teacher.vue';
 //ADMIN
 import AdminExample from './components/admin/Example.vue';
 import AdminExampleText from './components/admin/ExampleText.vue';
+import AdminExampleList from './components/admin/ExampleList.vue';
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,7 @@ Vue.use(VueRouter)
 //ADMIN
 { path: '/adminexample/:id', component: AdminExample },
 { path: '/adminexampletext/:id', component: AdminExampleText },
+{ path: '/adminexamplelist/:id', component: AdminExampleList },
 {
 path: '/student',
 		component: Student,

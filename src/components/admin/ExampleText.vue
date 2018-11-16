@@ -14,7 +14,7 @@
 				</form>
 				<!-- FORM  --> 
 				<!-- EXAMPLE TEXT  --> 
-	<div v-on:click="editExampleText($route.params.id)" class="mousepointer alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=exampleText.pageContent ></div>
+	<div v-on:click="editExampleText($route.params.id)" class="mousepointer alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=dbRecord.pageContent ></div>
 				<!-- EXAMPLE TEXT  --> 
 			</div>
 		</div>
@@ -28,8 +28,8 @@ export default {
 	data () {
 		return {
 			title:"",
-			exampleText:"",
-			pageContent:"",
+			dbRecord:"",
+			pageContent:"000",
 			saveMessage: "",
 			currentId:0
 		}
@@ -42,7 +42,7 @@ export default {
 	methods: {
 
 		editExampleText(id) {
-			this.pageContent=this.exampleText.pageContent;
+			this.pageContent=this.dbRecord.pageContent;
 			console.log(id);
 			this.currentId=id;
 			//console.log("currentId: "+this.currentId);
@@ -58,36 +58,47 @@ export default {
 			this.$store.dispatch('exampletextadd', formData)
 
 		},
-	}, // methods
-	watch: {
 
-	},//watch
+	render(id){
 
-	mounted() {
-		let id=this.$route.params.id;
-		if (id==0) { this.title="Új példa bevitele"; }
-		else { this.title="Példa szövegének módosítása"; }
-		console.log(id);
-		if (id==0) {
-
-		}
-		else {
-		// Example Text
 		let link="http://localhost:3000/getexample/"+id+"/hu";
 		axios.get(link).then(
 			response => {
 				const data = response.data;
 				data.pageContent=data.pageContent.replace(/\\/g, '');
 				data.pageContent=data.pageContent.replace(/MathML/g, 'MathML\" display=\"block');
-				this.exampleText=data;
+				this.dbRecord=data;
 			}
 
 		);
 
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-		}
+		console.log("RENDERED");
+	}
+	}, // methods
 
+	watch: {
+
+	},//watch
+
+	mounted() {
+		//this.pageContent="zzz";
+
+		// A store asyncCallCouter változójának fegyelése: Ha változik renderelem a táblázatot!
+		this.$store.watch(this.$store.getters.getAsyncCallCounter, asyncCallCounter => { 
+			this.render(id);
+			console.log("Async Call with id: "+id);
+		});
+
+		let id=this.$route.params.id;
+
+		if (id>0) { 
+			this.title="Példa szövegének módosítása";
+			this.render(id);
+			this.pageContent=this.dbRecord.pageContent+"xxx"
+		}
+		console.log(id);
 	} // mounted
 }
 </script>

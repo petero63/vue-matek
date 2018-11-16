@@ -1,7 +1,7 @@
 <template>
 <div id="app">
 <hr>
-<div>Counter is: {{scounter}} Token: {{token}}</div>
+<div>Counter is: {{scounter}} Token: {{token}} Async Call Counter {{asyncCallCounter}}</div>
 	<ul class="nav nav-pills">
 		<li role="presentation"><router-link to="/">&nbsp;Címoldal&nbsp; </router-link></li>
 		<li role="presentation"><router-link to="/test">&nbsp;Teszt&nbsp; </router-link></li>
@@ -13,6 +13,7 @@
 		<li role="presentation"><router-link to="/signin">&nbsp;Sign In&nbsp;</router-link></li>
 		<li role="presentation"><router-link to="/adminexample/1">&nbsp;Admin&nbsp;</router-link></li>
 		<li role="presentation"><router-link to="/adminexampletext/1">&nbsp;Admin ET&nbsp;</router-link></li>
+		<li role="presentation"><router-link to="/adminexamplelist/9">&nbsp;Admin Example List&nbsp;</router-link></li>
 	</ul>
 	<router-view></router-view>
 <hr>
@@ -47,6 +48,9 @@ export default {
 		},
 		token () {
 			return this.$store.state.idToken;
+		},
+		asyncCallCounter () {
+			return this.$store.state.asyncCallCounter;
 		}
 	},
 	methods: {

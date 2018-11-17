@@ -1,6 +1,7 @@
 <template>
 	<div>
 
+		<button @click="render(id)">Render!</button>
 		<div id="example">
 			<div class="example-form">
 
@@ -28,7 +29,8 @@ export default {
 	data () {
 		return {
 			title:"",
-			dbRecord:"",
+			pageContent:"start",
+			dbRecord:{pageContent:"xxx"},
 			pageContent:"000",
 			saveMessage: "",
 			currentId:0
@@ -60,8 +62,12 @@ export default {
 		},
 
 	render(id){
+		console.log("render id: "+id);
+		if (id>0) {
 
+		console.log("render id: "+id);
 		let link="http://localhost:3000/getexample/"+id+"/hu";
+		console.log("render link: "+link);
 		axios.get(link).then(
 			response => {
 				const data = response.data;
@@ -71,10 +77,11 @@ export default {
 			}
 
 		);
-
+		this.$store.asyncCallCounter++;
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		console.log("RENDERED");
+	}
 	}
 	}, // methods
 
@@ -83,22 +90,30 @@ export default {
 	},//watch
 
 	mounted() {
+		let id=this.$route.params.id;
+		console.log("id at mounted: "+id);
 		//this.pageContent="zzz";
 
 		// A store asyncCallCouter változójának fegyelése: Ha változik renderelem a táblázatot!
 		this.$store.watch(this.$store.getters.getAsyncCallCounter, asyncCallCounter => { 
 			this.render(id);
+			//this.pageContent="Otto";
+
+			console.log("dbRecord: "+this.dbRecord.pageContent);
+			this.pageContent=this.dbRecord.pageContent;
 			console.log("Async Call with id: "+id);
 		});
+		this.$store.state.asyncCallCounter++;
+		console.log("asyncCallCounter: "+this.$store.asyncCallCounter);
 
-		let id=this.$route.params.id;
 
 		if (id>0) { 
 			this.title="Példa szövegének módosítása";
 			this.render(id);
-			this.pageContent=this.dbRecord.pageContent+"xxx"
+			this.$store.asyncCallCounter++;
+			this.pageContent="id: "+id+"pageContent "+this.dbRecord.pageContent;
 		}
-		console.log(id);
+		console.log("id: "+id);
 	} // mounted
 }
 </script>

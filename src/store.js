@@ -11,8 +11,10 @@ Vue.use(Vuex)
 //export default new Vuex.Store({
 export default new Vuex.Store({
 	state: {
+		pageContent:"",
 		n:1,
 		asyncCallCounter:0,
+		asyncCallCounterET:0,
 		storeCounter: 444,
 		idToken: null,
 		userId: null,
@@ -43,15 +45,18 @@ export default new Vuex.Store({
 		// EXAPMLE  
 		// example text
 		exampletextadd ({commit, state, dispatch}, formData) {
+			console.log("otto");
 
 			console.log("id: "+formData.id);
+			console.log("pageData: "+formData.pageContent);
 			axios.post('http://localhost:3000/exampletextadd', {
 				id: formData.id,
 				pageContent: formData.pageContent, 
 			})
 				.then(function (response) { console.log("Response: "+response); })
 				.catch(function (error) { console.log(error); });
-				state.asyncCallCounter++; 
+				state.asyncCallCounterET++; 
+				state.pageContent=formData.pageContent;
 		},
 		// example text
 
@@ -223,12 +228,14 @@ export default new Vuex.Store({
 		*/
 	},
 	getters: {
-		assynCallCounter() { return state.asyncCallCounter },
+		//assynCallCounter() { return state.asyncCallCounter },
 		user (state) { return state.user },
 		isAuthenticated (state) { return state.idToken !== null },
 		//		getN: state => () => state.n
 		getN: state =>() => state.n,
-		getAsyncCallCounter: state =>() => state.asyncCallCounter
+		getAsyncCallCounter: state =>() => state.asyncCallCounter,
+		getAsyncCallCounterET: state =>() => state.asyncCallCounterET,
+		getPageContent: state =>() => state.pageContent,
 		//		getN (state) { return state.n}
 		//		getN(state) { //return state.n },
 

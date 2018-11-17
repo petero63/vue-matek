@@ -2,10 +2,11 @@
 	<div>
 
 		<div class="alert alert-danger">Példa Adminsiztráció ID: {{$route.params.id}} ceID: {{currentExampleId}} csID: {{currentStepId}}</div>
-		<div id="signup">
-			<div class="signup-form">
-
+		<div id="example">
+			<div class="example-form">
 				<!-- FORM  -->
+
+			<div v-show=showExampleStepForm>
 				<form @submit.prevent="onSubmit">
 
 					<div class="input">
@@ -24,10 +25,23 @@
 					<div class="submit"> <button type="submit">Ment</button><span class="responseMessage"> {{message}} </span> </div>
 
 				</form>
+				</div>
 				<!-- FORM  --> 
+				<div class="formContainerExampleText">
 				<!-- EXAMPLE TEXT  --> 
-				<div v-on:click="goExampleText($route.params.id)" class="mousepointer alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=example.pageContent ></div>
+				<div v-on:click="editExampleText($route.params.id)" class="mousepointer alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=example.pageContent ></div>
 				<!-- EXAMPLE TEXT  --> 
+				<!-- FORM  EXAMPLETEXT-->
+				<div id="formContainerExampleText" v-show=showFormContainerExampleText class="formContainerExampleText">
+				<form @submit.prevent="onSubmitExampleText">
+
+					<h3>{{title}}</h3>
+					<textarea id="pageContent" v-model="pageContent" class="form-control col-xs-12" rows="3" ></textarea>
+					<div class="submit"> <button type="submit">Példa szövegének mentése</button><span class="responseMessage"> {{saveMessage}} </span> </div>
+				</form>
+			</div>
+				<!-- FORM  /EXAMPLE TEXT-->
+				</div>
 				<!-- LIST  -->
 				<table class="table table-striped table-condensed">
 					<thead class="thead-light">
@@ -66,8 +80,19 @@ import {VueMathjax} from 'vue-mathjax'
 export default {
 	data () {
 		return {
+
+			// EXAMPLE TEXT 
+			showFormContainerExampleText:false,
+			showExampleStepForm:false,
+			pageContent:'',
+			title:'Példa szövegének módosítása',
+			saveMessage:'',
 			name: 'Flavio',
 			temp:0,
+			dbRecord:"",
+			// /EXAMPLE TEXT 
+
+			// EXAMPLE STEP
 			currentIndex:0,
 			currentExampleId:0,
 			currentStepId:0,
@@ -88,6 +113,7 @@ export default {
 
 			steps:[],
 			render:0
+			// /EXAMPLE STEP
 		}
 	}, //data
 
@@ -97,11 +123,41 @@ export default {
 
 
 	methods: {
-		goExampleText(id){
-			this.$router.push({ path: `/adminexampletext/${id}` }) 
-			console.log(id);
+		// EXAMPLE TEXT
+		editExampleText(){
+			this.showFormContainerExampleText=!this.showFormContainerExampleText;
 		},
 
+		onSubmitExampleText () {
+			console.log("PPPP: "+this.pageContent)
+
+			const formData = {
+				pageContent: this.pageContent,
+				//id: this.currentId,
+				id: 1,
+				//content: this.content,
+			}
+			this.$store.dispatch('exampletextadd', formData)
+
+		},
+		renderExampleText(){
+			let link="http://localhost:3000/getexample/"+this.$route.params.id+"/hu";
+			axios.get(link).then(
+				response => {
+					const data = response.data;
+					data.pageContent=data.pageContent.replace(/\\/g, '');
+					data.pageContent=data.pageContent.replace(/MathML/g, 'MathML\" display=\"block');
+					this.dbRecord=data;
+				}
+			);
+			//this.$store.state.asyncCallCounterET++;
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			console.log("RENDERED");
+		},
+		// /EXAMPLE TEXT
+
+		// EXAMPLE STEP 
 		changeName: function() {
 			this.name = 'Flavius'
 		},
@@ -130,7 +186,8 @@ export default {
 			this.sortOrder= this.$store.state.steps[id].sort_order;
 			this.examplestep=this.$store.state.steps[id].formula;
 			this.help=this.$store.state.steps[id].help;
-			this.renderAdminTable ()
+			this.renderExampleStepTable ()
+			this.showExampleStepForm=true;
 
 		},
 
@@ -148,9 +205,10 @@ export default {
 			this.$store.dispatch('examplestepadd', formData)
 			//this.message=this.checkSaveStatus (this.$store.state.saveStatus);
 			this.message=this.$store.state.saveStatus;
+			this.showExampleStepForm=false;
 		},
 
-		renderAdminTable (){
+		renderExampleStepTable (){
 			let link="http://localhost:3000/getformulas/"+this.currentExampleId;
 
 			axios .get(link) .then(
@@ -186,17 +244,20 @@ export default {
 			);
 		}
 
+		// /EXAMPLE STEP 
 	}, // methods
 	watch: {
+
+		// EXAMPLE STEP 
 		// whenever question changes, this function will run
 
 		currentExampleId: function () {
 			//alert("Table rendered");
-			this.renderAdminTable();
+			this.renderExampleStepTable();
 		},
 		currentExampleId: function () {
 			//alert("Table rendered");
-			this.renderAdminTable();
+			this.renderExampleStepTable();
 		},
 
 		name: function() {
@@ -206,19 +267,14 @@ export default {
 		temp: function() {
 			console.log("Changed by watch")
 		}
+
+		// /EXAMPLE STEP 
 	},//watch
 
 	mounted() {
-  		//setInterval(() => { this.$store.state.n++ }, 1000)
-	   //this.$store.watch(this.$store.getters.getN, n => { console.log('watched: ', n) })
 
-		// A store asyncCallCouter változójának fegyelése: Ha változik renderelem a táblázatot!
-		this.$store.watch(this.$store.getters.getAsyncCallCounter, asyncCallCounter => { 
-			this.renderAdminTable();
-			this.message="Sikeres mentés";
-		})
+		// EXAMPLE TEXT 
 
-		this.currentExampleId=this.$route.params.id;
 
 		let link="http://localhost:3000/getexample/"+this.$route.params.id+"/hu";
 		// Example Text
@@ -229,9 +285,44 @@ export default {
 				data.pageContent=data.pageContent.replace(/\\/g, '');
 				data.pageContent=data.pageContent.replace(/MathML/g, 'MathML\" display=\"block');
 				this.example=data;
+				this.pageContent=data.pageContent;
 			}
 		);
+		//this.example.pageContent="mmm";
+		//this.pageContent=this.example.pageContent;
+		//this.pageContent="mmm";
+		//this.pageContent=example.pageContent;
+		// A store asyncCallCouter változójának fegyelése: Ha változik renderelem a táblázatot!
+		this.$store.watch(this.$store.getters.getAsyncCallCounterET, asyncCallCounterET => { 
+			this.renderExampleText(this.$route.params.id);
+			console.log("Example Text Async Call with id: "+this.$route.params.id);
+		});
 
+		//this.$store.watch(this.$store.getters.getXxx, xxx => { 
+		this.$store.watch(this.$store.getters.getPageContent, pageContent => { 
+			this.example.pageContent=this.$store.state.pageContent;
+			this.showFormContainerExampleText=false;
+			//console.log("Example Text Async Call with xxx ");
+		});
+		// /EXAMPLE TEXT 
+		// EXAMPLE STEP
+		// ********* STORE WATCH TESTER ***********
+  		//setInterval(() => { this.$store.state.n++ }, 1000)
+	   this.$store.watch(this.$store.getters.getN, n => { 
+			console.log('watched: ', n); 
+			//this.pageContent=n;
+		})
+		// ********* STORE WATCH TESTER ***********
+
+		// A store asyncCallCouter változójának fegyelése: Ha változik renderelem a táblázatot!
+		this.$store.watch(this.$store.getters.getAsyncCallCounter, asyncCallCounter => { 
+			this.renderExampleStepTable();
+			console.log("Example Step Async Call with id: "+this.$route.params.id);
+			this.message="Sikeres mentés";
+		})
+
+		this.currentExampleId=this.$route.params.id;
+		// /EXAMPLE STEP
 	} // mounted
 }
 </script>
@@ -246,8 +337,12 @@ export default {
 	font-size: 1.0em;
 }
 .mathFormula {cursor: pointer;}
-
-.signup-form {
+.formContainerExampleText {
+	border: 1px solid #eee;
+	background: #f3f3f3;
+	padding: 5px;
+}
+.example-form {
 	margin: 30px auto;
 	border: 1px solid #eee;
 	padding: 20px;

@@ -8,6 +8,7 @@ import Test from './components/Test.vue';
 import SignUpPage from './components/auth/SignUp.vue'
 import SignInPage from './components/auth/SignIn.vue'
 import ExampleSteps from './components/example/ExampleSteps.vue'
+import ExampleList from './components/example/ExampleList.vue'
 import Student from './components/student/Student.vue';
 import Teacher from './components/teacher/Teacher.vue';
 
@@ -22,7 +23,8 @@ Vue.use(VueRouter)
 
 { path: '', component: Home},
 { path: '/test', component: Test},
-{ path: '/examplesteps', component: ExampleSteps},
+{ path: '/examplesteps/:id', component: ExampleSteps},
+{ path: '/examplelist/:idBook', component: ExampleList},
 { path: '/teacher', component: Teacher},
 { path: '/signup', component: SignUpPage },
 { path: '/signin', component: SignInPage },

@@ -72,6 +72,7 @@ export default {
 		},
 	data () {
 		return {
+			id:1,
 			counter:88,
 			startBtnVisible:true,
 			restartBtnVisible:false,
@@ -372,6 +373,8 @@ export default {
 // \Show Hide All
 	},
 	mounted () {
+		this.id=this.$route.params.id;
+		console.log("id: "+this.id);
 
 		// Example Text
 		axios.get('http://localhost:3000/getexample/1/hu').then(
@@ -391,7 +394,8 @@ export default {
 		//this.$router.go(0);
 
 		// Example Steps 
-		axios .get('http://localhost:3000/getformulas/1') .then(
+		let link="http://localhost:3000/getformulas/"+this.id;
+		axios .get(link) .then(
 			response => {
 				//console.log(response);
 				var steps=[];

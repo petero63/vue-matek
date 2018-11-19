@@ -141,7 +141,9 @@ export default {
 
 		},
 		renderExampleText(){
-			let link="http://localhost:3000/getexample/"+this.$route.params.id+"/hu";
+
+			let link="http://"+this.$store.state.serverhost+"/getexample/"+this.$route.params.id+"/hu";
+		//	let link="http://localhost:3000/getexample/"+this.$route.params.id+"/hu";
 			axios.get(link).then(
 				response => {
 					const data = response.data;
@@ -170,7 +172,8 @@ export default {
 		deleteStep(id) {
 			let d = confirm("Biztosan törölni akarja?");
 			if (d == true) {
-				let link="http://localhost:3000/examplestepdelete/"+id;
+				let link="http://"+this.$store.state.serverhost+"/examplestepdelete/"+id;
+				//let link="http://localhost:3000/examplestepdelete/"+id;
 				axios.get(link) .then( response => { const data = response.data; console.log(response); });
 				console.log("Record is deleted");
 			} else {
@@ -209,7 +212,8 @@ export default {
 		},
 
 		renderExampleStepTable (){
-			let link="http://localhost:3000/getformulas/"+this.currentExampleId;
+			let link="http://"+this.$store.state.serverhost+"/getformulas/"+this.currentExampleId;
+			//let link="http://localhost:3000/getformulas/"+this.currentExampleId;
 
 			axios .get(link) .then(
 				response => {
@@ -276,7 +280,8 @@ export default {
 		// EXAMPLE TEXT 
 
 
-		let link="http://localhost:3000/getexample/"+this.$route.params.id+"/hu";
+		let link="http://"+this.$store.state.serverhost+"/getexample/"+this.$route.params.id+"/hu";
+		//let link="http://localhost:3000/getexample/"+this.$route.params.id+"/hu";
 		// Example Text
 		console.log(link);
 		axios.get(link).then(

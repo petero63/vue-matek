@@ -28,7 +28,10 @@ methods: {
 			}
 			},
 mounted() {
-		axios.get('http://localhost:3000/getusers/1') .then(
+
+		let link=`http://${this.$store.state.serverhost}/getusers/1`;
+		axios.get(link) .then(
+		//axios.get('http://localhost:3000/getusers/1') .then(
 			response => {
 				//console.log(response);
 				var steps=[];

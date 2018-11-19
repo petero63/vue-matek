@@ -3,7 +3,7 @@
 <div class="alert alert-info">Feladatok listája</div>
 			<div v-for="(item, index) in steps" v-bind:id="index" >
 				<div v-html=item.page_date></div>
-				<div class="mousepointer alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=item.pageContent v-on:click="goToExample(item.id)"></div>
+				<div class="mousepointer alert alert-primary mathFormulaText border-primary" v-html=item.pageContent v-on:click="goToExample(item.id)"></div>
 		</div>
 </div>
 
@@ -12,6 +12,10 @@
 <script>
 
 import axios from 'axios'
+
+//require('dotenv').load();
+import dotenv from 'dotenv'
+dotenv.config()
 export default {
 	data() {
 		return {
@@ -29,8 +33,9 @@ mounted() {
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-		//axios.get('http://localhost:3000/examplelist/9') .then(
-		axios.get('http://www.knxplaza.com/api/examplelist/9') .then(
+
+		var link=`http://${this.$store.state.serverhost}/examplelist/9`;
+		axios.get(link) .then(
 			response => {
 				//console.log(response);
 				var steps=[];
@@ -48,6 +53,9 @@ mounted() {
 
 			}
 		);
+
+	console.log("dotenv: "+process.env.DBHOST);
+console.log("xxx "+process.env)
 			}
 
 }

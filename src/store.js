@@ -11,6 +11,8 @@ Vue.use(Vuex)
 //export default new Vuex.Store({
 export default new Vuex.Store({
 	state: {
+		serverhost:"www.knxplaza.com/api",
+		//serverhost:"localhost:3000",
 		pageContent:"",
 		n:1,
 		asyncCallCounter:0,
@@ -49,7 +51,10 @@ export default new Vuex.Store({
 
 			console.log("id: "+formData.id);
 			console.log("pageData: "+formData.pageContent);
-			axios.post('http://localhost:3000/exampletextadd', {
+
+			let link=`http://${this.state.serverhost}/exampletextadd`;
+			axios.post(link, {
+			//axios.post('http://localhost:3000/exampletextadd', {
 				id: formData.id,
 				pageContent: formData.pageContent, 
 			})
@@ -67,7 +72,9 @@ export default new Vuex.Store({
 			console.log( "Form Submeted: store.js Form Data ");
 			console.log(formData);
 
-			axios.post('http://localhost:3000/examplestepadd', {
+			let link=`http://${this.state.serverhost}/examplestepadd`;
+			axios.post(link, {
+			//axios.post('http://localhost:3000/examplestepadd', {
 				id: formData.id,
 				id_controler: formData.id_controler,
 				sortOrder: formData.sortOrder,
@@ -104,7 +111,9 @@ export default new Vuex.Store({
 		// USERS
 		signup ({commit, dispatch}, formData) {
 			console.log(formData);
-			axios.post('http://localhost:3000/useradd', {
+			let link=`http://${this.state.serverhost}/useradd`;
+			axios.post(link, {
+			//axios.post('http://localhost:3000/useradd', {
 				email: formData.email,
 				password: formData.password, 
 			})
@@ -120,7 +129,9 @@ export default new Vuex.Store({
 		signupTest ({commit, dispatch}, formData) {
 			console.log(formData)
 
-			axios.get('http://localhost:3000/getformula/1/9999').then(
+			let link=`http://${this.state.serverhost}/getformula/1/9999`;
+			axios.get(link).then(
+			//axios.get('http://localhost:3000/getformula/1/9999').then(
 				response => {
 					const data = response.data;
 					console.log(data)

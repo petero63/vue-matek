@@ -379,8 +379,9 @@ export default {
 		console.log("id: "+this.id);
 
 		// Example Text
-		//axios.get('http://localhost:3000/getexample/1/hu').then(
-		axios.get(`http://localhost:3000/getexample/${this.id}/hu`).then(
+		var link=`http://${this.$store.state.serverhost}/getexample/${this.id}/hu`;
+		axios.get(link).then(
+		//axios.get(`http://localhost:3000/getexample/${this.id}/hu`).then(
 			response => {
 				const data = response.data;
 				data.pageContent=data.pageContent.replace(/\\/g, '');
@@ -397,7 +398,9 @@ export default {
 		//this.$router.go(0);
 
 		// Example Steps 
-		axios.get(`http://localhost:3000/getformulas/${this.id}`).then(
+		var link=`http://${this.$store.state.serverhost}/getformulas/${this.id}`;
+		axios.get(link).then(
+		//axios.get(`http://localhost:3000/getformulas/${this.id}`).then(
 			response => {
 				//console.log(response);
 				var steps=[];
@@ -427,7 +430,9 @@ export default {
 		);
 		// Solution
 
-		axios.get(`http://localhost:3000/getformula/${this.id}/9999`).then(
+		var link=`http://${this.$store.state.serverhost}/getformula/${this.id}/9999`;
+		axios.get(link).then(
+	//	axios.get(`http://localhost:3000/getformula/${this.id}/9999`).then(
 			response => {
 				const data = response.data;
 				//var f=data.formula;

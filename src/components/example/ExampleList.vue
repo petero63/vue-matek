@@ -25,7 +25,12 @@ methods: {
 			}
 			},
 mounted() {
-		axios.get('http://localhost:3000/examplelist/9') .then(
+
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+		//axios.get('http://localhost:3000/examplelist/9') .then(
+		axios.get('http://www.knxplaza.com/api/examplelist/9') .then(
 			response => {
 				//console.log(response);
 				var steps=[];

@@ -4,8 +4,7 @@
 <div>Counter is: {{scounter}} Token: {{token}} Async Call Counter {{asyncCallCounter}}</div>
 	<ul class="nav nav-pills">
 		<li role="presentation"><router-link to="/">&nbsp;Címoldal&nbsp; </router-link></li>
-		<li role="presentation"><router-link to="/test">&nbsp;Teszt&nbsp; </router-link></li>
-		<li role="presentation"><router-link to="/examplesteps">&nbsp;Példa&nbsp; </router-link></li>
+		<li role="presentation"><router-link to="/examplerepository">&nbsp;Példatár&nbsp; </router-link></li>
 		<li role="presentation"><router-link to="/teacher">&nbsp; Tanár&nbsp; </router-link></li>
 		<li role="presentation"><router-link to="/student">&nbsp;Diák&nbsp;</router-link></li>
 		<li role="presentation"> <a href="/#/student">&nbsp;Diák (Protected)&nbsp;</a> </li>

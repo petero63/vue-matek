@@ -11,8 +11,8 @@ Vue.use(Vuex)
 //export default new Vuex.Store({
 export default new Vuex.Store({
 	state: {
-		serverhost:"www.knxplaza.com/api",
-		//serverhost:"localhost:3000",
+		//serverhost:"www.knxplaza.com/api",
+		serverhost:"localhost:3000",
 		pageContent:"",
 		n:1,
 		asyncCallCounter:0,
@@ -70,7 +70,9 @@ export default new Vuex.Store({
 		examplestepadd ({commit, state, dispatch}, formData) {
 
 			console.log( "Form Submeted: store.js Form Data ");
+
 			console.log(formData);
+			console.log("nl: "+formData.nl);
 
 			let link=`http://${this.state.serverhost}/examplestepadd`;
 			axios.post(link, {
@@ -79,10 +81,12 @@ export default new Vuex.Store({
 				id_controler: formData.id_controler,
 				sortOrder: formData.sortOrder,
 				help: formData.help,
+				nl: formData.nl,
 				examplestep: formData.examplestep, 
 			})
 				.then(function (response) {
 
+					console.log("itt vagyok");
 					state.saveStatus =response.status; 
 					state.saveStatusText =response.statusText; 
 

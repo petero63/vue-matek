@@ -1,7 +1,9 @@
 <template>
 	<div>
-
-	<h2> Példatár</h2>
+		<p>My name is {{name}}</p>
+		<button @click="changeName()">Change my name!</button>
+		<hr>
+		<button class="btn btn-success" @click="goExampleText()">Új példa hozzáadása!</button>
 		<ul>
 			<li role="presentation"><router-link to="/examplelist/1">&nbsp;Érettségi 2016 &nbsp;</router-link></li>
 			<li role="presentation"><router-link to="/examplelist/1">&nbsp;Érettségi 2017 &nbsp;</router-link></li>

@@ -22,6 +22,11 @@
 
 					<label for="help">Segítésg:</label>
 					<textarea id="help" v-model="help" class="form-control col-xs-12" rows="2" ></textarea>
+					<input type="radio" id="one" value=1 v-model="nl">
+					<label for="one">&nbsp;Sortörés</label>&nbsp;
+					<input type="radio" id="two" value=0 v-model="nl">
+					<label for="two">&nbsp;Sortörés nélkül</label>
+
 					<div class="submit"> <button type="submit">Ment</button><span class="responseMessage"> {{message}} </span> </div>
 
 				</form>
@@ -42,6 +47,8 @@
 			</div>
 				<!-- FORM  /EXAMPLE TEXT-->
 				</div>
+
+		<button class="btn btn-success" @click="editStep(-1)">Új lépés hozzáadása!</button>
 				<!-- LIST  -->
 				<table class="table table-striped table-condensed">
 					<thead class="thead-light">
@@ -104,6 +111,7 @@ export default {
 			sortOrder: '',
 			examplestep: '',
 			help: '',
+			nl:0,
 			content: 'xxx',
 			confirmPassword: '',
 			status: null,
@@ -185,12 +193,27 @@ export default {
 
 		},
 		editStep(id) {
-			this.currentStepId=this.$store.state.steps[id].id;
-			this.sortOrder= this.$store.state.steps[id].sort_order;
-			this.examplestep=this.$store.state.steps[id].formula;
-			this.help=this.$store.state.steps[id].help;
-			this.renderExampleStepTable ()
-			this.showExampleStepForm=true;
+			if (id >=0){
+				this.currentStepId=this.$store.state.steps[id].id;
+				this.sortOrder= this.$store.state.steps[id].sort_order;
+				this.examplestep=this.$store.state.steps[id].formula;
+				this.help=this.$store.state.steps[id].help;
+				this.nl=this.$store.state.steps[id].nl;
+				console.log("nl: "+this.$store.state.steps[id].nl);
+				this.nl=this.$store.state.steps[id].nl;
+
+				this.renderExampleStepTable ()
+				this.showExampleStepForm=true;
+			}
+			else {
+				
+				this.id=0;
+				this.currentStepId=0;
+				this.sortOrder= "";
+				this.examplestep= "";
+				this.help= "";
+				this.showExampleStepForm=true;
+			}
 
 		},
 
@@ -200,6 +223,7 @@ export default {
 				sortOrder: this.sortOrder,
 				help: this.help,
 				examplestep: this.examplestep,
+				nl: this.nl,
 				id: this.currentStepId,
 				id_controler: this.currentExampleId
 				//content: this.content,

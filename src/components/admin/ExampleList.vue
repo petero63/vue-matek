@@ -2,8 +2,8 @@
 <div class="container">
 <div class="alert alert-info">Feladatok listája</div>
 			<div v-for="(item, index) in steps" v-bind:id="index" >
-				<div v-html=item.page_date v-on:click="nextStep(index)"></div>
-				<div class="mousepointer alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=item.pageContent v-on:click="nextStep(index)"></div>
+				<div v-html=item.page_date v-on:click="editExample(item.id)"></div>
+				<div class="mousepointer alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=item.pageContent v-on:click="editExample(item.id)"></div>
 		</div>
 </div>
 
@@ -20,8 +20,9 @@ export default {
 	},
 methods: {
 
-		nextStep (n) {
-			alert(n);
+		editExample (id) {
+			//alert(n);
+			this.$router.push({ path: '/adminexample/'+id });
 			}
 			},
 mounted() {

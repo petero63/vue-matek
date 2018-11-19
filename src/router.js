@@ -17,6 +17,7 @@ import Teacher from './components/teacher/Teacher.vue';
 import AdminExample from './components/admin/Example.vue';
 import AdminExampleText from './components/admin/ExampleText.vue';
 import AdminExampleList from './components/admin/ExampleList.vue';
+import AdminExampleRepository from './components/admin/ExampleRepository.vue'
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,7 @@ Vue.use(VueRouter)
 { path: '/signup', component: SignUpPage },
 { path: '/signin', component: SignInPage },
 //ADMIN
+{ path: '/adminexamplerepository', component: AdminExampleRepository},
 { path: '/adminexample/:id', component: AdminExample },
 { path: '/adminexampletext/:id', component: AdminExampleText },
 { path: '/adminexamplelist/:id', component: AdminExampleList },

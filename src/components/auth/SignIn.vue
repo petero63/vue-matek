@@ -1,5 +1,10 @@
 <template>
   <div id="signin">
+
+	<div class="container, gap">
+		<div class="alert alert-info"><h4>Bejelentkezés</h4> </div>
+	</div>
+<button type="button" class="btn btn-primary" @click="signIn()">SignIn</button>
     <div class="signin-form">
       <form @submit.prevent="onSubmit">
         <div class="input">

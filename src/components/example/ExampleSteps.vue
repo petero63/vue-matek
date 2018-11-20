@@ -1,8 +1,11 @@
 <template>
 <div>
+
+	<div class="container, gap">
+		<div class="alert alert-info"><h4>Példa megoldása</h4> </div>
+	</div>
 <!-- Example Text-->
 
-<button type="button" class="btn btn-primary" @click="signIn()">SignIn</button>
 	<div class="alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=example.pageContent ></div>
 <!-- Example Text-->
 
@@ -26,36 +29,42 @@
 </div>
 <!-- Example Steps-->
 
-<!-- Example Buttons-->
+<!-- Buttons-->
 <div class="badge actionbox">
+
 <img  v-if="startBtnVisible" src="/images/start1.svg" width="40px" @click="startSolution()" class="actionbuttons"/>
 <img  v-if="restartBtnVisible"  src="/images/start0.svg" width="40px" @click="restartSolution()" class="actionbuttons"/>
 
-<img  v-if="autoplayBtnVisible" src="/images/autoplay.svg" width="40px" @click="autoplaySolution()" class="actionbuttons"/>
+<img  v-if="autoPlayBtnVisible" src="/images/autoplay.svg" width="40px" @click="autoPlaySolution()" class="actionbuttons"/>
 
-<img v-if="showAllBtnVisible"  v-bind:src="'/images/'+imgBtnAll" width="40px" @click="showAll()" class="actionbuttons"/>
-<img v-else  v-bind:src="'/images/'+imgBtnAll"  width="40px" @click="hideAll()" class="actionbuttons"/>
+<img v-if="showAllBtnVisible"  src="/images/all1.svg" width="40px" @click="showAll()" class="actionbuttons"/>
+<img v-if="hideAllBtnVisible"  src="/images/all0.svg" width="40px" @click="hideAll()" class="actionbuttons"/>
 
-<img v-bind:src="'/images/'+imgBtnSolution" width="40px" @click="showSolution()" class="actionbuttons"/>
+<img v-bind:src="'/images/'+imgBtnSolution" width="40px" @click="toggleSolution()" class="actionbuttons"/>
 
-<img v-bind:src="'/images/'+imgBtnTheory" width="40px" @click="test1()" class="actionbuttons"/>
+<img v-bind:src="'/images/'+imgBtnTheory" width="40px" @click="toggleTheory()" class="actionbuttons"/>
+
 <button type="button" class="btn btn-primary" @click="speedUp()">+</button>
 <div class="d-inline-block p-3" v-html=speed></div>
 <button type="button" class="btn btn-primary" @click="speedDown()">-</button>
 </div>
-<button type="button" class="btn btn-primary" @click="reloadExampleText()">Reload Example Test</button>
-<!-- Example Buttons-->
+<!-- /Buttons-->
 
 
 
 <!-- Example Solution-->
-<div v-show="showSolutionContainer" id="solutionContainer">
-	<div class="alert alert-success border-success">
-	<h5>Megodldás:</h5>
+	<div class="alert alert-success border-success animated flipInY slow" v-show="showSolutionContainer">
+	<h5>Megoldás:</h5>
 	<div v-html=exampleSolution.formula></div>
 	</div>
-</div>
 <!-- Example Solution-->
+
+<!-- Example Theory-->
+	<div class="alert alert-warning border-warning animated flipInY slow" v-show="showTheoryContainer">
+	<h5>Szükséges elméleti tudás:</h5>
+	<div v-html=exampleSolution.formula></div>
+	</div>
+<!-- Example Theory-->
 
 </div>
 </template>
@@ -76,18 +85,20 @@ export default {
 			counter:88,
 			startBtnVisible:true,
 			restartBtnVisible:false,
-			autoplayBtnVisible:true,
+			autoPlayBtnVisible:true,
 			showAllBtnVisible:true,
+			hideAllBtnVisible:false,
 			imgBtnSolution:"solution1.svg",
 			imgBtnAll:"all1.svg",
 			imgBtnTheory:"theory1.svg",
-			showSolutionContainer:false,
 			showExampleStepsContainer:false,
 			speed:"1.0 s",
-			// Solution 
 			example:"",
 			exampleSolution:"",
+			exampleSTheory:"",
 			showExampleStepsContainer:true,
+			showSolutionContainer:false,
+			showTheoryContainer:false,
 			showall:"showall1.svg",
 			imgbtn:"solution1.svg",
 
@@ -127,17 +138,16 @@ export default {
 
 		},
 
-		showSolution () {
-			if (this.imgBtnSolution=="solution1.svg") {
-				this.imgBtnSolution="solution0.svg";
-				this.showSolutionContainer=true;
-				document.getElementById("solutionContainer").setAttribute("class", "showFormula  animated flipInY slow");
-			}
-			else { 
-				this.imgBtnSolution="solution1.svg";
-				document.getElementById("solutionContainer").setAttribute("class", "showFormula  animated flipOutY fast");
-				//this.showSolutionContainer=false;
-			}
+		toggleSolution () {
+			this.showSolutionContainer=!this.showSolutionContainer;
+			if (this.imgBtnSolution=="solution1.svg") { this.imgBtnSolution="solution0.svg";}
+			else {this.imgBtnSolution="solution1.svg";}
+		},
+
+		toggleTheory () {
+			this.showTheoryContainer=!this.showTheoryContainer;
+			if (this.imgBtnTheory=="theory1.svg") { this.imgBtnTheory="theory0.svg";}
+			else {this.imgBtnTheory="theory1.svg";}
 		},
 		
 		hideSolution () {
@@ -160,7 +170,9 @@ export default {
 		},
 
 // Autoplay Solution
-		autoplaySolution  () {
+		autoPlaySolution  () {
+			this.startBtnVisible=false,
+			this.showAllBtnVisible=false,
 
 			this.showProgressBar =true;
 //			this.progressbar (10);
@@ -237,6 +249,8 @@ export default {
 			console.log("Start Solution");
 			this.startBtnVisible=false;
 			this.restartBtnVisible=true;
+			this.autoPlayBtnVisible=false;
+			this.showAllBtnVisible=false;
 			this.showExampleStepsContainer=true;
 
 			document.getElementById("exampleStepsContainer").style.display = "block";
@@ -320,29 +334,6 @@ export default {
 			this.helpAvailableButton=false;
 		},
 
-// \Example Steps
-/*
-		showAllSteps () {
-			if (this.steps[0].nl==0) {document.getElementById(0).setAttribute("class", "d-inline-block showFormula"); }
-			else { document.getElementById(0).setAttribute("class", "showFormula"); }
-			for (var i = 1; i < this.steps.length; i++) {
-				if (this.steps[i].nl==0) { document.getElementById(i).setAttribute("class", "d-inline-block showFormula"); }
-				else { document.getElementById(i).setAttribute("class", "showFormula");}
-			}
-			//	this.root.data.imgBtnAll="all0.svg";
-			this.$parent.imgBtnAll="all0.svg";
-			console.log(this.$parent.imgBtnAll);
-
-		},
-
-		hideAllSteps () {
-			for (var i = 0; i < this.steps.length; i++) {
-				document.getElementById(i).setAttribute("class", "hideFormula");
-			}
-			this.$parent.imgBtnAll="all1.svg";
-		}
-*/
-//Show Hide All
 		showAll () {
 
 			this.showExampleStepsContainer=true;
@@ -356,7 +347,8 @@ export default {
 			this.startBtnVisible=false;
 			this.restartBtnVisible=false;
 			this.showAllBtnVisible=false;
-			this.imgBtnAll="all0.svg"
+			this.hideAllBtnVisible=true;
+			this.autoPlayBtnVisible=false;
 		},
 
 		hideAll (){
@@ -367,8 +359,9 @@ export default {
 			}
 			this.showAllBtnVisible=true;
 			this.startBtnVisible=true;
-			this.restartBtnVisible=false;
-			this.imgBtnAll="all1.svg"
+			this.showAllBtnVisible=true;
+			this.hideAllBtnVisible=false;
+			this.autoPlayBtnVisible=true;
 		}
 // \Show Hide All
 	},
@@ -428,11 +421,10 @@ export default {
 
 			}
 		);
-		// Solution
 
+		// Solution
 		var link=`http://${this.$store.state.serverhost}/getformula/${this.id}/9999`;
 		axios.get(link).then(
-	//	axios.get(`http://localhost:3000/getformula/${this.id}/9999`).then(
 			response => {
 				const data = response.data;
 				//var f=data.formula;
@@ -440,6 +432,21 @@ export default {
 				data.formula=data.formula.replace(/\\/g, '');
 				data.formula=data.formula.replace(/MathML/g, 'MathML\" display=\"block');
 				this.exampleSolution=data;
+				//this.ok=false;
+			}
+		
+		);
+
+		// Theory 
+		var link=`http://${this.$store.state.serverhost}/getformula/${this.id}/9999`;
+		axios.get(link).then(
+			response => {
+				const data = response.data;
+				//var f=data.formula;
+
+				data.formula=data.formula.replace(/\\/g, '');
+				data.formula=data.formula.replace(/MathML/g, 'MathML\" display=\"block');
+				this.exampleTheory=data;
 				//this.ok=false;
 			}
 		
@@ -454,6 +461,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.solution {   }
 .test { background-color:blue;  }
 .result {color:#009900;cursor:default;}
 .mathFormulaText { font-size: 1.2em; color:#333333;cursor: pointer; }

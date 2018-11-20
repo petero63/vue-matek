@@ -1,7 +1,9 @@
 <template>
 	<div>
 
-	<h2> Példatár</h2>
+	<div class="container, gap">
+		<div class="alert alert-info"><h4>Példatár</h4> </div>
+	</div>
 		<ul>
 			<li role="presentation"><router-link to="/examplelist/1">&nbsp;Érettségi 2016 &nbsp;</router-link></li>
 			<li role="presentation"><router-link to="/examplelist/1">&nbsp;Érettségi 2017 &nbsp;</router-link></li>

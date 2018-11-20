@@ -1,10 +1,15 @@
 <template>
 	<div>
+
+	<div class="container, gap">
+		<div class="alert alert-info bg-danger text-white"><h4>Adminisztráció</h4> </div>
+	</div>
+
 		<button class="btn btn-success" @click="goExampleText()">Új példa hozzáadása!</button>
 		<ul>
 			<li role="presentation"><router-link to="/adminexamplelist/1">&nbsp;Érettségi 2016 &nbsp;</router-link></li>
 			<li role="presentation"><router-link to="/adminexamplelist/1">&nbsp;Érettségi 2017 &nbsp;</router-link></li>
-			<li role="presentation"><router-link to="/adminexamplesteps/1">&nbsp;Example 1&nbsp;</router-link></li>
+			<li role="presentation"><router-link to="/adminexample/1">&nbsp;Example 1&nbsp;</router-link></li>
 			<li role="presentation"><router-link to="/adminexample/84">&nbsp;Example 84&nbsp;</router-link></li>
 			<li role="presentation"><router-link to="/adminexample/420">&nbsp;Example 420&nbsp;</router-link></li>
 		</ul>

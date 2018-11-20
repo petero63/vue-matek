@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
-		 <h2>Diák</h2>
-	 </div>
+	<div class="container, gap">
+		<div class="alert alert-info"><h4>Diákok listája</h4> </div>
+	</div>
 </template>
 
 <script>

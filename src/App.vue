@@ -1,17 +1,36 @@
 <template>
 <div id="app">
+
+<!-- Container (Navbar) -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #000066;">
+  <a class="navbar-brand" href="#">Math Reference</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active"> <a class="nav-link" href="/#" @click="goToPage('/')">Címoldal <span class="sr-only">(current)</span></a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('examplesteps',1)">Mintapélda</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('examplerepository')">Példatár</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('teacher')">Tanár</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('student')">Diák (Protected)</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('signup')">Sign Up</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('signin')">Sign In</a> </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Adminisztrációs oldalak 
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#" @click="goToPage('adminexamplerepository')">Új példa létrhozása</a>
+          <a class="dropdown-item" href="#" @click="goToPage('adminexamplerepository')">Példák listázása</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- Container (/Navbar) -->
 <hr>
 <div>Counter is: {{scounter}} Token: {{token}} Async Call Counter {{asyncCallCounter}}</div>
-	<ul class="nav nav-pills">
-		<li role="presentation"><router-link to="/">&nbsp;Címoldal&nbsp; </router-link></li>
-		<li role="presentation"><router-link to="/examplerepository">&nbsp;Példatár&nbsp; </router-link></li>
-		<li role="presentation"><router-link to="/teacher">&nbsp; Tanár&nbsp; </router-link></li>
-		<li role="presentation"><router-link to="/student">&nbsp;Diák&nbsp;</router-link></li>
-		<li role="presentation"> <a href="/#/student">&nbsp;Diák (Protected)&nbsp;</a> </li>
-		<li role="presentation"><router-link to="/signup">&nbsp;Sign Up&nbsp;</router-link></li>
-		<li role="presentation"><router-link to="/signin">&nbsp;Sign In&nbsp;</router-link></li>
-		<li role="presentation"><router-link to="/adminexamplerepository">&nbsp;Adminisztrációs Oldalak&nbsp;</router-link></li>
-	</ul>
 	<router-view></router-view>
 <hr>
 </div>
@@ -52,6 +71,15 @@ export default {
 	},
 	methods: {
 
+goToPage(page,id) {
+	//this.$router.push({ path: '/examplesteps/'+id });
+	//this.$router.push({ path: page });
+	this.$router.push({ path: `/${page}` });
+	if (id>0) {
+	this.$router.push({ path: `/${page}/${id}` });
+	}
+	
+}
 
 
 	

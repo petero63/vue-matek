@@ -1,6 +1,8 @@
 <template>
 <div>
-<div class="alert alert-info">Regisztráció</div>
+	<div class="container, gap">
+		<div class="alert alert-info"><h4>Regisztráció</h4> </div>
+	</div>
   <div id="signup">
     <div class="signup-form">
       <form @submit.prevent="onSubmit">

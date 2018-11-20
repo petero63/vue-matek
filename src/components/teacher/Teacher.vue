@@ -1,6 +1,9 @@
 <template>
 <div class="container">
-<div class="alert alert-info">Tanárok listája</div>
+
+	<div class="container, gap">
+		<div class="alert alert-info"><h4>Tanárok listája</h4> </div>
+	</div>
 
 			<div 
 			  v-for="(item, index) in steps" 

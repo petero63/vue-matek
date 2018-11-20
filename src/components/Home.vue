@@ -1,8 +1,7 @@
 <template>
-    <div class="container">
-		 <h2>Címoldal</h2>
-	 </div>
-
+	<div class="container, gap">
+		<div class="alert alert-info"><h4>Címoldal</h4> </div>
+	</div>
 </template>
 
 <script>
@@ -26,5 +25,8 @@
 
 <style>
 
+.gap { 
+padding:10px;
+}
 </style>
 

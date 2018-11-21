@@ -48,6 +48,8 @@
 <div class="d-inline-block p-3" v-html=speed></div>
 <button type="button" class="btn btn-primary" @click="speedDown()">-</button>
 </div>
+
+<button type="button" class="btn btn-primary" @click="stopAutoPlay()">Stop Autoplay</button>
 <!-- /Buttons-->
 
 
@@ -62,7 +64,7 @@
 <!-- Example Theory-->
 	<div class="alert alert-warning border-warning animated flipInY slow" v-show="showTheoryContainer">
 	<h5>Szükséges elméleti tudás:</h5>
-	<div v-html=exampleSolution.formula></div>
+	<div v-html=exampleTheory.formula></div>
 	</div>
 <!-- Example Theory-->
 
@@ -81,6 +83,9 @@ export default {
 		},
 	data () {
 		return {
+			apObject:"",
+			jj:0,
+			autoPlayStep:0,
 			id:1,
 			counter:88,
 			startBtnVisible:true,
@@ -95,7 +100,7 @@ export default {
 			speed:"1.0 s",
 			example:"",
 			exampleSolution:"",
-			exampleSTheory:"",
+			exampleTheory:"",
 			showExampleStepsContainer:true,
 			showSolutionContainer:false,
 			showTheoryContainer:false,
@@ -170,6 +175,7 @@ export default {
 		},
 
 // Autoplay Solution
+
 		autoPlaySolution  () {
 			this.startBtnVisible=false,
 			this.showAllBtnVisible=false,
@@ -179,21 +185,43 @@ export default {
 //			this.move (2);
 			//this.otto(444);
 			console.log("length="+this.steps.length);
+			var lastStepIndex=this.steps.lastStepIndex;
 			this.showExampleStepsContainer=true;
 			for (var i = 0; i < this.steps.lastStepIndex; i++) {
 				document.getElementById(i).style.display = "none";
 			}
+			var jj=4;
+			console.log("jj: "+jj);
 
 			document.getElementById(0).setAttribute("class", "d-inline-block showFormula animated zoomIn");
 			//for (var i = 1; i < this.lastStepIndex; i++) {
+
+			// ***************** AUTOPLAY  FORMULA LOOP ************************************************************
 			for (let i=1; i<this.lastStepIndex; i++) {
 
+			//this.$store.state.autoPlayStepS=77;
 			console.log("length="+this.steps.length);
 				var a="ooo";
 
 			var steps=this.steps;
 			var aps=this.autoplaySpeed;
-		    	setInterval( function timer(){
+				var j=0;
+				this.jj=44;
+				// ***************** AUTOPLAY  FORMULA ************************************************************
+				var myIntervalArray=[];
+		    	var myInterval=setInterval( function (){
+					j++
+
+				clearInterval (myInterval);
+				console.log("j inside: "+j);
+				console.log("jj: "+this.jj);
+					if (j==3) {
+						console.log("STOOOOOP");
+		//		      clearInterval(ap);
+						//clearInterval (this.ap);
+					}
+
+				//this.$store.state.autoPlayStepS=j;
 
 					if (steps[i].nl==0) { document.getElementById(i).setAttribute("class", "d-inline-block showFormula animated zoomIn"); }
 					else { document.getElementById(i).setAttribute("class", "showFormula animated zoomIn");}
@@ -206,7 +234,15 @@ export default {
  			 		var elem = document.getElementById("myBar");   
 				  var width = 1;
 					var t=aps/100;
+					
+					//if (j==jj) {
 
+					if (j==6) {
+						console.log("xxxxxx: "+lastStepIndex);
+						document.getElementById("myBar").style.display = "none"; 
+					}
+
+			//this.$store.state.autoPlayStepS=177;
 				console.log("t="+t);
 				  var id = setInterval(frame, t);
 				  function frame() {
@@ -220,12 +256,37 @@ export default {
 					// Bar
 			//		move (5);
 			   }, i*this.autoplaySpeed, steps, aps);
+				// ***************** /AUTOPLAY ************************************************************
+				myIntervalArray.push.myInterval;
+
+				//var foo = function (op) { clearInterval(ap); };
+
+				console.log("j outside: "+j);
+				//this.apObject=ap;
+				console.log("xxxx i: "+i);
+
+				//clearInterval (myInterval);
+				console.log("autoPlayStep: "+this.autoPlayStep);
+				if (j==3) {
+				//clearInterval (ap);
+				console.log("STOOOOOOOOOOOP");
+				}
+				console.log("autoPlayStepS: "+this.$store.state.autoPlayStepS);
 			}
 
+		// ***************** AUTOPLAY /FORMULA LOOP ************************************************************
 		},
 
-// \Autoplay Solution
+// /Autoplay Solution
 
+		stopAutoPlay (myInterval){
+			//alert("STOP");
+			//console.log("MMMMM"+myInterval);
+			//clearInterval (myInterval);
+			//this.$router.go('/examplerepository');
+			location = '/examplerepository'
+
+		},
 // Example Steps
 
 		startSolution () {
@@ -323,6 +384,8 @@ export default {
 			document.getElementById("helpContent").style.display = 'block';;
 			this.helpContentClass="helpBaseContentClass animated flipInY slow";
 			this.helpAvailableButton=false;
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
        var audio = document.getElementById("audiohelp");
        audio.play();
 		},
@@ -438,7 +501,7 @@ export default {
 		);
 
 		// Theory 
-		var link=`http://${this.$store.state.serverhost}/getformula/${this.id}/9999`;
+		var link=`http://${this.$store.state.serverhost}/getformula/${this.id}/9998`;
 		axios.get(link).then(
 			response => {
 				const data = response.data;
@@ -511,6 +574,6 @@ background:#ffb90c;
 #myBar {
   width: 1%;
   height: 5px;
-  background-color: #4CAF50;
+  background-color: #001eaf;
 }
 </style >

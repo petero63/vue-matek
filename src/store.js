@@ -13,6 +13,7 @@ export default new Vuex.Store({
 	state: {
 		//serverhost:"www.knxplaza.com/api",
 		serverhost:"localhost:3000",
+		autoPlayStepS:99,
 		pageContent:"",
 		n:1,
 		asyncCallCounter:0,

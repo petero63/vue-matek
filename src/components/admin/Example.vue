@@ -141,8 +141,8 @@ export default {
 
 			const formData = {
 				pageContent: this.pageContent,
-				//id: this.currentId,
-				id: 1,
+				id: this.currentExampleId,
+				//id: 1,
 				//content: this.content,
 			}
 			this.$store.dispatch('exampletextadd', formData)
@@ -317,33 +317,28 @@ export default {
 				this.pageContent=data.pageContent;
 			}
 		);
-		//this.example.pageContent="mmm";
-		//this.pageContent=this.example.pageContent;
-		//this.pageContent="mmm";
-		//this.pageContent=example.pageContent;
-		// A store asyncCallCouter változójának fegyelése: Ha változik renderelem a táblázatot!
+		// A store asyncCallCouter változójának figyelése: Ha változik renderelem a táblázatot!
 		this.$store.watch(this.$store.getters.getAsyncCallCounterET, asyncCallCounterET => { 
 			this.renderExampleText(this.$route.params.id);
 			console.log("Example Text Async Call with id: "+this.$route.params.id);
 		});
 
-		//this.$store.watch(this.$store.getters.getXxx, xxx => { 
 		this.$store.watch(this.$store.getters.getPageContent, pageContent => { 
 			this.example.pageContent=this.$store.state.pageContent;
 			this.showFormContainerExampleText=false;
 			//console.log("Example Text Async Call with xxx ");
 		});
 		// /EXAMPLE TEXT 
+
 		// EXAMPLE STEP
 		// ********* STORE WATCH TESTER ***********
-  		//setInterval(() => { this.$store.state.n++ }, 1000)
 	   this.$store.watch(this.$store.getters.getN, n => { 
 			console.log('watched: ', n); 
 			//this.pageContent=n;
 		})
 		// ********* STORE WATCH TESTER ***********
 
-		// A store asyncCallCouter változójának fegyelése: Ha változik renderelem a táblázatot!
+		// A store asyncCallCouter változójának figyelése: Ha változik renderelem a táblázatot!
 		this.$store.watch(this.$store.getters.getAsyncCallCounter, asyncCallCounter => { 
 			this.renderExampleStepTable();
 			console.log("Example Step Async Call with id: "+this.$route.params.id);

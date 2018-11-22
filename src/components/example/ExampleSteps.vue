@@ -1,9 +1,7 @@
 <template>
 <div>
 
-	<div class="container, gap">
 		<div class="alert alert-info"><h4>Példa megoldása</h4> </div>
-	</div>
 <!-- Example Text-->
 
 	<div class="alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=example.pageContent ></div>

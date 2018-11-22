@@ -7,8 +7,8 @@
 
 		<button class="btn btn-success" @click="goExampleText()">Új példa hozzáadása!</button>
 		<ul>
-			<li role="presentation"><router-link to="/adminexamplelist/1">&nbsp;Érettségi 2016 &nbsp;</router-link></li>
-			<li role="presentation"><router-link to="/adminexamplelist/1">&nbsp;Érettségi 2017 &nbsp;</router-link></li>
+			<li role="presentation"><router-link to="/adminexamplelist/9">&nbsp;Érettségi 2017 &nbsp;</router-link></li>
+			<li role="presentation"><router-link to="/adminexamplelist/11">&nbsp;Érettségi 2016 &nbsp;</router-link></li>
 			<li role="presentation"><router-link to="/adminexample/1">&nbsp;Example 1&nbsp;</router-link></li>
 			<li role="presentation"><router-link to="/adminexample/84">&nbsp;Example 84&nbsp;</router-link></li>
 			<li role="presentation"><router-link to="/adminexample/420">&nbsp;Example 420&nbsp;</router-link></li>

@@ -2,6 +2,7 @@
 node_modules
 /dist
 /public/MathJax
+/public/images
 /public/tinymce
 /public/tiny_mce_3_4_7
 /public/mathtype-generic

@@ -236,8 +236,7 @@ export default {
 		},
 
 		renderExampleStepTable (){
-			let link="http://"+this.$store.state.serverhost+"/getformulas/"+this.currentExampleId;
-			//let link="http://localhost:3000/getformulas/"+this.currentExampleId;
+			let link="http://"+this.$store.state.serverhost+"/getadminformulas/"+this.currentExampleId;
 
 			axios .get(link) .then(
 				response => {

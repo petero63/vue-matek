@@ -19,6 +19,8 @@ dotenv.config()
 export default {
 	data() {
 		return {
+			idBook:9,
+			pageDate:'2017-05-09',
 			steps:[],
 		}
 	},
@@ -33,8 +35,10 @@ mounted() {
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+		this.idBook=this.$route.params.idBook;
+		this.pageDate=this.$route.params.pageDate;
 
-		var link=`http://${this.$store.state.serverhost}/examplelist/9`;
+		var link=`http://${this.$store.state.serverhost}/examplelist/${this.idBook}`;
 		axios.get(link) .then(
 			response => {
 				//console.log(response);

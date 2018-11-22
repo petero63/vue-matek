@@ -2,7 +2,11 @@
 <div id="app">
 
 <!-- Container (Navbar) -->
+<div class="container">
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #000066;">
+<a class="navbar-brand" href="#">
+    <img src="/images/start1.svg" width="30" height="30" alt="">
+  </a>
   <a class="navbar-brand" href="/">Math Reference</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -28,11 +32,16 @@
     </ul>
   </div>
 </nav>
+</div>
 <!-- Container (/Navbar) -->
 <hr>
 <div>Counter is: {{scounter}} Token: {{token}} Async Call Counter {{asyncCallCounter}}</div>
 	<router-view></router-view>
 <hr>
+<div class="jumbotron">
+  <h3>Szegedi Tudományegyetem</h3>
+  <p>Természettudományi és Informatikai Kar</p>
+</div>
 </div>
 </template>
 
@@ -98,6 +107,18 @@ goToPage(page,id) {
 	color: #2c3e50;
 	margin-top: 10px;
 
+}
+.jumbotron {
+    padding: 0.5em 0.6em;
+    h1 {
+        font-size: 2em;
+    }
+    p {
+        font-size: 1.2em;
+        .btn {
+            padding: 0.5em;
+        }
+    }
 }
 .hideFormula { display: none; }
 .actionbuttons { 

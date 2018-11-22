@@ -1,16 +1,37 @@
 <template>
 	<div>
 
-	<div class="container, gap">
 		<div class="alert alert-info"><h4>Példatár</h4> </div>
-	</div>
-		<ul>
-			<li role="presentation"><router-link to="/examplelist/1">&nbsp;Érettségi 2016 &nbsp;</router-link></li>
-			<li role="presentation"><router-link to="/examplelist/1">&nbsp;Érettségi 2017 &nbsp;</router-link></li>
-			<li role="presentation"><router-link to="/examplesteps/1">&nbsp;Example 1&nbsp;</router-link></li>
-			<li role="presentation"><router-link to="/examplesteps/84">&nbsp;Example 84&nbsp;</router-link></li>
-			<li role="presentation"><router-link to="/examplesteps/420">&nbsp;Example 420&nbsp;</router-link></li>
-		</ul>
+
+<div class="alert alert-primary" role="alert">
+  <router-link to="/examplelist/1">ÉRETTSÉGI FELADATOK</router-link>
+</div>
+<div class="alert alert-secondary" role="alert">
+  <router-link to="/examplelist/9">Érettségi 2017 [május]</router-link>
+</div>
+
+<div class="alert alert-secondary" role="alert">
+<router-link to="/examplelist/11">Érettségi 2016 [május]</router-link>
+</div>
+
+<div class="alert alert-primary" role="alert">
+  <router-link to="/examplelist/1">MINTAPÉLDÁK</router-link>
+</div>
+<div class="alert alert-secondary" role="alert">
+<router-link to="/examplesteps/1">1. Mintapélda</router-link>
+</div>
+
+<div class="alert alert-secondary" role="alert">
+<router-link to="/examplesteps/84">2. Mintapélda</router-link>
+</div>
+
+<div class="alert alert-secondary" role="alert">
+<router-link to="/examplesteps/420">3. Mintapélda</router-link>
+</div>
+
+<div class="alert alert-secondary" role="alert">
+<router-link to="/examplesteps/401">Mértani sorozat példa</router-link>
+</div>
 	</div>
 </template>
 

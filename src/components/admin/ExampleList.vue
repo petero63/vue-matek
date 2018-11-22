@@ -29,7 +29,6 @@ mounted() {
 
 		let link=`http://${this.$store.state.serverhost}/examplelist/9`;
 		axios.get(link) .then(
-		//axios.get('http://localhost:3000/examplelist/9') .then(
 			response => {
 				//console.log(response);
 				var steps=[];
@@ -47,6 +46,9 @@ mounted() {
 
 			}
 		);
+
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 			}
 
 }

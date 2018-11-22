@@ -1,6 +1,5 @@
 <template>
 <div>
-	<div class="container">
 
 <!-- Container (Carusel) -->
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -34,6 +33,8 @@
   </a>
 </div>
 <!-- Container (/Carusel) -->
+	<div class="container">
+
 		<div class="alert alert-info"><h4>Matematika példák megoldása interaktív módon</h4> </div>
 		<div class="animated zoomIn contentText"> 
 		<div class="text-justify">
@@ -54,7 +55,6 @@
 		<p>A példa megoldásához szükséges elméleti tudást  megtekinthető a <img src='/images/theory1.svg' width='30px' hspace='5px'>gomb rákattintásával, ugyanez elrejthető a <img src='/images/theory0.svg' width='30px' hspace='5px'>gombal</p>
 		<p>A példa megoldásának menete automatikusan is lejátszható  a <img src='/images/autoplay.svg' width='30px' hspace='5px'> gomba segítségével.</p>
 		</div>
-		<button type="button" class="btn btn-danger"><p>Figyelem!!!</p> A példák megoldásának ez a módja nem helyettesíti a papírt és a ceruzát!!!</button>
 		</div>
 
 	</div>

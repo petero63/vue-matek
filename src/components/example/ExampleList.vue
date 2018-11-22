@@ -3,7 +3,10 @@
 <div class="alert alert-info">Feladatok listája</div>
 			<div v-for="(item, index) in steps" v-bind:id="index" >
 				<div v-html=item.page_date></div>
-				<div class="mousepointer alert alert-primary mathFormulaText border-primary" v-html=item.pageContent v-on:click="goToExample(item.id)"></div>
+				<div class="mousepointer alert alert-primary mathFormulaText border-primary" >
+					<div ><b>{{item.exercise_book_number}}.</b></div>
+					<div v-html=item.pageContent v-on:click="goToExample(item.id)"></div>
+				</div>
 		</div>
 </div>
 

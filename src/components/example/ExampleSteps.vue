@@ -1,14 +1,13 @@
 <template>
 <div>
 
-		<div class="alert alert-info"><h4>Példa megoldása</h4> </div>
 <!-- Example Text-->
 
 	<div class="alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=example.pageContent ></div>
 <!-- Example Text-->
 
 <!-- Example Steps-->
-<h2>Példa lépések</h2>
+<h5>Megoldás menete:</h5>
 <div v-show="showExampleStepsContainer" id="exampleStepsContainer" class="animated zoomIn">
 		<div class="mathFormula animated zoomIn">
 			<div 
@@ -42,15 +41,15 @@
 
 <img v-bind:src="'/images/'+imgBtnTheory" width="40px" @click="toggleTheory()" class="actionbuttons"/>
 
-<button type="button" class="btn btn-primary" @click="speedUp()">+</button>
-<div class="d-inline-block p-3" v-html=speed></div>
-<button type="button" class="btn btn-primary" @click="speedDown()">-</button>
 </div>
-
-<button type="button" class="btn btn-primary" @click="stopAutoPlay()">Stop Autoplay</button>
 <!-- /Buttons-->
 
-
+<div>
+	Automatikus lejátszás sebessége:</br>
+<button type="button" class="btn btn-primary" @click="speedUp()">+</button>&nbsp;&nbsp;
+<span class="d-inline-block p-3" v-html=speed></span>
+&nbsp;&nbsp;<button type="button" class="btn btn-primary" @click="speedDown()">-</button>
+</div>
 
 <!-- Example Solution-->
 	<div class="alert alert-success border-success animated flipInY slow" v-show="showSolutionContainer">
@@ -525,10 +524,14 @@ export default {
 .solution {   }
 .test { background-color:blue;  }
 .result {color:#009900;cursor:default;}
-.mathFormulaText { font-size: 1.2em; color:#333333;cursor: pointer; }
-.mathFormula { font-size: 3.4em; color:#333333;cursor: pointer; }
+.mathFormulaText { font-size: 1.5em; color:ff0000;cursor: pointer; }
+.mathFormula { font-size: 2.6em; color:#333333;cursor: pointer; }
+.test { font-size: 3.4em; color:#333333;cursor: pointer; }
+	
+#xxx { background:#ff0000; }
 
-.showFormula { display: block; margin-top:-30px; margin-bottom:-25px }
+.showFormulax { display: block; margin-top:-30px; margin-bottom:-25px }
+.showFormula { display: block; }
 .hideFormula { display: none; }
 .marski { 
 display: none; 

@@ -1,19 +1,14 @@
 <template>
 <div id="app">
-
-<!-- Container (Navbar) -->
-<div class="container">
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #000066;">
-<a class="navbar-brand" href="#">
-    <img src="/images/start1.svg" width="30" height="30" alt="">
-  </a>
-  <a class="navbar-brand" href="/">Math Reference</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+<!-- Navbar Container  -->
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #122891;">
+  <a class="navbar-brand" href="/">SZTE TTIK</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+  <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active"> <a class="nav-link" href="/#" @click="goToPage('/')">Címoldal <span class="sr-only">(current)</span></a> </li>
+      <li class="nav-item active"> <a class="nav-link" href="#" @click="goToPage('/')">Címoldal <span class="sr-only">(current)</span></a> </li>
       <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('examplesteps',1)">Mintapélda</a> </li>
       <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('examplerepository')">Példatár</a> </li>
       <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('teacher')">Tanár</a> </li>
@@ -32,23 +27,20 @@
     </ul>
   </div>
 </nav>
-</div>
-<!-- Container (/Navbar) -->
-<hr>
-<div>Counter is: {{scounter}} Token: {{token}} Async Call Counter {{asyncCallCounter}}</div>
+<!-- Navbar Container  -->
+
+<div class="container">
 	<router-view></router-view>
-<hr>
 <div class="jumbotron">
   <h3>Szegedi Tudományegyetem</h3>
   <p>Természettudományi és Informatikai Kar</p>
+</div>
 </div>
 </div>
 </template>
 
 <script>
 import axios from 'axios';
-import Tutorial from './components/Tutorial.vue';
-import Header from './components/Header.vue';
 //import ExampleSteps from './components/example/ExampleSteps.vue';
 //import ExampleSolution from './components/example/ExampleSolution.vue';
 
@@ -59,7 +51,6 @@ console.log("Done OK");
 export default {
 	name: 'app',
         components: {
-            appHeader: Header
         },
 	data () {
 		return {
@@ -105,7 +96,6 @@ goToPage(page,id) {
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
-	margin-top: 10px;
 
 }
 .jumbotron {

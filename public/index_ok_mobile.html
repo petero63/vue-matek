@@ -1,12 +1,7 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Theme Made By www.w3schools.com - No Copyright -->
-<title>Bootstrap Theme Company Page</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+	<meta charset="UTF-8">
 <!-- *************** Bootsrap *****************--> 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -57,38 +52,51 @@ tinymce.init({
 </script>
 -->
 <!-- /*************** Tiny MCE *****************--> 
+
+<script>
+ window.onbeforeunload = function() {
+        return "Dude, are you sure you want to leave? Think of the kittens!";
+   }
+</script>
 </head>
-<body>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#myPage"><span class="glyphicon glyphicon-ok-circle"></span>Math Reference</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#services">SERVICES</a></li>
+        <li><a href="#portfolio">PORTFOLIO</a></li>
+        <li><a href="#pricing">PRICING</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <div class="container">
+  <div class="jumbotron">
+    <h1>Bootstrap Tutorial</h1>
+    <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing
+    responsive, mobile-first projects on the web.</p>
+  </div>
+  <p>This is some text.</p>
+  <p>This is another text.</p>
+</div>
+
 <!-- Container (App) -->
-<div class="row">
-<div class="col-sm-12">
 <div id="app"></div>
-</div>
-</div>
 <!-- Container (App) -->
-
-<!-- /*************** Math Type *****************--> 
-<!-- 
-<div id="editorContainer">
-            <div id="toolbarLocation"></div>
-            <div id="example" contenteditable="true">Try me!</div>
-            <div id="example2" contenteditable="true"></div>
-        </div>
-
-<textarea id="example" contenteditable="true" name="comment" form="usrform"></textarea>
-<textarea id="myTextarea1" contenteditable="true" name="comment" form="usrform"></textarea>
-<textarea id="myTextarea2" contenteditable="true" name="comment" form="usrform"></textarea>
-<br>
-This is an image:
-<img style="max-width: none; vertical-align: -4px;" class="Wirisformula" src="data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Awrs%3D%22http%3A%2F%2Fwww.wiris.com%2Fxml%2Fcvs-extension%22%20height%3D%2219%22%20width%3D%2213%22%20wrs%3Abaseline%3D%2215%22%3E%3C!--MathML%3A%20%3Cmath%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%3E%3Cmo%3Ex%3C%2Fmo%3E%3C%2Fmath%3E--%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%2F%3E%3C%2Fdefs%3E%3Ctext%20font-family%3D%22Arial%22%20font-size%3D%2216%22%20text-anchor%3D%22middle%22%20x%3D%226.5%22%20y%3D%2215%22%3Ex%3C%2Ftext%3E%3C%2Fsvg%3E" data-mathml="«math»«mo»x«/mo»«/math»" alt="x" role="math" width="13" height="19" align="middle"/>
-<textarea id="myTextarea3" contenteditable="true" name="comment" form="usrform"></textarea>
--->
-
-<!-- /*************** Math Type *****************--> 
 </body>
-
-<!-- /*************** Math Type *****************--> 
-
-<!-- /*************** Math Type *****************--> 
 </html>
+
+

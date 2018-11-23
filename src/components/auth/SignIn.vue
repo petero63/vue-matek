@@ -1,50 +1,82 @@
 <template>
-  <div id="signin">
+	<div id="signin">
 
-	<div class="container, gap">
-		<div class="alert alert-info"><h4>Bejelentkezés</h4> </div>
+		<div class="alert alert-info"><h4>{{title}}</h4> </div>
+
+		<div class="alert alert-danger"><h4>token: {{this.$store.state.idToken}} userId: {{this.$store.state.userId}}</h4> </div>
+
+		<div class="container, gap" v-show="showSignInForm">
+			<button type="button" class="btn btn-primary" @click="signIn()">SignIn</button>
+			<button type="button" class="btn btn-primary" @click="xxx()">Read Store</button>
+
+			<div class="signin-form">
+				<form @submit.prevent="onSubmit">
+					<div class="input">
+						<label for="email">Mail</label>
+						<input
+				 type="email"
+	  id="email"
+	v-model="email">
+					</div>
+
+					<div class="input">
+						<label for="password">Password</label>
+						<input
+				 type="password"
+	  id="password"
+	v-model="password">
+					</div>
+
+					<div class="submit">
+						<button type="submit">Bejelentkezés</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
 	</div>
-<button type="button" class="btn btn-primary" @click="signIn()">SignIn</button>
-    <div class="signin-form">
-      <form @submit.prevent="onSubmit">
-        <div class="input">
-          <label for="email">Mail</label>
-          <input
-                  type="email"
-                  id="email"
-                  v-model="email">
-        </div>
-        <div class="input">
-          <label for="password">Password</label>
-          <input
-                  type="password"
-                  id="password"
-                  v-model="password">
-        </div>
-        <div class="submit">
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
-  </div>
 </template>
 
 <script>
   export default {
     data () {
       return {
+			signedIn:false,
+		title: 'Az oldal megtekintéséhez be kell jelentkeznie!',
+        showSignInForm: true,
         email: '',
         password: ''
       }
     },
     methods: {
+
+	  signIn () {
+		  //alert("otto");
+			this.$store.state.storeCounter=333;
+			this.$store.state.idToken="dfkjasd4234KDljfsaldkx";
+
+	  },
+
+	  xxx () {
+		  //alert("otto");
+			console.log("idToken: "+this.$store.state.idToken);
+			console.log("xxx: "+this.$store.state.xxx);
+	  },
       onSubmit () {
         const formData = {
           email: this.email,
           password: this.password,
         }
         console.log(formData)
-        this.$store.dispatch('login', {email: formData.email, password: formData.password})
+        this.$store.dispatch('signin', {email: formData.email, password: formData.password})
+			if (formData.email==formData.password) {
+				this.$store.state.idToken="dfkjasd4234KDljfsaldkx";
+				this.title="Sikeres bejelentkezés";
+				this.showSignInForm=false;
+			}
+			else {
+				this.title="Sikertelen bejelentkezés";
+			}
       }
     }
   }

@@ -11,8 +11,9 @@ Vue.use(Vuex)
 //export default new Vuex.Store({
 export default new Vuex.Store({
 	state: {
-		serverhost:"www.knxplaza.com/api",
-		//serverhost:"localhost:3000",
+		xxx:888,
+		//serverhost:"www.knxplaza.com/api",
+		serverhost:"localhost:3000",
 		//autoPlayStepS:99,
 		pageContent:"",
 		n:1,
@@ -25,6 +26,7 @@ export default new Vuex.Store({
 		signup:null,
 		saveStatus:null, saveStatusText:null,
 		steps:[]
+
 
 	},
 	mutations: {
@@ -87,7 +89,6 @@ export default new Vuex.Store({
 			})
 				.then(function (response) {
 
-					console.log("itt vagyok");
 					state.saveStatus =response.status; 
 					state.saveStatusText =response.statusText; 
 
@@ -102,7 +103,7 @@ export default new Vuex.Store({
 					//		console.log("Response: "+response);
 					//console.log("Store");
 					//console.log(state);
-					state.idToken++; 
+					//state.idToken++; 
 
 				})
 				.catch(function (error) {
@@ -114,6 +115,80 @@ export default new Vuex.Store({
 		// /EXAPMLE  
 
 		// USERS
+		// Sign In 
+		signin ({commit, state, dispatch}, formData) {
+			//console.log(formData);
+
+			//console.log("store.js : "+localStorage.getItem('xxx'));
+			//state.xxx=333;
+			//console.log("store.js talan1: "+state.xxx);
+			let link=`http://${this.state.serverhost}/signin`;
+			axios.post(link, {
+				email: formData.email,
+				password: formData.password, 
+			})
+				.then(function (res) {
+					console.log("ooooo");
+					//console.log(res.data.token);
+					//console.log(res.data.token);
+					//console.log(res.data.token);
+					console.log(res.data);
+					var uuu="{'token': 'dkfj;lakdsjfkl;asdkf'}"
+					var yyy = JSON.parse(res.data);
+					//var yyy = JSON.parse(uuu);
+					//var test="{'token':'eyJhbGciOiJIUzI1NiJ9.eyBlbWFpbDogJ3BldGVyLm90dG9AZ21haWwuY29tJyB9.UrQ5ixNl04bsl_Y9gezd6n5qBzaYFyEggCSkn96ZFUE'}";
+					var test='{ "token":"kjlfksdafj;asd", "age":30, "city":"New York"}';
+					var yyy=JSON.parse('{ "token":"kjlfksdafj;asd", "age":30, "city":"New York"}');
+					var yyy=JSON.parse(test);
+					console.log("Talan most");
+					console.log(yyy.token);
+			 		const now = new Date();
+			 		//const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000)
+					// 60 percig érvényes
+			 		const expirationDate = new Date(now.getTime() + 3600);
+			 		//localStorage.setItem('idToken', res.data.token);
+					//console.log("Itt vagyok xxx");
+			 		//localStorage.setItem('userId', 999);
+					//console.log("storageToketnn: "+this.state.idToken);
+					//console.log("storageToketnn: "+localStorage.getItem('idToken'));
+					// //state.idToken=res.data.token;
+					//state.idToken="dsfklja;sdlkjf;adsjk";
+					//state.xxx=333222;
+					//console.log("store.js talan2: "+state.xxx);
+				//	console.log("store.js xxx: "+localStorage.getItem('xxx'));
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+		},
+
+/*
+ // TUTORIAL SIGN IN
+
+	 login ({commit, dispatch}, authData) {
+		axios.post('/verifyPassword?key=AIzaSyCXlVPPWknVGhfc60mt7Jkv0Xzrho7_mwc', {
+		  email: authData.email,
+		  password: authData.password,
+		  returnSecureToken: true
+		})
+		  .then(res => {
+			 console.log(res)
+			 const now = new Date()
+			 const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000)
+			 localStorage.setItem('token', res.data.idToken)
+			 localStorage.setItem('userId', res.data.localId)
+			 localStorage.setItem('expirationDate', expirationDate)
+			 commit('authUser', {
+				token: res.data.idToken,
+				userId: res.data.localId
+			 })
+			 dispatch('setLogoutTimer', res.data.expiresIn)
+		  })
+		  .catch(error => console.log(error))
+	 },
+ // TUTORIAL SIGN IN
+*/
+		// Sign Up 
 		signup ({commit, dispatch}, formData) {
 			console.log(formData);
 			let link=`http://${this.state.serverhost}/useradd`;
@@ -170,6 +245,7 @@ export default new Vuex.Store({
 		  })
 		  .catch(error => console.log(error))
 	 },
+// LOG IN
 	 login ({commit, dispatch}, authData) {
 		axios.post('/verifyPassword?key=AIzaSyCXlVPPWknVGhfc60mt7Jkv0Xzrho7_mwc', {
 		  email: authData.email,

@@ -1,6 +1,7 @@
 <template>
 	<div class="container, gap">
 		<div class="alert alert-info"><h4>Diákok listája</h4> </div>
+		<div><h3>Ezt csak akkor látod ha bejelentkeztél</h3> </div>
 	</div>
 </template>
 

@@ -68,9 +68,10 @@
 
 <!-- Footer-->
 <div class="alert alert-info">
-<span @click="goToPage('examplerepository')" class="mousepointer">Példatár</span>
-<span @click="goToPage('examplelist/9')" class="mousepointer">Érettségi 2017</span>
-<span @click="goToPage('examplelist/11')" class="mousepointer">Érettségi 2016</span>
+<span @click="goToPage('')" class="mousepointer">[ Címoldal ]</span>
+<span @click="goToPage('examplerepository')" class="mousepointer">[ Példatár ]</span>
+<span @click="goToPage('examplelist/9')" class="mousepointer">[ Érettségi 2017 ]</span>
+<span @click="goToPage('examplelist/11')" class="mousepointer">[ Érettségi 2016 ]</span>
 
 </div>
 <!-- /Footer-->
@@ -140,11 +141,6 @@ goToPage(page,id) {
 	}
 	
 },
-	  signIn () {
-		  //alert("otto");
-			this.$store.state.storeCounter=333;
-			this.$store.state.idToken="dfkjasd4234KDljfsaldkx";
-	  },
 
 		speedUp () { 
 			this.autoplaySpeed=this.autoplaySpeed+500;

@@ -1,0 +1,63 @@
+{
+  "_from": "@wiris/mathtype-generic@^7.8.0",
+  "_id": "@wiris/mathtype-generic@7.8.0",
+  "_inBundle": false,
+  "_integrity": "sha512-bWmCNPQCFzTNipSyytzTnLE4g8h2acP+LgV8IXFZc9zYCmhhxanwSQTVs64Wv4cD1lSI69hUKTy6Gql07eWDzg==",
+  "_location": "/@wiris/mathtype-generic",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@wiris/mathtype-generic@^7.8.0",
+    "name": "@wiris/mathtype-generic",
+    "escapedName": "@wiris%2fmathtype-generic",
+    "scope": "@wiris",
+    "rawSpec": "^7.8.0",
+    "saveSpec": null,
+    "fetchSpec": "^7.8.0"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@wiris/mathtype-generic/-/mathtype-generic-7.8.0.tgz",
+  "_shasum": "f2bd651be4b6cc72c68b7e074b0f0824aa8643f5",
+  "_spec": "@wiris/mathtype-generic@^7.8.0",
+  "_where": "/Users/otto/mathreference/vue-mathreference",
+  "author": {
+    "name": "WIRIS Team",
+    "url": "http://www.wiris.com"
+  },
+  "bugs": {
+    "email": "support@wiris.com"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "MathType Web integration for a generic HTML editor",
+  "files": [
+    "core/icons",
+    "core/tutorials",
+    "core/styles.css",
+    "core/styles.src.css",
+    "icons",
+    "lang"
+  ],
+  "homepage": "http://www.wiris.com/",
+  "keywords": [
+    "chem",
+    "chemistry",
+    "chemtype",
+    "editor",
+    "equation",
+    "latex",
+    "math",
+    "maths",
+    "mathml",
+    "mathtype",
+    "wiris"
+  ],
+  "license": "GPL-3.0",
+  "main": "wirisplugin-generic.js",
+  "name": "@wiris/mathtype-generic",
+  "version": "7.8.0"
+}

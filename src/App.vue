@@ -8,13 +8,13 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active"> <a class="nav-link" href="#" @click="goToPage('/')">Címoldal <span class="sr-only">(current)</span></a> </li>
-      <li class="nav-item"> <a class="nav-link" href="" @click="goToPage('examplesteps',1)">Mintapélda</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="" @click="goToPage('examplerepository')">Példatár</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="" @click="goToPage('teacher')">Tanár</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="" @click="goToPage('student')">Diák (Protected)</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="" @click="goToPage('signup')">Sign Up</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="" @click="goToPage('signin')">Sign In</a> </li>
+      <li class="nav-item active"> <a class="nav-link" href="#" @click="goToPage('')">Címoldal <span class="sr-only">(current)</span></a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('examplesteps',1)">Mintapélda</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('examplerepository')">Példatár</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('teacher')">Tanár</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('student')">Diák (Protected)</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('signup')">Sign Up</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('signin')">Sign In</a> </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          Adminisztrációs oldalak 

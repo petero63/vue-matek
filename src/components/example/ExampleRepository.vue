@@ -22,7 +22,7 @@
 </div>
 
 <div class="alert alert-secondary" role="alert">
-<router-link to="/examplesteps/84">2. Mintapélda</router-link>
+<router-link to="/examplesteps/418">2. Mintapélda</router-link>
 </div>
 
 <div class="alert alert-secondary" role="alert">

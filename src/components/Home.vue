@@ -58,14 +58,19 @@
 		</div>
 
 	</div>
+
+<div class="jumbotron">
+  <h3>Szegedi Tudományegyetem</h3>
+  <p>Természettudományi és Informatikai Kar</p>
+</div>
 	</div>
 </template>
 
 <script>
 
 
-			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     export default {
         data() {
             return {

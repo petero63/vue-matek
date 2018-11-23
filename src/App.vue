@@ -2,26 +2,26 @@
 <div id="app">
 <!-- Navbar Container  -->
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #122891;">
-  <a class="navbar-brand" href="/">SZTE TTIK</a>
+  <a class="navbar-brand" href="/">Math Reference</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active"> <a class="nav-link" href="#" @click="goToPage('/')">Címoldal <span class="sr-only">(current)</span></a> </li>
-      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('examplesteps',1)">Mintapélda</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('examplerepository')">Példatár</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('teacher')">Tanár</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('student')">Diák (Protected)</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('signup')">Sign Up</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('signin')">Sign In</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="" @click="goToPage('examplesteps',1)">Mintapélda</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="" @click="goToPage('examplerepository')">Példatár</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="" @click="goToPage('teacher')">Tanár</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="" @click="goToPage('student')">Diák (Protected)</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="" @click="goToPage('signup')">Sign Up</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="" @click="goToPage('signin')">Sign In</a> </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          Adminisztrációs oldalak 
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#" @click="goToPage('adminexamplerepository')">Új példa létrhozása</a>
-          <a class="dropdown-item" href="#" @click="goToPage('adminexamplerepository')">Példák listázása</a>
+          <a class="dropdown-item" href="" @click="goToPage('adminexamplerepository')">Új példa létrhozása</a>
+          <a class="dropdown-item" href="" @click="goToPage('adminexamplerepository')">Példák listázása</a>
         </div>
       </li>
     </ul>
@@ -29,13 +29,12 @@
 </nav>
 <!-- Navbar Container  -->
 
+<!-- Router Container  -->
 <div class="container">
 	<router-view></router-view>
-<div class="jumbotron">
-  <h3>Szegedi Tudományegyetem</h3>
-  <p>Természettudományi és Informatikai Kar</p>
 </div>
-</div>
+<!-- /Router Container  -->
+
 </div>
 </template>
 

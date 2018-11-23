@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /dist
-/public/MathJax
+/public/mathjax
 /public/images
 /public/tinymce
 /public/tiny_mce_3_4_7

@@ -62,7 +62,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(item, index) in this.$store.state.steps">
-							<td>{{item.sort_order}}</td>
+							<td v-on:click="editStep(item.index)" class="mousepointer">{{item.sort_order}}</td>
 							<td><div v-html=item.formula v-on:click="editStep(item.index)" class="mathFormula"></div></td>
 							<td v-html=item.help></td>
 							<td>{{item.nl}}</td>

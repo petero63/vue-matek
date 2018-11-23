@@ -42,14 +42,15 @@
 <img v-bind:src="'/images/'+imgBtnTheory" width="40px" @click="toggleTheory()" class="actionbuttons"/>
 
 </div>
-<!-- /Buttons-->
 
-<div>
+<div v-if="speedControlVisible" >
 	Automatikus lejátszás sebessége:</br>
 <button type="button" class="btn btn-primary" @click="speedUp()">+</button>&nbsp;&nbsp;
 <span class="d-inline-block p-3" v-html=speed></span>
 &nbsp;&nbsp;<button type="button" class="btn btn-primary" @click="speedDown()">-</button>
 </div>
+
+<!-- /Buttons-->
 
 <!-- Example Solution-->
 	<div class="alert alert-success border-success animated flipInY slow" v-show="showSolutionContainer">
@@ -65,6 +66,14 @@
 	</div>
 <!-- Example Theory-->
 
+<!-- Footer-->
+<div class="alert alert-info">
+<span @click="goToPage('examplerepository')" class="mousepointer">Példatár</span>
+<span @click="goToPage('examplelist/9')" class="mousepointer">Érettségi 2017</span>
+<span @click="goToPage('examplelist/11')" class="mousepointer">Érettségi 2016</span>
+
+</div>
+<!-- /Footer-->
 </div>
 </template>
 
@@ -85,6 +94,7 @@ export default {
 			autoPlayStep:0,
 			id:1,
 			counter:88,
+			speedControlVisible:false,
 			startBtnVisible:true,
 			restartBtnVisible:false,
 			autoPlayBtnVisible:true,
@@ -121,6 +131,15 @@ export default {
 	},
 	methods: {
 
+goToPage(page,id) {
+	//this.$router.push({ path: '/examplesteps/'+id });
+	//this.$router.push({ path: page });
+	this.$router.push({ path: `/${page}` });
+	if (id>0) {
+	this.$router.push({ path: `/${page}/${id}` });
+	}
+	
+},
 	  signIn () {
 		  //alert("otto");
 			this.$store.state.storeCounter=333;
@@ -521,6 +540,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.mousepointer {
+cursor: pointer;
+padding: 5px;
+}
 .solution {   }
 .test { background-color:blue;  }
 .result {color:#009900;cursor:default;}

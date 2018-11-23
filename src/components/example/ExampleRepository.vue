@@ -3,9 +3,7 @@
 
 		<div class="alert alert-info"><h4>Példatár</h4> </div>
 
-<div class="alert alert-primary" role="alert">
-  <router-link to="/examplelist/1">ÉRETTSÉGI FELADATOK</router-link>
-</div>
+<div class="alert alert-primary" role="alert">ÉRETTSÉGI FELADATOK</div>
 <div class="alert alert-secondary" role="alert">
   <router-link to="/examplelist/9">Érettségi 2017 [május]</router-link>
 </div>
@@ -14,9 +12,7 @@
 <router-link to="/examplelist/11">Érettségi 2016 [május]</router-link>
 </div>
 
-<div class="alert alert-primary" role="alert">
-  <router-link to="/examplelist/1">MINTAPÉLDÁK</router-link>
-</div>
+<div class="alert alert-primary" role="alert"> MINTAPÉLDÁK</div>
 <div class="alert alert-secondary" role="alert">
 <router-link to="/examplesteps/1">1. Mintapélda</router-link>
 </div>

@@ -12,14 +12,16 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 	state: {
 		xxx:888,
-		//serverhost:"www.knxplaza.com/api",
-		serverhost:"localhost:3000",
+		serverhost:"www.knxplaza.com/api",
+		//serverhost:"localhost:3000",
 		//autoPlayStepS:99,
 		pageContent:"",
 		n:1,
 		asyncCallCounter:0,
 		asyncCallCounterET:0,
 		storeCounter: 444,
+		signedIn:false,
+		signedInMessage:"",
 		idToken: null,
 		userId: null,
 		user: null,
@@ -128,34 +130,14 @@ export default new Vuex.Store({
 				password: formData.password, 
 			})
 				.then(function (res) {
-					console.log("ooooo");
-					//console.log(res.data.token);
-					//console.log(res.data.token);
-					//console.log(res.data.token);
-					console.log(res.data);
-					var uuu="{'token': 'dkfj;lakdsjfkl;asdkf'}"
-					var yyy = JSON.parse(res.data);
-					//var yyy = JSON.parse(uuu);
-					//var test="{'token':'eyJhbGciOiJIUzI1NiJ9.eyBlbWFpbDogJ3BldGVyLm90dG9AZ21haWwuY29tJyB9.UrQ5ixNl04bsl_Y9gezd6n5qBzaYFyEggCSkn96ZFUE'}";
-					var test='{ "token":"kjlfksdafj;asd", "age":30, "city":"New York"}';
-					var yyy=JSON.parse('{ "token":"kjlfksdafj;asd", "age":30, "city":"New York"}');
-					var yyy=JSON.parse(test);
-					console.log("Talan most");
-					console.log(yyy.token);
+					console.log(res.data.token);
 			 		const now = new Date();
 			 		//const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000)
 					// 60 percig érvényes
 			 		const expirationDate = new Date(now.getTime() + 3600);
-			 		//localStorage.setItem('idToken', res.data.token);
-					//console.log("Itt vagyok xxx");
-			 		//localStorage.setItem('userId', 999);
-					//console.log("storageToketnn: "+this.state.idToken);
-					//console.log("storageToketnn: "+localStorage.getItem('idToken'));
-					// //state.idToken=res.data.token;
-					//state.idToken="dsfklja;sdlkjf;adsjk";
-					//state.xxx=333222;
-					//console.log("store.js talan2: "+state.xxx);
-				//	console.log("store.js xxx: "+localStorage.getItem('xxx'));
+					state.idToken=res.data.token;
+					if (res.data.token=="") { state.signedIn=false; }
+					else { state.signedIn=true;}
 				})
 				.catch(function (error) {
 					console.log(error);
@@ -328,6 +310,7 @@ export default new Vuex.Store({
 		getAsyncCallCounter: state =>() => state.asyncCallCounter,
 		getAsyncCallCounterET: state =>() => state.asyncCallCounterET,
 		getPageContent: state =>() => state.pageContent,
+		getSignedIn: state =>() => state.signedIn,
 		//		getN (state) { return state.n}
 		//		getN(state) { //return state.n },
 

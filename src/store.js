@@ -12,8 +12,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 	state: {
 		xxx:888,
-		serverhost:"www.knxplaza.com/api",
-		//serverhost:"localhost:3000",
+		//serverhost:"www.knxplaza.com/api",
+		serverhost:"localhost:3000",
 		//autoPlayStepS:99,
 		pageContent:"",
 		n:1,

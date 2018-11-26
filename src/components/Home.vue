@@ -67,8 +67,6 @@
 </template>
 
 <script>
-
-
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     export default {

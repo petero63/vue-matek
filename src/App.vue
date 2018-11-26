@@ -12,7 +12,7 @@
       <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('examplesteps',1)">Mintapélda</a> </li>
       <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('examplerepository')">Példatár</a> </li>
       <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('teacher')">Tanár</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('student')">Diák (Protected)</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('dashboard')">Vezérlőpult</a> </li>
       <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('signup')">Sign Up</a> </li>
       <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('signin')">Sign In</a> </li>
       <li class="nav-item dropdown">

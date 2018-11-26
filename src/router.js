@@ -12,6 +12,9 @@ import ExampleSteps from './components/example/ExampleSteps.vue'
 import ExampleList from './components/example/ExampleList.vue'
 import Student from './components/student/Student.vue';
 import Teacher from './components/teacher/Teacher.vue';
+import DashBoard from './components/auth/DashBoard.vue';
+import EventList from './components/auth/EventList.vue';
+import EventExamples from './components/auth/EventExamples.vue';
 
 //ADMIN
 import AdminExample from './components/admin/Example.vue';
@@ -28,21 +31,42 @@ Vue.use(VueRouter)
 { path: '/examplerepository', component: ExampleRepository},
 { path: '/examplesteps/:id', component: ExampleSteps},
 { path: '/examplelist/:idBook', component: ExampleList},
-{ path: '/teacher', component: Teacher},
 { path: '/signup', component: SignUpPage },
 { path: '/signin', component: SignInPage },
+
+{ path: '/eventlist/:id', component: EventList},
+{ path: '/eventexamples/:id', component: EventExamples},
+
 //ADMIN
 { path: '/adminexamplerepository', component: AdminExampleRepository},
 { path: '/adminexample/:id', component: AdminExample },
 { path: '/adminexampletext/:id', component: AdminExampleText },
 { path: '/adminexamplelist/:id', component: AdminExampleList },
+
+//AUTH
 {
-path: '/student',
-		component: Student,
+path: '/dashboard',
+		component: DashBoard,
 		beforeEnter (to, from, next) {
 			if (store.state.idToken) { next() } else { next('/signin') }
 		}
-}
+},
+
+{
+path: '/teacher',
+		component: Teacher,
+		beforeEnter (to, from, next) {
+			if (store.state.idToken) { next() } else { next('/signin') }
+		}
+},
+
+{
+path: '/eventlist/:id',
+		component: EventList,
+		beforeEnter (to, from, next) {
+			if (store.state.idToken) { next() } else { next('/signin') }
+		}
+},
 	];
 
 	export default new VueRouter({mode: 'history', routes})

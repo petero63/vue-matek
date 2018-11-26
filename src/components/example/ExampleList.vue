@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-<div class="alert alert-info">Feladatok listája</div>
+		<div class="alert alert-info"><h4>Feladatok listája</h4> </div>
 			<div v-for="(item, index) in steps" v-bind:id="index" >
 				<div v-html=item.page_date></div>
 				<div class="mousepointer alert alert-primary mathFormulaText border-primary" >

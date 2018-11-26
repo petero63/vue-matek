@@ -39,6 +39,7 @@ export default {
 		}
 	}, //data
 	methods: {
+
 		goExampleText(){
 			this.$router.push({ path: "/adminexampletext/0" }) 
 
@@ -46,12 +47,17 @@ export default {
 		changeName: function() {
 			this.name = 'Flavius'
 		}
-	},//methods
+	}, //methods
+
+	mounted(){
+			//console.log("Mounted");
+  }, //mouted
+
 	watch: {
 		name: function() {
 			//console.log("Changed by watch");
 			//console.log(this.name);
 		}
-	}
+	} //mouted
 }
 </script>

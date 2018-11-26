@@ -1,6 +1,6 @@
 <template>
 	<div>
-
+<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
 	<div class="container, gap">
 		<div class="alert alert-info bg-danger text-white"><h4>Adminisztráció</h4> </div>
 	</div>

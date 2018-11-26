@@ -1,6 +1,6 @@
 <template>
 	<div>
-
+<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
 		<div class="alert alert-danger">Példa Adminsiztráció ID: {{$route.params.id}} ceID: {{currentExampleId}} csID: {{currentStepId}}</div>
 		<div id="example">
 			<div class="example-form">

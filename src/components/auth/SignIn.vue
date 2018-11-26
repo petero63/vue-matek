@@ -1,14 +1,15 @@
 <template>
 	<div id="signin">
 
-		<div class="alert alert-success" v-show=this.$store.state.signedIn><h4>Sikeres bejelentkezés</h4> </div>
+<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
+		<div class="alert alert-success" v-show=this.$store.state.signedIn><h4>Sikeres bejelentkezés</h4> 
+		<button type="button" class="btn btn-primary" @click="goToPage('dashboard')">Vezérlőpult</button>
+		</div>
 		<div class="alert alert-info" v-show=!this.$store.state.signedIn><h4>Az oldal megtekintéséhez be kell jelentkezni!</h4> </div>
 
-		<div class="alert alert-danger"><h4>token: [{{this.$store.state.idToken}}] signedIn: [{{this.$store.state.signedIn}}]</h4> </div>
+		<div class="alert alert-danger token">token: [{{this.$store.state.idToken}}] signedIn: [{{this.$store.state.signedIn}}]</div>
 
 		<div class="container, gap" v-show=!this.$store.state.signedIn>
-			<button type="button" class="btn btn-primary" @click="signIn()">SignIn</button>
-			<button type="button" class="btn btn-primary" @click="xxx()">Read Store</button>
 
 			<div class="signin-form">
 				<form @submit.prevent="onSubmit">
@@ -34,8 +35,14 @@
 				</form>
 
 			</div>
+
+		<div v-show=showWrongLogin><h4>Sikertelen bejelentkezés</h4> </div>
+			<button type="button" class="btn btn-primary" @click="goToPage('signup')">Regisztráció</button>
+
 		</div>
 	</div>
+
+	<div
 </template>
 
 <script>
@@ -45,30 +52,17 @@
 			signedIn:false,
 		title: 'Az oldal megtekintéséhez be kell jelentkeznie!',
         showSignInForm: true,
+        showWrongLogin: false,
         email: '',
         password: ''
       }
-    },
+    }, // data
     methods: {
+	goToPage (page) {
+		this.$router.push({ path: `/${page}` }) 
+	},
 
-	 mounted() {
-		this.$store.watch(this.$store.getters.getSignedIn, signedIn => { 
-			console.log("Async Call");
-		});
-	 },
-	  signIn () {
-		  //alert("otto");
-			this.$store.state.storeCounter=333;
-			this.$store.state.idToken="dfkjasd4234KDljfsaldkx";
-
-	  },
-
-	  xxx () {
-		  //alert("otto");
-			console.log("idToken: "+this.$store.state.idToken);
-			console.log("xxx: "+this.$store.state.xxx);
-	  },
-      onSubmit () {
+   onSubmit () {
         const formData = {
           email: this.email,
           password: this.password,
@@ -86,16 +80,42 @@
 			if (this.$store.state.singedIn) {
 				this.title="Sikertelen bejelentkezés";
 				console.log("KUDARC");
-			}
+		
 
         console.log("signedIn: "+this.$store.state.singedIn)
 			//else { this.title="Sikertelen bejelentkezés"; }
       }
-    }
-  }
+    }, 
+
+  }, //methods
+
+ mounted() {
+//	console.log("Async Call");
+		 /*
+  setInterval(() => { this.$store.state.n++ }, 1000)
+    this.$store.watch(this.$store.getters.getN, n => {
+      console.log('watched: ', n)
+    }),
+	 */
+
+		this.$store.watch(this.$store.getters.getSignedInEmail, signedInEmail => { 
+			console.log("Async Call email");
+			this.showWrongLogin=true;
+		});
+
+		this.$store.watch(this.$store.getters.getSignedIn, signedIn => { 
+			console.log("Async Call");
+		});
+ } // mouted
+
+ }
 </script>
 
 <style scoped>
+.token {
+	font-size: 0.9em;
+
+}
   .signin-form {
     width: 400px;
     margin: 30px auto;

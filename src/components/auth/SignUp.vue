@@ -3,9 +3,14 @@
 	<div class="container, gap">
 		<div class="alert alert-info"><h4>Regisztráció</h4> </div>
 	</div>
-  <div id="signup">
-    <div class="signup-form">
-      <form @submit.prevent="onSubmit">
+
+		<div v-show=showSignUpSuccess>
+			<h4>Sikeres regisztráció</h4> 
+		<button type="button" class="btn btn-primary" @click="goToPage('dashboard')">Vezérlőpult</button>
+		</div>
+  <div id="signup" >
+    <div class="signup-form" v-show=!showSignUpSuccess>
+      <form @submit.prevent="onSubmit" >
         <div class="input">
           <label for="email">E-mail</label>
           <input
@@ -41,6 +46,7 @@
         </div>
       </form>
     </div>
+
   </div>
 </div>
 </template>
@@ -53,6 +59,8 @@
         password: '',
         confirmPassword: '',
         status: null,
+        showSignUpSuccess: false,
+        showSignUpForm: true,
         terms: false
       }
     },
@@ -66,8 +74,21 @@
           terms: this.terms
         }
         this.$store.dispatch('signup', formData)
-      }
-    }
+      },
+
+	goToPage (page) {
+		this.$router.push({ path: `/${page}` }) 
+	},
+    }, // methods
+
+ mounted() {
+		this.$store.watch(this.$store.getters.getSignedInEmail, signedInEmail => { 
+			console.log("Async Call email");
+			this.showSignUpSuccess=true;
+			this.showSignUpForm=true;
+		});
+
+ } // mouted
   }
 </script>
 

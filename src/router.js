@@ -38,7 +38,6 @@ Vue.use(VueRouter)
 { path: '/eventexamples/:id', component: EventExamples},
 
 //ADMIN
-{ path: '/adminexamplerepository', component: AdminExampleRepository},
 { path: '/adminexample/:id', component: AdminExample },
 { path: '/adminexampletext/:id', component: AdminExampleText },
 { path: '/adminexamplelist/:id', component: AdminExampleList },
@@ -60,6 +59,21 @@ path: '/teacher',
 		}
 },
 
+{
+path: '/adminexamplerepository',
+		component: AdminExampleRepository,
+		beforeEnter (to, from, next) {
+			if (store.state.idToken) { next() } else { next('/signin') }
+		}
+},
+
+{
+	path: '/adminexamplelist/:id',
+		component: AdminExampleList,
+		beforeEnter (to, from, next) {
+			if (store.state.idToken) { next() } else { next('/signin') }
+		}
+},
 {
 path: '/eventlist/:id',
 		component: EventList,

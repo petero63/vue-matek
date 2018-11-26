@@ -13,6 +13,7 @@ export default new Vuex.Store({
 	state: {
 		xxx:888,
 		//serverhost:"www.knxplaza.com/api",
+		//serverhost:"szte.mathreference.org/api",
 		serverhost:"localhost:3000",
 		//autoPlayStepS:99,
 		pageContent:"",
@@ -21,6 +22,7 @@ export default new Vuex.Store({
 		asyncCallCounterET:0,
 		storeCounter: 444,
 		signedIn:false,
+		signedInEmail: "-",
 		signedInMessage:"",
 		idToken: null,
 		userId: null,
@@ -136,8 +138,8 @@ export default new Vuex.Store({
 					// 60 percig érvényes
 			 		const expirationDate = new Date(now.getTime() + 3600);
 					state.idToken=res.data.token;
-					if (res.data.token=="") { state.signedIn=false; }
-					else { state.signedIn=true;}
+					if (res.data.token=="") { state.signedIn=false; state.signedInEmail="";}
+					else { state.signedIn=true; state.signedInEmail=res.data.email;}
 				})
 				.catch(function (error) {
 					console.log(error);
@@ -171,7 +173,7 @@ export default new Vuex.Store({
  // TUTORIAL SIGN IN
 */
 		// Sign Up 
-		signup ({commit, dispatch}, formData) {
+		signup ({commit, state, dispatch}, formData) {
 			console.log(formData);
 			let link=`http://${this.state.serverhost}/useradd`;
 			axios.post(link, {
@@ -181,6 +183,7 @@ export default new Vuex.Store({
 			})
 				.then(function (response) {
 					console.log(response);
+					state.signedInEmail=" ";
 				})
 				.catch(function (error) {
 					console.log(error);
@@ -311,6 +314,7 @@ export default new Vuex.Store({
 		getAsyncCallCounterET: state =>() => state.asyncCallCounterET,
 		getPageContent: state =>() => state.pageContent,
 		getSignedIn: state =>() => state.signedIn,
+		getSignedInEmail: state =>() => state.signedInEmail,
 		//		getN (state) { return state.n}
 		//		getN(state) { //return state.n },
 

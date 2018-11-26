@@ -13,15 +13,13 @@
       <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('examplerepository')">Példatár</a> </li>
       <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('teacher')">Tanár</a> </li>
       <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('dashboard')">Vezérlőpult</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('signup')">Sign Up</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="#" @click="goToPage('signin')">Sign In</a> </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          Adminisztrációs oldalak 
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="" @click="goToPage('adminexamplerepository')">Új példa létrhozása</a>
-          <a class="dropdown-item" href="" @click="goToPage('adminexamplerepository')">Példák listázása</a>
+          <a class="dropdown-item" href="#" @click="goToPage('adminexamplerepository')">Új példa létrhozása</a>
+          <a class="dropdown-item" href="#" @click="goToPage('adminexamplerepository')">Példák listázása</a>
         </div>
       </li>
     </ul>

@@ -1,5 +1,6 @@
 <template>
 <div class="container">
+<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
 <div class="alert alert-info">Feladatok listája</div>
 			<div v-for="(item, index) in steps" v-bind:id="index" >
 				<div v-html=item.page_date v-on:click="editExample(item.id)"></div>

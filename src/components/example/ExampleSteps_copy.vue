@@ -354,31 +354,10 @@ goToPage(page,id) {
 			var lastIndex=this.steps.length;
 			this.currentStepIndex=n;
 			if (this.steps[0].nl==0) {document.getElementById(0).setAttribute("class", "d-inline-block showFormula"); }
-			else { 
-				//document.getElementById(0).setAttribute("class", "showFormula"); 
-						let noMML = !this.steps[0].formula.includes("MathML");
-						let yesSVG = this.steps[0].formula.includes("svg");
-						if (noMML || yesSVG) {
-							document.getElementById(0).setAttribute("class", "showFormulaOnlyText animated zoomIn");
-						}
-						else {
-							document.getElementById(0).setAttribute("class", "showFormula animated zoomIn");
-						}
-			}
+			else { document.getElementById(0).setAttribute("class", "showFormula"); }
 			if (n+1 < lastIndex) {
 				if (this.steps[n+1].nl==0) { document.getElementById(n+1).setAttribute("class", "d-inline-block showFormula animated zoomIn"); }
-				else { 
-					//document.getElementById(n+1).setAttribute("class", "showFormula animated zoomIn");
-
-						let noMML = !this.steps[n+1].formula.includes("MathML");
-						let yesSVG = this.steps[n+1].formula.includes("svg");
-						if (noMML || yesSVG) {
-							document.getElementById(n+1).setAttribute("class", "showFormulaOnlyText animated zoomIn");
-						}
-						else {
-							document.getElementById(n+1).setAttribute("class", "showFormula animated zoomIn");
-						}
-				}
+				else { document.getElementById(n+1).setAttribute("class", "showFormula animated zoomIn");}
 
 				// A képernyőt az aktuális képletre fókuszálja
 				var elmnt = document.getElementById(n);
@@ -437,17 +416,7 @@ goToPage(page,id) {
 			document.getElementById("exampleStepsContainer").style.display = "block";
 			for (var i = 0; i < this.lastStepIndex; i++) {
 					if (this.steps[i].nl==0) { document.getElementById(i).setAttribute("class", "d-inline-block showFormula animated zoomIn"); }
-					else { 
-						let noMML = !this.steps[i].formula.includes("MathML");
-						let yesSVG = this.steps[i].formula.includes("svg");
-						if (noMML || yesSVG) {
-							document.getElementById(i).setAttribute("class", "showFormulaOnlyText animated zoomIn");
-						}
-						else {
-							document.getElementById(i).setAttribute("class", "showFormula animated zoomIn");
-						}
-						//console.log("i: "+i+"n: "+n);
-					}
+					else { document.getElementById(i).setAttribute("class", "showFormula animated zoomIn");}
 				//document.getElementById(i).style.display = "block";
 			}
 			this.startBtnVisible=false;
@@ -580,22 +549,7 @@ padding: 5px;
 	
 #xxx { background:#ff0000; }
 
-.showFormula { 
-	display: block; 
-	margin-top:-30px; 
-	margin-bottom:-25px; 
-	font-size: 1.0em;
-
-}
-
-.showFormulaOnlyText { 
-	display: block; 
-	font-size: 0.5em;
-	margin-top:25px; 
-	margin-bottom:25px; 
-
-}
-
+.showFormulax { display: block; margin-top:-30px; margin-bottom:-25px }
 .showFormula { display: block; }
 .hideFormula { display: none; }
 .marski { 

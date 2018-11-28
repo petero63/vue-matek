@@ -13,8 +13,8 @@ export default new Vuex.Store({
 	state: {
 		xxx:888,
 		//serverhost:"www.knxplaza.com/api",
-		//serverhost:"szte.mathreference.org/api",
-		serverhost:"localhost:3000",
+		serverhost:"szte.mathreference.org/api",
+		//serverhost:"localhost:3000",
 		//autoPlayStepS:99,
 		pageContent:"",
 		n:1,

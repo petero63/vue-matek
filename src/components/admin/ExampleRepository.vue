@@ -1,11 +1,7 @@
 <template>
 	<div>
 <div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
-	<div class="container, gap">
 		<div class="alert alert-info bg-danger text-white"><h4>Adminisztráció</h4> </div>
-	</div>
-
-		<button class="btn btn-success" @click="goExampleText()">Új példa hozzáadása!</button>
 		<ul>
 			<li role="presentation"><router-link to="/adminexamplelist/9">&nbsp;Érettségi 2017 &nbsp;</router-link></li>
 			<li role="presentation"><router-link to="/adminexamplelist/11">&nbsp;Érettségi 2016 &nbsp;</router-link></li>

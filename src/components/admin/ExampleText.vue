@@ -1,21 +1,26 @@
 <template>
 	<div>
 
-		<button @click="render(id)">Render!</button>
-		<div><b>Adja meg az új példa szövegét!</b></div>
+		<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
+		<div class="alert alert-info bg-danger text-white"><h4>Új példa bevitele</h4> </div>
+
+		<button class="btn btn-success" @click="goToExample(newId)" v-show="!showForm">Tovább a példa megoldására {{newId}}</button>
+		<div v-show="showForm">
+
+		<div>Adja meg az új példa szövegét!</div>
 		<div id="example">
 			<div class="example-form">
 				<!-- FORM  -->
 				<form @submit.prevent="onSubmit">
-
-					<h3>{{title}}</h3>
 					<textarea id="pageContent" v-model="pageContent" class="form-control col-xs-12" rows="3" ></textarea>
-					<div class="submit"> <button type="submit">Ment</button><span class="responseMessage"> {{saveMessage}} </span> </div>
+					<div class="submit"> <button type="submit">Ment</button><span class="responseMessage"></span> </div>
 
 				</form>
 				<!-- FORM  --> 
 			</div>
 		</div>
+		</div>
+
 	</div>
 </template>
 
@@ -25,12 +30,9 @@ import {VueMathjax} from 'vue-mathjax'
 export default {
 	data () {
 		return {
-			title:"",
-			pageContent:"start",
-			dbRecord:{pageContent:"A példa szövege!"},
-			pageContent:"000",
-			saveMessage: "",
-			currentId:0
+			showForm:true,
+			newId:0,
+			pageContent:"",
 		}
 	}, //data
 
@@ -40,46 +42,21 @@ export default {
 
 	methods: {
 
-		editExampleText(id) {
-			this.pageContent=this.dbRecord.pageContent;
-			//console.log(id);
-			this.currentId=id;
-			//console.log("currentId: "+this.currentId);
+		goToExample (id) {
+			this.$router.push({ path: '/adminexample/'+id });
 		},
 
 		onSubmit () {
 
 			const formData = {
 				pageContent: this.pageContent,
-				id: this.currentId,
+				id:0 
 				//content: this.content,
 			}
 			this.$store.dispatch('exampletextadd', formData)
 
 		},
 
-	render(id){
-		//console.log("render id: "+id);
-		if (id>0) {
-
-		//console.log("render id: "+id);
-		let link="http://localhost:3000/getexample/"+id+"/hu";
-		//console.log("render link: "+link);
-		axios.get(link).then(
-			response => {
-				const data = response.data;
-				data.pageContent=data.pageContent.replace(/\\/g, '');
-				data.pageContent=data.pageContent.replace(/MathML/g, 'MathML\" display=\"block');
-				this.dbRecord=data;
-			}
-
-		);
-		this.$store.asyncCallCounter++;
-		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-		//console.log("RENDERED");
-	}
-	}
 	}, // methods
 
 	watch: {
@@ -93,24 +70,10 @@ export default {
 
 		// A store asyncCallCouter változójának fegyelése: Ha változik renderelem a táblázatot!
 		this.$store.watch(this.$store.getters.getAsyncCallCounter, asyncCallCounter => { 
-			this.render(id);
-			//this.pageContent="Otto";
-
-			console.log("dbRecord: "+this.dbRecord.pageContent);
-			this.pageContent=this.dbRecord.pageContent;
-			console.log("Async Call with id: "+id);
+			this.newId=this.$store.state.lastInsertedId;
+			this.showForm=!this.showForm;
 		});
-		this.$store.state.asyncCallCounter++;
-		console.log("asyncCallCounter: "+this.$store.asyncCallCounter);
 
-
-		if (id>0) { 
-			this.title="Példa szövegének módosítása";
-			this.render(id);
-			this.$store.asyncCallCounter++;
-			this.pageContent="id: "+id+"pageContent "+this.dbRecord.pageContent;
-		}
-		console.log("id: "+id);
 	} // mounted
 }
 </script>

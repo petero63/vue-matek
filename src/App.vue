@@ -18,7 +18,7 @@
          Adminisztrációs oldalak 
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#" @click="goToPage('adminexamplerepository')">Új példa létrhozása</a>
+          <a class="dropdown-item" href="#" @click="goToPage('adminexampletext',0)">Új példa létrhozása</a>
           <a class="dropdown-item" href="#" @click="goToPage('adminexamplerepository')">Példák listázása</a>
         </div>
       </li>
@@ -72,7 +72,7 @@ goToPage(page,id) {
 	//this.$router.push({ path: '/examplesteps/'+id });
 	//this.$router.push({ path: page });
 	this.$router.push({ path: `/${page}` });
-	if (id>0) {
+	if (id>=0) {
 	this.$router.push({ path: `/${page}/${id}` });
 	}
 	

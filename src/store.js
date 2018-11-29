@@ -60,19 +60,17 @@ export default new Vuex.Store({
 
 			let link=`http://${this.state.serverhost}/exampletextadd`;
 			axios.post(link, {
-			//axios.post('http://localhost:3000/exampletextadd', {
 				id: formData.id,
 				pageContent: formData.pageContent, 
 			}).then(function (response) { 
 				
-				console.log("Response: "+response); 
-				console.log("otto: "+response.status);
-				console.log("otto data: "+response.data.id);
+				console.log("Last inserted id: "+response.data.id);
+				state.lastInsertedId=response.data.id; 
+				state.asyncCallCounter++; 
+				console.log("store.js asyncCallCounter: "+state.asyncCallCounter);
 			})
 				.catch(function (error) { console.log(error); });
-				state.asyncCallCounter++; 
 				state.pageContent=formData.pageContent;
-				//console.log("otto: "+response.data);
 		},
 		// example text
 
@@ -102,17 +100,6 @@ export default new Vuex.Store({
 
 					console.log("Async Post Call Finished");
 					state.asyncCallCounter++; 
-					//	console.log("Async Post status");
-					//console.log(status);
-
-					//console.log("Store");
-					//console.log(response);
-					console.log("Store status: "+response.status);
-					//		console.log("Response: "+response);
-					//console.log("Store");
-					//console.log(state);
-					//state.idToken++; 
-				//	console.log("oooo"+response.status);
 
 				})
 				.catch(function (error) {

@@ -1,7 +1,7 @@
 <template>
 	<div>
-<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
-		<div class="alert alert-danger">Példa Adminsiztráció ID: {{$route.params.id}} ceID: {{currentExampleId}} csID: {{currentStepId}}</div>
+		<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
+		<div class="alert alert-info bg-danger text-white"><h4>Példa megoldásának menete</h4> </div>
 		<div id="example">
 			<div class="example-form">
 				<!-- FORM  -->

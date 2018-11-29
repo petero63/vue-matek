@@ -2,9 +2,9 @@
 	<div>
 
 		<button @click="render(id)">Render!</button>
+		<div><b>Adja meg az új példa szövegét!</b></div>
 		<div id="example">
 			<div class="example-form">
-
 				<!-- FORM  -->
 				<form @submit.prevent="onSubmit">
 
@@ -14,9 +14,6 @@
 
 				</form>
 				<!-- FORM  --> 
-				<!-- EXAMPLE TEXT  --> 
-	<div v-on:click="editExampleText($route.params.id)" class="mousepointer alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=dbRecord.pageContent ></div>
-				<!-- EXAMPLE TEXT  --> 
 			</div>
 		</div>
 	</div>
@@ -30,7 +27,7 @@ export default {
 		return {
 			title:"",
 			pageContent:"start",
-			dbRecord:{pageContent:"xxx"},
+			dbRecord:{pageContent:"A példa szövege!"},
 			pageContent:"000",
 			saveMessage: "",
 			currentId:0
@@ -45,7 +42,7 @@ export default {
 
 		editExampleText(id) {
 			this.pageContent=this.dbRecord.pageContent;
-			console.log(id);
+			//console.log(id);
 			this.currentId=id;
 			//console.log("currentId: "+this.currentId);
 		},
@@ -62,12 +59,12 @@ export default {
 		},
 
 	render(id){
-		console.log("render id: "+id);
+		//console.log("render id: "+id);
 		if (id>0) {
 
-		console.log("render id: "+id);
+		//console.log("render id: "+id);
 		let link="http://localhost:3000/getexample/"+id+"/hu";
-		console.log("render link: "+link);
+		//console.log("render link: "+link);
 		axios.get(link).then(
 			response => {
 				const data = response.data;
@@ -80,7 +77,7 @@ export default {
 		this.$store.asyncCallCounter++;
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-		console.log("RENDERED");
+		//console.log("RENDERED");
 	}
 	}
 	}, // methods

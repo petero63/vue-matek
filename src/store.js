@@ -12,14 +12,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 	state: {
 		xxx:888,
-		//serverhost:"www.knxplaza.com/api",
-		serverhost:"szte.mathreference.org/api",
-		//serverhost:"localhost:3000",
+		//serverhost:"szte.mathreference.org/api",
+		serverhost:"localhost:3000",
 		//autoPlayStepS:99,
 		pageContent:"",
 		n:1,
+		lastInsertedId:0,
 		asyncCallCounter:0,
-		asyncCallCounterET:0,
 		storeCounter: 444,
 		signedIn:false,
 		signedInEmail: "-",
@@ -64,11 +63,16 @@ export default new Vuex.Store({
 			//axios.post('http://localhost:3000/exampletextadd', {
 				id: formData.id,
 				pageContent: formData.pageContent, 
+			}).then(function (response) { 
+				
+				console.log("Response: "+response); 
+				console.log("otto: "+response.status);
+				console.log("otto data: "+response.data.id);
 			})
-				.then(function (response) { console.log("Response: "+response); })
 				.catch(function (error) { console.log(error); });
-				state.asyncCallCounterET++; 
+				state.asyncCallCounter++; 
 				state.pageContent=formData.pageContent;
+				//console.log("otto: "+response.data);
 		},
 		// example text
 
@@ -108,6 +112,7 @@ export default new Vuex.Store({
 					//console.log("Store");
 					//console.log(state);
 					//state.idToken++; 
+				//	console.log("oooo"+response.status);
 
 				})
 				.catch(function (error) {
@@ -196,7 +201,6 @@ export default new Vuex.Store({
 
 			let link=`http://${this.state.serverhost}/getformula/1/9999`;
 			axios.get(link).then(
-			//axios.get('http://localhost:3000/getformula/1/9999').then(
 				response => {
 					const data = response.data;
 					console.log(data)

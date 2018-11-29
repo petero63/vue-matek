@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import globalAxios from 'axios'
 import axios from 'axios'
 import router from './router'
-
+//ok
 
 Vue.use(Vuex)
 

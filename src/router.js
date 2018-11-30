@@ -21,6 +21,8 @@ import AdminExample from './components/admin/Example.vue';
 import AdminExampleText from './components/admin/ExampleText.vue';
 import AdminExampleList from './components/admin/ExampleList.vue';
 import AdminExampleRepository from './components/admin/ExampleRepository.vue'
+import AdminGroup from './components/admin/Group.vue';
+import AdminGroupMember from './components/admin/GroupMember.vue';
 
 Vue.use(VueRouter)
 
@@ -42,6 +44,8 @@ Vue.use(VueRouter)
 { path: '/adminexampletext/:id', component: AdminExampleText },
 { path: '/adminexamplelist/:id', component: AdminExampleList },
 { path: '/adminexamplerepository', component: AdminExampleRepository },
+{ path: '/admingroup/:id', component: AdminGroup },
+{ path: '/groupmember/:id', component: AdminGroupMember },
 
 //AUTH
 {

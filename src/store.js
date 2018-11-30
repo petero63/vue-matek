@@ -50,6 +50,40 @@ export default new Vuex.Store({
 			alert("otto");
 		},
 
+		// GROUP  
+		// add new group member
+		groupmemberadd ({commit, state, dispatch}, formData) {
+
+			let link=`http://${this.state.serverhost}/groupmemberadd`;
+			axios.post(link, {
+				id: formData.id,
+				email: formData.email, 
+			}).then(function (response) { 
+				state.lastInsertedId=response.data.id; 
+				state.asyncCallCounter++; 
+				console.log(state.asyncCallCounter);
+			})
+			.catch(function (error) { console.log(error); });
+		},
+		
+		// add new group
+		groupadd ({commit, state, dispatch}, formData) {
+
+			let link=`http://${this.state.serverhost}/groupadd`;
+			axios.post(link, {
+				id: formData.id,
+				groupName: formData.groupName, 
+				description: formData.description, 
+				idOwner: formData.idOwner, 
+
+			}).then(function (response) { 
+				state.lastInsertedId=response.data.id; 
+				state.asyncCallCounter++; 
+			})
+			.catch(function (error) { console.log(error); });
+		},
+		// GROUP  
+	
 		// EXAPMLE  
 		// example text
 		exampletextadd ({commit, state, dispatch}, formData) {

@@ -20,6 +20,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="#" @click="goToPage('adminexampletext',0)">Új példa létrhozása</a>
           <a class="dropdown-item" href="#" @click="goToPage('adminexamplerepository')">Példák listázása</a>
+          <a class="dropdown-item" href="#" @click="goToPage('admingroup',0)">Új csoport létrhozása</a>
         </div>
       </li>
     </ul>

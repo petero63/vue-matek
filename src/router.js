@@ -23,6 +23,9 @@ import AdminExampleList from './components/admin/ExampleList.vue';
 import AdminExampleRepository from './components/admin/ExampleRepository.vue'
 import AdminGroup from './components/admin/Group.vue';
 import AdminGroupMember from './components/admin/GroupMember.vue';
+import AdminGroupList from './components/admin/GroupList.vue';
+import AdminEvent from './components/admin/Event.vue';
+import AdminEventList from './components/admin/EventList.vue';
 
 Vue.use(VueRouter)
 
@@ -45,7 +48,10 @@ Vue.use(VueRouter)
 { path: '/adminexamplelist/:id', component: AdminExampleList },
 { path: '/adminexamplerepository', component: AdminExampleRepository },
 { path: '/admingroup/:id', component: AdminGroup },
-{ path: '/groupmember/:id', component: AdminGroupMember },
+{ path: '/admingroupmember/:id', component: AdminGroupMember },
+{ path: '/admingrouplist/:id', component: AdminGroupList },
+{ path: '/adminevent/:id', component: AdminEvent },
+{ path: '/admineventlist/:id', component: AdminEventList },
 
 //AUTH
 {

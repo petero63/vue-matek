@@ -2,17 +2,18 @@
 	<div>
 
 		<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
-		<div class="alert alert-info bg-danger text-white"><h4>Új csoport tag hozzáadása</h4> </div>
-		<div class="alert alert-info bg-info text-white">[{{($route.params.id)}}] {{this.groupName}}</div>
+		<div class="alert alert-info bg-danger text-white"><h4>Új esemény létrehozása</h4> </div>
 
-		<div>
+		<button class="btn btn-success" @click="goToPage(newId)" v-show="!showForm">Csoport tagjainak hozzáadása {{newId}}</button>
+		<div v-show="showForm">
 
-		<div>Adja meg az új tag e-mail címét!</div>
+		<div>Adja meg az új esemény nevét!</div>
 		<div id="example">
 			<div class="example-form">
 				<!-- FORM  -->
 				<form @submit.prevent="onSubmit">
-					<input id="email" v-model="email" class="form-control col-xs-12" rows="3" ><br>
+					<input id="groupName" v-model="groupName" class="form-control col-xs-12" rows="3" ><br>
+					<textarea id="description" v-model="description" class="form-control col-xs-12" rows="3" ></textarea>
 					<div class="submit"> <button type="submit">Ment</button><span class="responseMessage"></span> </div>
 				</form>
 				<!-- FORM  --> 
@@ -29,9 +30,11 @@ import {VueMathjax} from 'vue-mathjax'
 export default {
 	data () {
 		return {
+			showForm:true,
 			newId:0,
 			groupName:"",
-			email:"",
+			description:"",
+			idOwner:1
 		}
 	}, //data
 
@@ -42,16 +45,19 @@ export default {
 	methods: {
 
 		goToPage (id) {
-			this.$router.push({ path: '/groupmembers/'+id });
+			this.$router.push({ path: '/admingroupmember/'+id });
 		},
 
 		onSubmit () {
 
 			const formData = {
-				email: this.email,
-				id:this.$route.params.id 
+				groupName: this.groupName,
+				description: this.description,
+				idOwner: this.idOwner,
+				id:0 
+				//content: this.content,
 			}
-			this.$store.dispatch('groupmemberadd', formData)
+			this.$store.dispatch('eventadd', formData)
 
 		},
 
@@ -62,27 +68,13 @@ export default {
 	},//watch
 
 	mounted() {
-
-		let link="http://"+this.$store.state.serverhost+"/getgroupname/"+this.$route.params.id;
-		// Example Text
-		axios.get(link).then(
-			response => {
-				const data = response.data;
-				this.groupName=data[0].groupName;
-				console.log(data[0].groupName);
-				//console.log(data.groupName);
-
-				this.groupName=data[0].groupName;
-			}
-		);
-
-
 		let id=this.$route.params.id;
 		console.log("id at mounted: "+id);
 
 		// A store asyncCallCouter változójának fegyelése: Ha változik renderelem a táblázatot!
 		this.$store.watch(this.$store.getters.getAsyncCallCounter, asyncCallCounter => { 
 			this.newId=this.$store.state.lastInsertedId;
+			this.showForm=!this.showForm;
 		});
 
 	} // mounted

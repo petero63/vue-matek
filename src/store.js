@@ -12,6 +12,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 	state: {
 		xxx:888,
+		currentMessage:"",
+		signedUserId:1,
 		//serverhost:"szte.mathreference.org/api",
 		serverhost:"localhost:3000",
 		//autoPlayStepS:99,
@@ -50,7 +52,26 @@ export default new Vuex.Store({
 			alert("otto");
 		},
 
+		// EVENT  
+		eventadd ({commit, state, dispatch}, formData) {
+			console.log("event");
+
+			let link=`http://${this.state.serverhost}/eventadd`;
+			axios.post(link, {
+				id: formData.id,
+				eventName: formData.groupName, 
+				description: formData.description, 
+				idOwner: formData.idOwner, 
+
+			}).then(function (response) { 
+				state.lastInsertedId=response.data.id; 
+				state.asyncCallCounter++; 
+			})
+			.catch(function (error) { console.log(error); });
+		},
+		// /EVENT  
 		// GROUP  
+		// group list 
 		// add new group member
 		groupmemberadd ({commit, state, dispatch}, formData) {
 
@@ -62,6 +83,8 @@ export default new Vuex.Store({
 				state.lastInsertedId=response.data.id; 
 				state.asyncCallCounter++; 
 				console.log(state.asyncCallCounter);
+				console.log("message: "+response.data.message);
+				state.currentMessage=response.data.message; 
 			})
 			.catch(function (error) { console.log(error); });
 		},
@@ -69,6 +92,7 @@ export default new Vuex.Store({
 		// add new group
 		groupadd ({commit, state, dispatch}, formData) {
 
+			console.log("group");
 			let link=`http://${this.state.serverhost}/groupadd`;
 			axios.post(link, {
 				id: formData.id,
@@ -82,7 +106,7 @@ export default new Vuex.Store({
 			})
 			.catch(function (error) { console.log(error); });
 		},
-		// GROUP  
+		// /GROUP  
 	
 		// EXAPMLE  
 		// example text

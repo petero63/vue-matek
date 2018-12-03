@@ -2,25 +2,34 @@
 	<div>
 
 		<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
-		<div class="alert alert-info bg-danger text-white"><h4>Új csoport tag hozzáadása</h4> </div>
+		<div class="alert alert-info bg-danger text-white"><h4>Új csoporttag hozzáadása</h4> </div>
 		<div class="alert alert-info bg-info text-white">[{{($route.params.id)}}] {{this.groupName}}</div>
 
 		<div>
 
 		<div>Adja meg az új tag e-mail címét!</div>
-		<div id="example">
 			<div class="example-form">
 				<!-- FORM  -->
 				<form @submit.prevent="onSubmit">
 					<input id="email" v-model="email" class="form-control col-xs-12" rows="3" ><br>
-					<div class="submit"> <button type="submit">Ment</button><span class="responseMessage"></span> </div>
+					<div class="submit"> <button type="submit">Hozzáad</button><span class="responseMessage"></span> </div>
+					<div>{{message}}</div>
 				</form>
 				<!-- FORM  --> 
 			</div>
 		</div>
-		</div>
+<h2>Eddigi csoporttagok</h2>
 
+	<div class="alert alert-success" v-for="(item, index) in records" v-bind:id="index">
+
+	<div>
+		<b>{{item.lastname}} {{item.firstname}}</b> / {{item.email}}
+	<span v-on:click="deleteMember(item.id)" class="mathFormula"><img src="/svg/delete.svg" width=25 title="Töröl" alt="Töröl"> </span>
+	
 	</div>
+	</div>
+
+</div>
 </template>
 
 <script>
@@ -29,9 +38,11 @@ import {VueMathjax} from 'vue-mathjax'
 export default {
 	data () {
 		return {
+			message:"",
 			newId:0,
 			groupName:"",
 			email:"",
+			records:[],
 		}
 	}, //data
 
@@ -40,6 +51,21 @@ export default {
 	},
 
 	methods: {
+		deleteMember(id) {
+			let d = confirm("Biztosan törölni akarja?");
+			if (d == true) {
+				//let link="http://"+this.$store.state.serverhost+"/memberdelete/"+id;
+				let link=`http://${this.$store.state.serverhost}/memberdelete/${id}`;
+				axios.get(link) .then( response => { const data = response.data; console.log(response); });
+				console.log("Record is deleted");
+			} else {
+				console.log("Record is not deleted");
+			} 
+			this.$store.state.currentMessage="Sikeres törlés!";
+			this.$store.state.asyncCallCounter++;
+
+
+		},
 
 		goToPage (id) {
 			this.$router.push({ path: '/groupmembers/'+id });
@@ -54,6 +80,19 @@ export default {
 			this.$store.dispatch('groupmemberadd', formData)
 
 		},
+		renderGroupMembers () {
+			
+			this.records=[];
+			let linkGM=`http://${this.$store.state.serverhost}/groupmembers/${this.$route.params.id}`;
+			axios.get(linkGM).then(
+				response => {
+					const data = response.data;
+					for (let key in data) { 
+						this.records.push(data[key]);
+					}
+				}
+			);
+		}
 
 	}, // methods
 
@@ -63,9 +102,9 @@ export default {
 
 	mounted() {
 
-		let link="http://"+this.$store.state.serverhost+"/getgroupname/"+this.$route.params.id;
-		// Example Text
-		axios.get(link).then(
+		// Group Name 
+		let linkGN=`http://${this.$store.state.serverhost}/getgroupname/${this.$route.params.id}`;
+		axios.get(linkGN).then(
 			response => {
 				const data = response.data;
 				this.groupName=data[0].groupName;
@@ -76,6 +115,8 @@ export default {
 			}
 		);
 
+		// Group Members 
+		this.renderGroupMembers (); 
 
 		let id=this.$route.params.id;
 		console.log("id at mounted: "+id);
@@ -83,6 +124,8 @@ export default {
 		// A store asyncCallCouter változójának fegyelése: Ha változik renderelem a táblázatot!
 		this.$store.watch(this.$store.getters.getAsyncCallCounter, asyncCallCounter => { 
 			this.newId=this.$store.state.lastInsertedId;
+			this.renderGroupMembers (); 
+			this.message=this.$store.state.currentMessage; 
 		});
 
 	} // mounted

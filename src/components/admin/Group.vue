@@ -45,7 +45,7 @@ export default {
 	methods: {
 
 		goToPage (id) {
-			this.$router.push({ path: '/groupmember/'+id });
+			this.$router.push({ path: '/admingroupmember/'+id });
 		},
 
 		onSubmit () {

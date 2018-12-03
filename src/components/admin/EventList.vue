@@ -4,10 +4,11 @@
 		<div class="alert alert-info bg-danger text-white"><h4>Saját események listája</h4> </div>
 
 
-	<div class="alert alert-success mousepointer" v-for="(item, index) in records"  v-bind:id="index">
-		<div><div v-on:click="goToPage(item.id)"><b>{{item.eventName}}</b></div>[{{item.startTime}}] -  [{{item.endTime}}] &nbsp;&nbsp;<span v-on:click="deleteEvent(item.id)" class="mathFormula"><img src="/svg/delete.svg" width=25 title="Töröl" alt="Töröl"></span>
+	<div class="alert alert-success" v-for="(item, index) in records"  v-bind:id="index">
+		<div><div v-on:click="goToPage(item.id)" class="mousepointer"><b>{{item.eventName}}</b></div>[{{item.startTime}}] -  [{{item.endTime}}] &nbsp;&nbsp;<span v-on:click="deleteEvent(item.id)" class="mathFormula"><img src="/svg/delete.svg" width=25 title="Töröl" alt="Töröl"></span>
 </div>
 	<div> {{item.description}} </div>
+	<div> Csoport: {{item.groupName}} </div>
 	<div> Létrehozva: {{item.createdTime}} </div>
 	</div>
 </div>
@@ -54,7 +55,7 @@ methods: {
 			}
 		);
 
-		console.log("Event List Renderd");
+		//console.log("Event List Renderd");
 	},
 	roland () {
 	//alert ("xxx");	

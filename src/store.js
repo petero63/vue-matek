@@ -31,7 +31,9 @@ export default new Vuex.Store({
 		signup:null,
 		saveStatus:null, saveStatusText:null,
 		steps:[],
-		records:[]
+		records:[],
+		ownGroups:[],
+		exampleCart:[1,84,420]
 
 
 	},
@@ -54,6 +56,23 @@ export default new Vuex.Store({
 		},
 
 		// EVENT  
+
+		addexamplecart ({commit, state, dispatch}, formData) {
+			console.log("example cart store.js");
+			console.log("store example cart: "+formData.exampleCart);
+
+			let link=`http://${this.state.serverhost}/addexamplecart`;
+			axios.post(link, {
+				idControler: formData.idControler,
+				exampleCart: formData.exampleCart,
+			}).then(function (response) { 
+				//state.lastInsertedId=response.data.id; 
+				state.asyncCallCounter++; 
+			})
+			.catch(function (error) { console.log(error); });
+				state.asyncCallCounter++; 
+		},
+
 		eventadd ({commit, state, dispatch}, formData) {
 			console.log("event");
 

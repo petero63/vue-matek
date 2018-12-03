@@ -21,10 +21,11 @@
 					<input id="endTime" v-model="endTime" class="form-control col-xs-12" rows="3" ><br>
 					Az eseményen részt vevő csoport:
 					<select v-model="idGroup">
-					  <option v-for="option in options" v-bind:value="option.value">{{ option.text }}</option>
+					  <option v-for="option in ownGroups" v-bind:value="option.value">{{ option.text }}</option>
 					</select>
 					<span>Csoport: {{ idGroup }}</span>
-					<div class="submit"> <button type="submit">Ment</button><span class="responseMessage"></span> </div>
+					<div class="submit"> <button type="submit">Ment</button><span class="responseMessage"></span>&nbsp;<button class="btn btn-success" @click="addExampleCart($route.params.id)" v-show="showForm">Példakosár hozzárendelése</button></div>
+					
 				</form>
 				<!-- FORM  --> 
 			</div>
@@ -49,9 +50,10 @@ export default {
 			description:"",
 			startTime:"",
 			endTime:"",
-			idGroup:0,
+			idGroup:2,
     		options: [{ text: 'Válasszon csoportot', value: 0 }, { text: 'One', value: 1 }, { text: 'Two', value: 2 }, { text: 'Three', value: 3 } ],
-			idOwner:1
+			idOwner:1,
+			ownGroups:[]
 		}
 	}, //data
 
@@ -62,19 +64,32 @@ export default {
 	methods: {
 
 	loadOwnGroups(){
-		this.ownGropus=[];
+		let row="";
+		this.ownGroups=[{ text: 'Válasszon csoportot', value: 0 }];
 		let link=`http://${this.$store.state.serverhost}/grouplist/${this.$store.state.signedUserId}`;
 		axios.get(link) .then(
 			response => {
 				const data = response.data;
 				for (let key in data) { 
-					this.records.push(data[key]);
+					row={text:data[key].groupName, value:data[key].id};
+					this.ownGroups.push(row);
 				}
+
+			this.$store.state.ownGroups=this.ownGroups;
+			this.$store.state.asyncCallCounter++;
 			}
 		);
 
-		console.log("Event List Renderd");
 	},
+
+		addExampleCart (id) {
+			//alert("eee");
+			const formData={exampleCart:this.$store.state.exampleCart, idControler:id};
+			console.log("example cart Event.vue");
+			this.$store.dispatch('addexamplecart', formData)
+			this.showForm=!this.showForm;
+			this.message="Sikeres mentés!";
+		},
 
 		goToPage (id) {
 			this.$router.push({ path: '/admineventlist/'+id });
@@ -108,6 +123,7 @@ export default {
 	mounted() {
 		let id=this.$route.params.id;
 		console.log("id at mounted: "+id);
+		this.loadOwnGroups();
 		if (id>0) {
 
 			this.pageTitle="Esemény módosítása";
@@ -132,15 +148,18 @@ export default {
 		// A store asyncCallCouter változójának fegyelése: Ha változik renderelem a táblázatot!
 		this.$store.watch(this.$store.getters.getAsyncCallCounter, asyncCallCounter => { 
 			this.newId=this.$store.state.lastInsertedId;
+			this.ownGroups=this.$store.state.ownGroups;
 			//this.showForm=!this.showForm;
 			if (id>0) {
-				console.log ("Async Call");
-				this.id=this.$store.state.records[0].id;
-				this.eventName=this.$store.state.records[0].eventName;
-				this.description=this.$store.state.records[0].description;
-				this.startTime=this.$store.state.records[0].startTime;
-				this.endTime=this.$store.state.records[0].endTime;
-				this.idGroup=this.$store.state.records[0].idGroup;
+				console.log("aCC: "+asyncCallCounter);
+				if (asyncCallCounter > 1) {
+					this.id=this.$store.state.records[0].id;
+					this.eventName=this.$store.state.records[0].eventName;
+					this.description=this.$store.state.records[0].description;
+					this.startTime=this.$store.state.records[0].startTime;
+					this.endTime=this.$store.state.records[0].endTime;
+					this.idGroup=this.$store.state.records[0].idGroup;
+				}
 			}
 			else {
 				this.eventName="";

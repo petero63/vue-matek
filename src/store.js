@@ -30,7 +30,8 @@ export default new Vuex.Store({
 		user: null,
 		signup:null,
 		saveStatus:null, saveStatusText:null,
-		steps:[]
+		steps:[],
+		records:[]
 
 
 	},
@@ -59,15 +60,18 @@ export default new Vuex.Store({
 			let link=`http://${this.state.serverhost}/eventadd`;
 			axios.post(link, {
 				id: formData.id,
-				eventName: formData.groupName, 
+				eventName: formData.eventName, 
 				description: formData.description, 
+				idGroup: formData.idGroup, 
 				idOwner: formData.idOwner, 
-
+				startTime: formData.startTime, 
+				endTime: formData.endTime 
 			}).then(function (response) { 
-				state.lastInsertedId=response.data.id; 
+				//state.lastInsertedId=response.data.id; 
 				state.asyncCallCounter++; 
 			})
 			.catch(function (error) { console.log(error); });
+				state.asyncCallCounter++; 
 		},
 		// /EVENT  
 		// GROUP  

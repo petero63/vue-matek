@@ -2,18 +2,28 @@
 	<div>
 
 		<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
-		<div class="alert alert-info bg-danger text-white"><h4>Új esemény létrehozása</h4> </div>
+		<div class="alert alert-info bg-danger text-white"><h4>{{pageTitle}}</h4> </div>
 
-		<button class="btn btn-success" @click="goToPage(newId)" v-show="!showForm">Csoport tagjainak hozzáadása {{newId}}</button>
+		<button class="btn btn-success" @click="goToPage(0)" v-show="!showForm">Saját eseményeim</button>
+		<div v-show="!showForm">{{message}}</div>
 		<div v-show="showForm">
-
-		<div>Adja meg az új esemény nevét!</div>
 		<div id="example">
 			<div class="example-form">
 				<!-- FORM  -->
-				<form @submit.prevent="onSubmit">
-					<input id="groupName" v-model="groupName" class="form-control col-xs-12" rows="3" ><br>
+				<form @submit.prevent="onSubmit(id)">
+					Az esemény neve:
+					<input id="eventName" v-model="eventName" class="form-control col-xs-12" rows="3" ><br>
+					Az esemény rövid leírása:
 					<textarea id="description" v-model="description" class="form-control col-xs-12" rows="3" ></textarea>
+					Az esemény kezdete [2019-01-20 10:00:00] alakban:
+					<input id="startTime" v-model="startTime" class="form-control col-xs-12" rows="3" ><br>
+					Az esemény vége [2019-01-20 10:00:00] alakban:
+					<input id="endTime" v-model="endTime" class="form-control col-xs-12" rows="3" ><br>
+					Az eseményen részt vevő csoport:
+					<select v-model="idGroup">
+					  <option v-for="option in options" v-bind:value="option.value">{{ option.text }}</option>
+					</select>
+					<span>Csoport: {{ idGroup }}</span>
 					<div class="submit"> <button type="submit">Ment</button><span class="responseMessage"></span> </div>
 				</form>
 				<!-- FORM  --> 
@@ -30,10 +40,17 @@ import {VueMathjax} from 'vue-mathjax'
 export default {
 	data () {
 		return {
+			pageTitle:"",
+			message:"",
 			showForm:true,
 			newId:0,
-			groupName:"",
+			id:0,
+			eventName:"",
 			description:"",
+			startTime:"",
+			endTime:"",
+			idGroup:0,
+    		options: [{ text: 'Válasszon csoportot', value: 0 }, { text: 'One', value: 1 }, { text: 'Two', value: 2 }, { text: 'Three', value: 3 } ],
 			idOwner:1
 		}
 	}, //data
@@ -44,20 +61,41 @@ export default {
 
 	methods: {
 
+	loadOwnGroups(){
+		this.ownGropus=[];
+		let link=`http://${this.$store.state.serverhost}/grouplist/${this.$store.state.signedUserId}`;
+		axios.get(link) .then(
+			response => {
+				const data = response.data;
+				for (let key in data) { 
+					this.records.push(data[key]);
+				}
+			}
+		);
+
+		console.log("Event List Renderd");
+	},
+
 		goToPage (id) {
-			this.$router.push({ path: '/admingroupmember/'+id });
+			this.$router.push({ path: '/admineventlist/'+id });
 		},
 
-		onSubmit () {
+		onSubmit (id) {
+			console.log("id: "+id);
 
 			const formData = {
-				groupName: this.groupName,
+				id: id,
+				eventName: this.eventName,
 				description: this.description,
 				idOwner: this.idOwner,
-				id:0 
+				idGroup: this.idGroup,
+				startTime: this.startTime,
+				endTime: this.endTime,
 				//content: this.content,
 			}
 			this.$store.dispatch('eventadd', formData)
+			this.showForm=!this.showForm;
+			this.message="Sikeres mentés!";
 
 		},
 
@@ -70,11 +108,47 @@ export default {
 	mounted() {
 		let id=this.$route.params.id;
 		console.log("id at mounted: "+id);
+		if (id>0) {
+
+			this.pageTitle="Esemény módosítása";
+			this.idGroup=2;
+			
+			var records=[];
+			let link=`http://${this.$store.state.serverhost}/getevent/${this.$route.params.id}`;
+			axios.get(link).then(
+				response => {
+					const data = response.data;
+					for (let key in data) { records.push(data[key]);}
+					this.$store.state.records=records;
+					this.$store.state.asyncCallCounter++;
+				}
+			);
+
+		}
+		else {
+			this.pageTitle="Új esemény létrehozása";
+		}
 
 		// A store asyncCallCouter változójának fegyelése: Ha változik renderelem a táblázatot!
 		this.$store.watch(this.$store.getters.getAsyncCallCounter, asyncCallCounter => { 
 			this.newId=this.$store.state.lastInsertedId;
-			this.showForm=!this.showForm;
+			//this.showForm=!this.showForm;
+			if (id>0) {
+				console.log ("Async Call");
+				this.id=this.$store.state.records[0].id;
+				this.eventName=this.$store.state.records[0].eventName;
+				this.description=this.$store.state.records[0].description;
+				this.startTime=this.$store.state.records[0].startTime;
+				this.endTime=this.$store.state.records[0].endTime;
+				this.idGroup=this.$store.state.records[0].idGroup;
+			}
+			else {
+				this.eventName="";
+				this.description="";
+				this.startTime="";
+				this.endTime="";
+				this.idGroup="";
+			}
 		});
 
 	} // mounted

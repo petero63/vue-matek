@@ -62,7 +62,6 @@ export default {
 				console.log("Record is not deleted");
 			} 
 			this.$store.state.currentMessage="Sikeres törlés!";
-			this.$store.state.asyncCallCounter++;
 
 
 		},

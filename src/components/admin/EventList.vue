@@ -10,6 +10,7 @@
 	<div> {{item.description}} </div>
 	<div> Csoport: {{item.groupName}} </div>
 	<div> Létrehozva: {{item.createdTime}} </div>
+	<div class="mousepointer" v-on:click="goToEventExampleList(item.id)"><b>Hozzárendelt példák</b></div>
 	</div>
 </div>
 
@@ -40,6 +41,9 @@ methods: {
 			this.$store.state.currentMessage="Sikeres törlés!";
 		},
 
+	goToEventExampleList (id) {
+			this.$router.push({ path: `/admineventexamplelist/${id}` }) 
+	},
 	goToPage (id) {
 			this.$router.push({ path: `/adminevent/${id}` }) 
 	},

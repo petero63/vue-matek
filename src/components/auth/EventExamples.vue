@@ -30,7 +30,6 @@ methods: {
 	},
 	mounted() {
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		let link=`http://${this.$store.state.serverhost}/eventexamples/${this.$route.params.id}`;
 		axios.get(link) .then(
 			response => {

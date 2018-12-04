@@ -24,6 +24,7 @@
           <a class="dropdown-item" href="#" @click="goToPage('admingrouplist',0)">Saját csoportok lstázása</a>
           <a class="dropdown-item" href="#" @click="goToPage('adminevent',0)">Új esemény létrehozása</a>
           <a class="dropdown-item" href="#" @click="goToPage('admineventlist',0)">Saját események listázása</a>
+          <a class="dropdown-item" href="#" @click="goToPage('adminexamplecart',0)">Példakosár tartalma</a>
         </div>
       </li>
     </ul>

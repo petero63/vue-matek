@@ -32,6 +32,7 @@ export default new Vuex.Store({
 		saveStatus:null, saveStatusText:null,
 		steps:[],
 		records:[],
+		exampleCartRecords:[],
 		ownGroups:[],
 		exampleCart:[1,84,420]
 
@@ -56,6 +57,29 @@ export default new Vuex.Store({
 		},
 
 		// EVENT  
+		examplecart ({commit, state, dispatch}, formData) {
+			let link=`http://${this.state.serverhost}/examplecart`;
+			axios.post(link, {
+				exampleCart: state.exampleCart,
+			}).then(function (response) { 
+				//state.lastInsertedId=response.data.id; 
+				//state.asyncCallCounter++; 
+				//console.log(response.data);
+
+				let records=[];
+				const data = response.data;
+				for (let key in data) { 
+					const record = data[key]; 
+					records.push(record);
+				}
+
+				state.exampleCartRecords=records; 
+				//console.log(records);
+
+			})
+			.catch(function (error) { console.log(error); });
+				state.asyncCallCounter++; 
+		},
 
 		addexamplecart ({commit, state, dispatch}, formData) {
 			console.log("example cart store.js");
@@ -387,6 +411,7 @@ export default new Vuex.Store({
 		getPageContent: state =>() => state.pageContent,
 		getSignedIn: state =>() => state.signedIn,
 		getSignedInEmail: state =>() => state.signedInEmail,
+		getExampleCart: state =>() => state.exampleCart,
 		//		getN (state) { return state.n}
 		//		getN(state) { //return state.n },
 

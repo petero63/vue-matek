@@ -24,10 +24,11 @@
 					  <option v-for="option in ownGroups" v-bind:value="option.value">{{ option.text }}</option>
 					</select>
 					<span>Csoport: {{ idGroup }}</span>
-					<div class="submit"> <button type="submit">Ment</button><span class="responseMessage"></span>&nbsp;<button class="btn btn-success" @click="addExampleCart($route.params.id)" v-show="showForm">Példakosár hozzárendelése</button></div>
+					<div class="submit"> <button type="submit">Ment</button><span class="responseMessage"></span>&nbsp;</div>
 					
 				</form>
 				<!-- FORM  --> 
+<button class="btn btn-success" @click="addExampleCart($route.params.id)" v-show="showForm">Példakosár hozzárendelése</button>
 			</div>
 		</div>
 		</div>
@@ -88,7 +89,7 @@ export default {
 			console.log("example cart Event.vue");
 			this.$store.dispatch('addexamplecart', formData)
 			this.showForm=!this.showForm;
-			this.message="Sikeres mentés!";
+			this.message="Sikeres példa hozzárendelés!";
 		},
 
 		goToPage (id) {

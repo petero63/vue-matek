@@ -2,7 +2,6 @@
 	<div>
 
 		<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
-		<div class="alert alert-info bg-danger text-white"><h4>Új csoporttag hozzáadása</h4> </div>
 		<div class="alert alert-info bg-info text-white">[{{($route.params.id)}}] {{this.groupName}}</div>
 
 		<div>
@@ -56,7 +55,9 @@ export default {
 			if (d == true) {
 				//let link="http://"+this.$store.state.serverhost+"/memberdelete/"+id;
 				let link=`http://${this.$store.state.serverhost}/memberdelete/${id}`;
-				axios.get(link) .then( response => { const data = response.data; console.log(response); });
+				axios.get(link) .then( response => { const data = response.data; this.$store.state.asyncCallCounter++; console.log(response); });
+
+				
 				console.log("Record is deleted");
 			} else {
 				console.log("Record is not deleted");
@@ -107,7 +108,7 @@ export default {
 			response => {
 				const data = response.data;
 				this.groupName=data[0].groupName;
-				console.log(data[0].groupName);
+				//console.log(data[0].groupName);
 				//console.log(data.groupName);
 
 				this.groupName=data[0].groupName;

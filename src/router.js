@@ -26,6 +26,8 @@ import AdminGroupMember from './components/admin/GroupMember.vue';
 import AdminGroupList from './components/admin/GroupList.vue';
 import AdminEvent from './components/admin/Event.vue';
 import AdminEventList from './components/admin/EventList.vue';
+import AdminEventExampleList from './components/admin/EventExampleList.vue';
+import AdminExampleCart from './components/admin/ExampleCart.vue';
 
 Vue.use(VueRouter)
 
@@ -52,7 +54,8 @@ Vue.use(VueRouter)
 { path: '/admingrouplist/:id', component: AdminGroupList },
 { path: '/adminevent/:id', component: AdminEvent },
 { path: '/admineventlist/:id', component: AdminEventList },
-
+{ path: '/admineventexamplelist/:id', component: AdminEventExampleList },
+{ path: '/adminexamplecart/:id', component: AdminExampleCart },
 //AUTH
 {
 path: '/dashboard',

@@ -90,6 +90,7 @@ export default {
 			this.$store.dispatch('addexamplecart', formData)
 			this.showForm=!this.showForm;
 			this.message="Sikeres példa hozzárendelés!";
+			this.$store.state.exampleCart=[0];
 		},
 
 		goToPage (id) {

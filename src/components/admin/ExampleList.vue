@@ -1,10 +1,13 @@
 <template>
 <div class="container">
 <div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
-<div class="alert alert-info">Feladatok listája</div>
+<div class="alert alert-info bg-danger text-white"><h4>Feladatok listája</h4> </div>
 			<div v-for="(item, index) in steps" v-bind:id="index" >
-				<div v-html=item.page_date v-on:click="editExample(item.id)"></div>
-				<div class="mousepointer alert alert-primary mathFormulaText border-primary animated flipInY slow" v-html=item.pageContent v-on:click="editExample(item.id)"></div>
+				<div  class="p-3 mb-2 bg-info text-white mousepointer" v-on:click="addToExampleCart(item.id)"><b>{{item.id}}</b>&nbsp;&nbsp;
+				<span><img src="/svg/add.svg" width=20 title="Kosárba" alt="Kosárba"></span>
+				</div>
+				<div class="p-3 mb-2 bg-secondary text-white" v-html=item.page_date v-on:click="editExample(item.id)"></div>
+				<div class="mousepointer alert alert-primary mathFormulaText border-primary" v-html=item.pageContent v-on:click="editExample(item.id)"></div>
 		</div>
 </div>
 
@@ -21,11 +24,17 @@ export default {
 	},
 methods: {
 
-		editExample (id) {
-			//alert(n);
-			this.$router.push({ path: '/adminexample/'+id });
-			}
-			},
+	addToExampleCart (id) {
+		let d = confirm("Biztosan a kosrárba akarja tenni a példát?");
+		if (d == true) {
+			this.$store.state.exampleCart.push(id);
+		}
+	},
+	editExample (id) {
+		//alert(n);
+		this.$router.push({ path: '/adminexample/'+id });}
+	},
+
 mounted() {
 
 		let link=`http://${this.$store.state.serverhost}/examplelist/9`;

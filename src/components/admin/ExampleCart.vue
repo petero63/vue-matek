@@ -4,7 +4,7 @@
 		<div class="alert alert-info bg-danger text-white"><h4>Példakosár tartalma</h4> </div>
 
 	<div class="alert alert-success" v-for="(item, index) in records"  v-bind:id="index">
-		<div><div class="mousepointer"><b>{{item.idExample}}</b>
+		<div><div class="mousepointer"><b>{{item.id}}</b>
 		&nbsp;<span v-on:click="deleteExampCartItem(item.id)" class="mathFormula"><img src="/svg/delete.svg" width=25 title="Töröl" alt="Töröl"></span>
 			</div>
 </div>
@@ -17,6 +17,7 @@
 <script>
 
 import axios from 'axios'
+
 export default {
 	data() {
 		return {
@@ -26,8 +27,6 @@ export default {
 	},
 methods: {
 		deleteExampCartItem(id) {
-			console.log("id: "+id);
-
 			let d = confirm("Biztosan törölni akarja?");
 			if (d == true) {
 				let index = this.$store.state.exampleCart.indexOf(id);
@@ -45,6 +44,7 @@ methods: {
 	},
 
 	renderExampleCart(){
+			this.records=[];
 			const formData={exampleCart:this.$store.state.exampleCart};
 			this.$store.dispatch('examplecart', formData)
 			this.records=this.$store.state.exampleCartRecords;
@@ -69,7 +69,7 @@ methods: {
 		this.$store.watch(this.$store.getters.getExampleCart, getExampleCart => { 
 			this.renderExampleCart();
 			this.message=this.$store.state.currentMessage; 
-			console.log("Async Call");
+			console.log("Example Cart Change");
 		});
 	}//mounted
 }

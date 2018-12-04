@@ -34,7 +34,7 @@ export default new Vuex.Store({
 		records:[],
 		exampleCartRecords:[],
 		ownGroups:[],
-		exampleCart:[1,84,420]
+		exampleCart:[0]
 
 
 	},

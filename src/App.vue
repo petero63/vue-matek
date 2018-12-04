@@ -21,7 +21,7 @@
           <a class="dropdown-item" href="#" @click="goToPage('adminexampletext',0)">Új példa létrhozása</a>
           <a class="dropdown-item" href="#" @click="goToPage('adminexamplerepository')">Példák listázása</a>
           <a class="dropdown-item" href="#" @click="goToPage('admingroup',0)">Új csoport létrhozása</a>
-          <a class="dropdown-item" href="#" @click="goToPage('admingrouplist',0)">Saját csoportok lstázása</a>
+          <a class="dropdown-item" href="#" @click="goToPage('admingrouplist',0)">Saját csoportok listázása</a>
           <a class="dropdown-item" href="#" @click="goToPage('adminevent',0)">Új esemény létrehozása</a>
           <a class="dropdown-item" href="#" @click="goToPage('admineventlist',0)">Saját események listázása</a>
           <a class="dropdown-item" href="#" @click="goToPage('adminexamplecart',0)">Példakosár tartalma</a>

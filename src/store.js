@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 //import axios from './axios-auth'
-import globalAxios from 'axios'
 import axios from 'axios'
-import router from './router'
 //ok
 
 Vue.use(Vuex)
@@ -13,7 +11,7 @@ export default new Vuex.Store({
 	state: {
 		xxx:888,
 		currentMessage:"",
-		signedUserId:1,
+		signedUserId:0,
 		//serverhost:"szte.mathreference.org/api",
 		serverhost:"localhost:3000",
 		//autoPlayStepS:99,
@@ -218,11 +216,6 @@ export default new Vuex.Store({
 		// USERS
 		// Sign In 
 		signin ({commit, state, dispatch}, formData) {
-			//console.log(formData);
-
-			//console.log("store.js : "+localStorage.getItem('xxx'));
-			//state.xxx=333;
-			//console.log("store.js talan1: "+state.xxx);
 			let link=`http://${this.state.serverhost}/signin`;
 			axios.post(link, {
 				email: formData.email,
@@ -236,7 +229,7 @@ export default new Vuex.Store({
 			 		const expirationDate = new Date(now.getTime() + 3600);
 					state.idToken=res.data.token;
 					if (res.data.token=="") { state.signedIn=false; state.signedInEmail="";}
-					else { state.signedIn=true; state.signedInEmail=res.data.email;}
+					else { state.signedIn=true;state.signedUserId=res.data.id; state.signedInEmail=res.data.email;}
 				})
 				.catch(function (error) {
 					console.log(error);
@@ -298,107 +291,6 @@ export default new Vuex.Store({
 					console.log(data)
 				})
 		},
-		/*
-	 setLogoutTimer ({commit}, expirationTime) {
-		setTimeout(() => {
-		  commit('clearAuthData')
-		}, expirationTime * 1000)
-	 },
-	 signup ({commit, dispatch}, authData) {
-		axios.post('/signupNewUser?key=AIzaSyCXlVPPWknVGhfc60mt7Jkv0Xzrho7_mwc', {
-		  email: authData.email,
-		  password: authData.password,
-		  returnSecureToken: true
-		})
-		  .then(res => {
-			 console.log(res)
-			 commit('authUser', {
-				token: res.data.idToken,
-				userId: res.data.localId
-			 })
-			 const now = new Date()
-			 const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000)
-			 localStorage.setItem('token', res.data.idToken)
-			 localStorage.setItem('userId', res.data.localId)
-			 localStorage.setItem('expirationDate', expirationDate)
-			 dispatch('storeUser', authData)
-			 dispatch('setLogoutTimer', res.data.expiresIn)
-		  })
-		  .catch(error => console.log(error))
-	 },
-// LOG IN
-	 login ({commit, dispatch}, authData) {
-		axios.post('/verifyPassword?key=AIzaSyCXlVPPWknVGhfc60mt7Jkv0Xzrho7_mwc', {
-		  email: authData.email,
-		  password: authData.password,
-		  returnSecureToken: true
-		})
-		  .then(res => {
-			 console.log(res)
-			 const now = new Date()
-			 const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000)
-			 localStorage.setItem('token', res.data.idToken)
-			 localStorage.setItem('userId', res.data.localId)
-			 localStorage.setItem('expirationDate', expirationDate)
-			 commit('authUser', {
-				token: res.data.idToken,
-				userId: res.data.localId
-			 })
-			 dispatch('setLogoutTimer', res.data.expiresIn)
-		  })
-		  .catch(error => console.log(error))
-	 },
-	 tryAutoLogin ({commit}) {
-		const token = localStorage.getItem('token')
-		if (!token) {
-		  return
-		}
-		const expirationDate = localStorage.getItem('expirationDate')
-		const now = new Date()
-		if (now >= expirationDate) {
-		  return
-		}
-		const userId = localStorage.getItem('userId')
-		commit('authUser', {
-		  token: token,
-		  userId: userId
-		})
-	 },
-	 logout ({commit}) {
-		commit('clearAuthData')
-		localStorage.removeItem('expirationDate')
-		localStorage.removeItem('token')
-		localStorage.removeItem('userId')
-		router.replace('/signin')
-	 },
-	 storeUser ({commit, state}, userData) {
-		if (!state.idToken) {
-		  return
-		}
-		globalAxios.post('/users.json' + '?auth=' + state.idToken, userData)
-		  .then(res => console.log(res))
-		  .catch(error => console.log(error))
-	 },
-	 fetchUser ({commit, state}) {
-		if (!state.idToken) {
-		  return
-		}
-		globalAxios.get('/users.json' + '?auth=' + state.idToken)
-		  .then(res => {
-			 console.log(res)
-			 const data = res.data
-			 const users = []
-			 for (let key in data) {
-				const user = data[key]
-				user.id = key
-				users.push(user)
-			 }
-			 console.log(users)
-			 commit('storeUser', users[0])
-		  })
-		  .catch(error => console.log(error))
-	 }
-		*/
 	},
 	getters: {
 		//assynCallCounter() { return state.asyncCallCounter },

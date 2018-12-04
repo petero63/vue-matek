@@ -1,6 +1,6 @@
 <template>
 <div>
-<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
+<div class="signin">Bejelentkezve:   {{this.$store.state.signedInEmail}} / [{{this.$store.state.signedUserId}}]</div><br>
 	<div class="alert alert-info"><h4>Vezérlőpult</h4> </div>
 	<div class="alert alert-secondary " role="alert">
 		[<router-link to="/eventlist/4">&nbsp;Eseményeim&nbsp;</router-link>]

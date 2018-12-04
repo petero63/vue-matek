@@ -1,7 +1,7 @@
 <template>
 	<div id="signin">
 
-<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
+<div class="signin">Bejelentkezve:   {{this.$store.state.signedInEmail}} / [{{this.$store.state.signedUserId}}]</div><br>
 		<div class="alert alert-success" v-show=this.$store.state.signedIn><h4>Sikeres bejelentkezés</h4> 
 		<button type="button" class="btn btn-primary" @click="goToPage('dashboard')">Vezérlőpult</button>
 		</div>

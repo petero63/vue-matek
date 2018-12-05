@@ -239,47 +239,22 @@ export default new Vuex.Store({
 			 		const expirationDate = new Date(now.getTime() + 3600);
 					state.idToken=res.data.token;
 					if (res.data.token=="") { state.signedIn=false; state.signedInEmail="";}
-					else { state.signedIn=true;state.signedUserId=res.data.id; state.signedInEmail=res.data.email;state.status=res.data.status;}
+					else {state.asyncCallCounter++; state.signedIn=true;state.signedUserId=res.data.id; state.signedInEmail=res.data.email;state.status=res.data.status;}
+					 
 				})
 				.catch(function (error) {
 					console.log(error);
 				});
 		},
 
-/*
- // TUTORIAL SIGN IN
-
-	 login ({commit, dispatch}, authData) {
-		axios.post('/verifyPassword?key=AIzaSyCXlVPPWknVGhfc60mt7Jkv0Xzrho7_mwc', {
-		  email: authData.email,
-		  password: authData.password,
-		  returnSecureToken: true
-		})
-		  .then(res => {
-			 console.log(res)
-			 const now = new Date()
-			 const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000)
-			 localStorage.setItem('token', res.data.idToken)
-			 localStorage.setItem('userId', res.data.localId)
-			 localStorage.setItem('expirationDate', expirationDate)
-			 commit('authUser', {
-				token: res.data.idToken,
-				userId: res.data.localId
-			 })
-			 dispatch('setLogoutTimer', res.data.expiresIn)
-		  })
-		  .catch(error => console.log(error))
-	 },
- // TUTORIAL SIGN IN
-*/
 		// Sign Up 
 		signup ({commit, state, dispatch}, formData) {
 			console.log(formData);
-			let link=`http://${this.state.serverhost}/useradd`;
+			let link=`http://${this.state.serverhost}/signup`;
 			axios.post(link, {
-			//axios.post('http://localhost:3000/useradd', {
 				email: formData.email,
 				password: formData.password, 
+				status: formData.status, 
 			})
 				.then(function (response) {
 					console.log(response);
@@ -291,16 +266,6 @@ export default new Vuex.Store({
 
 		},
 		// /USERS
-		signupTest ({commit, dispatch}, formData) {
-			console.log(formData)
-
-			let link=`http://${this.state.serverhost}/getformula/1/9999`;
-			axios.get(link).then(
-				response => {
-					const data = response.data;
-					console.log(data)
-				})
-		},
 	},
 	getters: {
 		//assynCallCounter() { return state.asyncCallCounter },

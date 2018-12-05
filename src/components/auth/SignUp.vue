@@ -157,8 +157,9 @@
   }
 
   .submit button {
-    border: 1px solid #521751;
-    color: #521751;
+    border: 1px solid #000000;
+    color: #ffffff;
+    background-color: #000088;
     padding: 10px 20px;
     font: inherit;
     cursor: pointer;
@@ -166,7 +167,7 @@
 
   .submit button:hover,
   .submit button:active {
-    background-color: #521751;
+    background-color: #0000cc;
     color: white;
   }
 

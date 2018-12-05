@@ -5,7 +5,7 @@
 		<div class="alert alert-success" v-show=this.$store.state.signedIn><h4>Sikeres bejelentkezés</h4> 
 		<button type="button" class="btn btn-primary" @click="goToPage('dashboard')">Vezérlőpult</button>
 		</div>
-		<div class="alert alert-info" v-show=!this.$store.state.signedIn><h4>Az oldal megtekintéséhez be kell jelentkezni!</h4> </div>
+		<div class="alert alert-info bg-danger text-white" v-show=!this.$store.state.signedIn><h4>Az oldal megtekintéséhez be kell jelentkezni!</h4> </div>
 
 		<div class="alert alert-danger token">token: [{{this.$store.state.idToken}}] signedIn: [{{this.$store.state.signedIn}}]</div>
 
@@ -144,13 +144,14 @@
 
   .input input:focus {
     outline: none;
-    border: 1px solid #521751;
+    border: 1px solid #000000;
     background-color: #eee;
   }
 
   .submit button {
-    border: 1px solid #521751;
-    color: #521751;
+    border: 1px solid #000000;
+    color: #ffffff;
+    background-color: #000088;
     padding: 10px 20px;
     font: inherit;
     cursor: pointer;
@@ -158,7 +159,7 @@
 
   .submit button:hover,
   .submit button:active {
-    background-color: #521751;
+    background-color: #0000cc;
     color: white;
   }
 

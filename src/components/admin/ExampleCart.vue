@@ -1,8 +1,13 @@
 <template>
 <div class="container">
-	<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}}</div><br>
+	<div class="signin">Bejelentkezve:   {{this.$store.state.signedInEmail}} / [{{this.$store.state.signedUserId}}]</div><br>
 		<div class="alert alert-info bg-danger text-white"><h4>Példakosár tartalma</h4> </div>
-
+		<div>
+          [<a  href="#" @click="goToAdminPage('adminexamplerepository')">Példák</a>]
+          [<a  href="#" @click="goToAdminPage('admingrouplist',$store.state.signedInUserId)">Saját csoportok</a>]
+          [<a  href="#" @click="goToAdminPage('admineventlist',$store.state.signedInUserId)">Saját események</a>]
+          [<a  href="#" @click="goToAdminPage('adminexamplecart',$store.state.signedInUserId)">Példakosár</a>]
+		</div>
 	<div class="alert alert-success" v-for="(item, index) in records"  v-bind:id="index">
 		<div><div class="mousepointer"><b>{{item.id}}</b>
 		&nbsp;<span v-on:click="deleteExampCartItem(item.id)" class="mathFormula"><img src="/svg/delete.svg" width=25 title="Töröl" alt="Töröl"></span>
@@ -49,9 +54,10 @@ methods: {
 			this.$store.dispatch('examplecart', formData)
 			this.records=this.$store.state.exampleCartRecords;
 	},
-	roland () {
-	//alert ("xxx");	
-	this.n++;
+
+	goToAdminPage(page,id) {
+		this.$router.push({ path: `/${page}` });
+		if (id>=0) { this.$router.push({ path: `/${page}/${id}` }); }
 	}
 	},//methods
 	mounted() {

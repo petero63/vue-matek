@@ -1,7 +1,13 @@
 <template>
 <div class="container">
-<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
+	<div class="signin">Bejelentkezve:   {{this.$store.state.signedInEmail}} / [{{this.$store.state.signedUserId}}]</div><br>
 <div class="alert alert-info bg-danger text-white"><h4>Feladatok listája</h4> </div>
+		<div>
+          [<a  href="#" @click="goToAdminPage('adminexamplerepository')">Példák</a>]
+          [<a  href="#" @click="goToAdminPage('admingrouplist',$store.state.signedInUserId)">Saját csoportok</a>]
+          [<a  href="#" @click="goToAdminPage('admineventlist',$store.state.signedInUserId)">Saját események</a>]
+          [<a  href="#" @click="goToAdminPage('adminexamplecart',$store.state.signedInUserId)">Példakosár</a>]
+		</div>
 			<div v-for="(item, index) in steps" v-bind:id="index" >
 				<div  class="p-3 mb-2 bg-info text-white mousepointer" v-on:click="addToExampleCart(item.id)"><b>{{item.id}}</b>&nbsp;&nbsp;
 				<span><img src="/svg/add.svg" width=20 title="Kosárba" alt="Kosárba"></span>
@@ -32,8 +38,14 @@ methods: {
 	},
 	editExample (id) {
 		//alert(n);
-		this.$router.push({ path: '/adminexample/'+id });}
+		this.$router.push({ path: '/adminexample/'+id });
 	},
+
+	goToAdminPage(page,id) {
+		this.$router.push({ path: `/${page}` });
+		if (id>=0) { this.$router.push({ path: `/${page}/${id}` }); }
+	}
+	},//methods
 
 mounted() {
 

@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-	<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}}</div><br>
+<div class="signin">Bejelentkezve:   {{this.$store.state.signedInEmail}} / [{{this.$store.state.signedUserId}}]</div><br>
 	<div class="alert alert-info"><h4>Eseményeim</h4> </div>
 
 
@@ -36,7 +36,7 @@ methods: {
 	},//methods
 	mounted() {
 
-		let link=`http://${this.$store.state.serverhost}/eventlist/${this.$route.params.id}`;
+		let link=`http://${this.$store.state.serverhost}/eventlist/${this.$store.state.signedIn}`;
 		axios.get(link) .then(
 			response => {
 				const data = response.data;

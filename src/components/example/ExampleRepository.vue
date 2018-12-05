@@ -1,6 +1,7 @@
 <template>
 	<div>
 
+	<div v-html=this.$store.state.dashboardMenu></div>
 		<div class="alert alert-info"><h4>Példatár</h4> </div>
 
 <div class="alert alert-primary" role="alert">ÉRETTSÉGI FELADATOK</div>
@@ -50,6 +51,7 @@ export default {
 	}, //methods
 
 	mounted(){
+		this.$store.dispatch('dashboardMenu');
 			//console.log("Mounted");
   }, //mouted
 

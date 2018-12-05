@@ -1,9 +1,15 @@
 <template>
 <div class="container">
-	<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}}</div><br>
+	<div class="signin">Bejelentkezve:   {{this.$store.state.signedInEmail}} / [{{this.$store.state.signedUserId}}]</div><br>
 		<div class="alert alert-info bg-danger text-white"><h4>Saját események listája</h4> </div>
+		<div>
+          [<a  href="#" @click="goToAdminPage('adminexamplerepository')">Példák</a>]
+          [<a  href="#" @click="goToAdminPage('admingrouplist',$store.state.signedInUserId)">Saját csoportok</a>]
+          [<a  href="#" @click="goToAdminPage('admineventlist',$store.state.signedInUserId)">Saját események</a>]
+          [<a  href="#" @click="goToAdminPage('adminexamplecart',$store.state.signedInUserId)">Példakosár</a>]
+		</div>
 
-		<div class="alert alert-info bg-success text-white mousepointer" @click="goToAdminPage('adminevent',0)"><h5>Új semeény létrehozása</h5> </div>
+		<div class="alert alert-info bg-success text-white mousepointer" @click="goToAdminPage('adminevent',0)"><h5>Új esemény létrehozása</h5> </div>
 
 	<div class="alert alert-success" v-for="(item, index) in records"  v-bind:id="index">
 		<div><div v-on:click="goToPage(item.id)" class="mousepointer"><b>{{item.eventName}}</b></div>[{{item.startTime}}] -  [{{item.endTime}}] &nbsp;&nbsp;<span v-on:click="deleteEvent(item.id)" class="mathFormula"><img src="/svg/delete.svg" width=25 title="Töröl" alt="Töröl"></span>
@@ -63,14 +69,13 @@ methods: {
 		//console.log("Event List Renderd");
 	},
 	goToAdminPage(page,id) {
-		//this.$router.push({ path: '/examplesteps/'+id });
-		//this.$router.push({ path: page });
 		this.$router.push({ path: `/${page}` });
 		if (id>=0) { this.$router.push({ path: `/${page}/${id}` }); }
 	}
 	},//methods
 	mounted() {
 
+		this.$store.dispatch('dashboardMenu');
 		this.renderEventList();
 
 		// A store asyncCallCouter változójának fegyelése: Ha változik renderelem a táblázatot!

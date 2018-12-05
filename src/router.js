@@ -41,7 +41,7 @@ Vue.use(VueRouter)
 { path: '/signup', component: SignUpPage },
 { path: '/signin', component: SignInPage },
 
-{ path: '/eventlist/:id', component: EventList},
+{ path: '/eventlist', component: EventList},
 { path: '/eventexamples/:id', component: EventExamples},
 
 //ADMIN

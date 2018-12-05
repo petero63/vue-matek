@@ -1,9 +1,13 @@
 <template>
-	<div>
-
-		<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}} / {{this.$store.state.signedInEmail}}</div><br>
+<div>
+<div class="signin">Bejelentkezve:   {{this.$store.state.signedInEmail}} / [{{this.$store.state.signedUserId}}]</div><br>
 		<div class="alert alert-info bg-info text-white">[{{($route.params.id)}}] {{this.groupName}}</div>
-
+		<div>
+          [<a  href="#" @click="goToAdminPage('adminexamplerepository')">Példák</a>]
+          [<a  href="#" @click="goToAdminPage('admingrouplist',$store.state.signedInUserId)">Saját csoportok</a>]
+          [<a  href="#" @click="goToAdminPage('admineventlist',$store.state.signedInUserId)">Saját események</a>]
+          [<a  href="#" @click="goToAdminPage('adminexamplecart',$store.state.signedInUserId)">Példakosár</a>]
+		</div>
 		<div>
 
 		<div>Adja meg az új tag e-mail címét!</div>
@@ -92,8 +96,12 @@ export default {
 					}
 				}
 			);
-		}
+		},
 
+	goToAdminPage(page,id) {
+		this.$router.push({ path: `/${page}` });
+		if (id>=0) { this.$router.push({ path: `/${page}/${id}` }); }
+	}
 	}, // methods
 
 	watch: {

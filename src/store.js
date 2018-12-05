@@ -10,8 +10,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 	state: {
 		xxx:888,
+		dashboardMenu:"mmm",
 		currentMessage:"",
-		signedUserId:0,
+		signedInUserId:0,
+		status:0,
 		//serverhost:"szte.mathreference.org/api",
 		serverhost:"localhost:3000",
 		//autoPlayStepS:99,
@@ -50,9 +52,17 @@ export default new Vuex.Store({
 		}
 	},
 	actions: {
-		otto () {
-			alert("otto");
+		dashboardMenu () {
+			let menu=`
+			[ <a  href='#' @click='alert("xxx")'>xPéldák</a>]
+			[ <a  href='#' @click='goToAdminPage('adminexamplerepository',1)'>xPéldák</a>]
+			[ <a  href='#' @click='goToAdminPage('admingrouplist',1)'>Saját csoportok</a>]
+			[ <a  href='#' @click='goToAdminPage('admineventlist',1)'>Saját események</a>]
+			[ <a  href='#' @click='goToAdminPage('adminexamplecart',1)'>Példakosár</a>]
+			`;
+			this.state.dashboardMenu=menu;
 		},
+
 
 		// EVENT  
 		examplecart ({commit, state, dispatch}, formData) {
@@ -229,7 +239,7 @@ export default new Vuex.Store({
 			 		const expirationDate = new Date(now.getTime() + 3600);
 					state.idToken=res.data.token;
 					if (res.data.token=="") { state.signedIn=false; state.signedInEmail="";}
-					else { state.signedIn=true;state.signedUserId=res.data.id; state.signedInEmail=res.data.email;}
+					else { state.signedIn=true;state.signedUserId=res.data.id; state.signedInEmail=res.data.email;state.status=res.data.status;}
 				})
 				.catch(function (error) {
 					console.log(error);

@@ -1,7 +1,6 @@
 <template>
 <div class="container">
-
-	<div class="signin">Bejelentkezve: {{this.$store.state.signedIn}}</div><br>
+<div class="signin">Bejelentkezve:   {{this.$store.state.signedInEmail}} / [{{this.$store.state.signedUserId}}]</div><br>
 	<div class="alert alert-info"><h4>Eseményhez tartozó példák</h4> </div>
 
 

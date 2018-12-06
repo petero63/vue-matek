@@ -85,8 +85,8 @@ export default new Vuex.Store({
 				//console.log(records);
 
 			})
-			.catch(function (error) { console.log(error); });
-				state.asyncCallCounter++; 
+				.catch(function (error) { console.log(error); });
+			state.asyncCallCounter++; 
 		},
 
 		addexamplecart ({commit, state, dispatch}, formData) {
@@ -101,8 +101,8 @@ export default new Vuex.Store({
 				//state.lastInsertedId=response.data.id; 
 				state.asyncCallCounter++; 
 			})
-			.catch(function (error) { console.log(error); });
-				state.asyncCallCounter++; 
+				.catch(function (error) { console.log(error); });
+			state.asyncCallCounter++; 
 		},
 
 		eventadd ({commit, state, dispatch}, formData) {
@@ -121,8 +121,8 @@ export default new Vuex.Store({
 				//state.lastInsertedId=response.data.id; 
 				state.asyncCallCounter++; 
 			})
-			.catch(function (error) { console.log(error); });
-				state.asyncCallCounter++; 
+				.catch(function (error) { console.log(error); });
+			state.asyncCallCounter++; 
 		},
 		// /EVENT  
 		// GROUP  
@@ -141,9 +141,9 @@ export default new Vuex.Store({
 				console.log("message: "+response.data.message);
 				state.currentMessage=response.data.message; 
 			})
-			.catch(function (error) { console.log(error); });
+				.catch(function (error) { console.log(error); });
 		},
-		
+
 		// add new group
 		groupadd ({commit, state, dispatch}, formData) {
 
@@ -159,10 +159,10 @@ export default new Vuex.Store({
 				state.lastInsertedId=response.data.id; 
 				state.asyncCallCounter++; 
 			})
-			.catch(function (error) { console.log(error); });
+				.catch(function (error) { console.log(error); });
 		},
 		// /GROUP  
-	
+
 		// EXAPMLE  
 		// example text
 		exampletextadd ({commit, state, dispatch}, formData) {
@@ -176,14 +176,14 @@ export default new Vuex.Store({
 				id: formData.id,
 				pageContent: formData.pageContent, 
 			}).then(function (response) { 
-				
+
 				console.log("Last inserted id: "+response.data.id);
 				state.lastInsertedId=response.data.id; 
 				state.asyncCallCounter++; 
 				console.log("store.js asyncCallCounter: "+state.asyncCallCounter);
 			})
 				.catch(function (error) { console.log(error); });
-				state.pageContent=formData.pageContent;
+			state.pageContent=formData.pageContent;
 		},
 		// example text
 
@@ -198,7 +198,7 @@ export default new Vuex.Store({
 
 			let link=`http://${this.state.serverhost}/examplestepadd`;
 			axios.post(link, {
-			//axios.post('http://localhost:3000/examplestepadd', {
+				//axios.post('http://localhost:3000/examplestepadd', {
 				id: formData.id,
 				id_controler: formData.id_controler,
 				sortOrder: formData.sortOrder,
@@ -233,14 +233,14 @@ export default new Vuex.Store({
 			})
 				.then(function (res) {
 					console.log(res.data.token);
-			 		const now = new Date();
-			 		//const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000)
+					const now = new Date();
+					//const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000)
 					// 60 percig érvényes
-			 		const expirationDate = new Date(now.getTime() + 3600);
+					const expirationDate = new Date(now.getTime() + 3600);
 					state.idToken=res.data.token;
 					if (res.data.token=="") { state.signedIn=false; state.signedInEmail="";}
 					else {state.asyncCallCounter++; state.signedIn=true;state.signedUserId=res.data.id; state.signedInEmail=res.data.email;state.status=res.data.status;}
-					 
+
 				})
 				.catch(function (error) {
 					console.log(error);
@@ -249,7 +249,6 @@ export default new Vuex.Store({
 
 		// Sign Up 
 		signup ({commit, state, dispatch}, formData) {
-			console.log(formData);
 			let link=`http://${this.state.serverhost}/signup`;
 			axios.post(link, {
 				email: formData.email,
@@ -257,8 +256,9 @@ export default new Vuex.Store({
 				status: formData.status, 
 			})
 				.then(function (response) {
-					console.log(response);
-					state.signedInEmail=" ";
+					console.log("signup message: "+response.data.message);
+					state.currentMessage=response.data.message;
+					state.asyncCallCounter++; 
 				})
 				.catch(function (error) {
 					console.log(error);

@@ -5,7 +5,7 @@ import App from './App.vue'
 //import {routes} from './router'
 import router from './router'
 import store from './store'
-import dotenv from 'dotenv'
+//import dotenv from 'dotenv'
 
 //dotenv.config()
 //dotenv.config({path: "./.env"});
@@ -13,8 +13,8 @@ import dotenv from 'dotenv'
 //if(config.error){ console.log('Could not load env file', config.error) }
 //console.log("DBHOST: "+process.env.DBHOST)
 //console.log("DBHOST: "+process.env)
- 
- 
+
+
 Vue.use(VueRouter);
 Vue.use(VueMathjax);
 //dotenv.config()
@@ -25,8 +25,8 @@ Vue.use(VueMathjax);
 
 Vue.config.productionTip = false
 Vue.config.devtools = false 
-var vm=new Vue({
+new Vue({
 	router,
 	store,
-  render: h => h(App)
+	render: h => h(App)
 }).$mount('#app')

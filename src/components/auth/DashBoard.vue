@@ -11,7 +11,7 @@
 [<a  href="#" @click="goToAdminPage('adminexamplecart',$store.state.signedInUserId)">Példakosár</a>]
 </div>
 <div v-show="!isTeacher">
-[<a  href="#" @click="goToPage('eventlist')">Saját csoportok</a>]
+[<a  href="#" @click="goToPage('eventlist')">Saját eseményeim</a>]
 </div>
 </div>
 </template>

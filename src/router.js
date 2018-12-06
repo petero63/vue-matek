@@ -10,7 +10,6 @@ import SignInPage from './components/auth/SignIn.vue'
 import ExampleRepository from './components/example/ExampleRepository.vue'
 import ExampleSteps from './components/example/ExampleSteps.vue'
 import ExampleList from './components/example/ExampleList.vue'
-import Student from './components/student/Student.vue';
 import Teacher from './components/teacher/Teacher.vue';
 import DashBoard from './components/auth/DashBoard.vue';
 import EventList from './components/auth/EventList.vue';
@@ -31,55 +30,55 @@ import AdminExampleCart from './components/admin/ExampleCart.vue';
 
 Vue.use(VueRouter)
 
-	export const routes = [
+export const routes = [
 
-{ path: '', component: Home},
-{ path: '/test', component: Test},
-{ path: '/examplerepository', component: ExampleRepository},
-{ path: '/examplesteps/:id', component: ExampleSteps},
-{ path: '/examplelist/:idBook', component: ExampleList},
-{ path: '/signup', component: SignUpPage },
-{ path: '/signin', component: SignInPage },
+	{ path: '', component: Home},
+	{ path: '/test', component: Test},
+	{ path: '/examplerepository', component: ExampleRepository},
+	{ path: '/examplesteps/:id', component: ExampleSteps},
+	{ path: '/examplelist/:idBook', component: ExampleList},
+	{ path: '/signup', component: SignUpPage },
+	{ path: '/signin', component: SignInPage },
 
-{ path: '/eventlist', component: EventList},
-{ path: '/eventexamples/:id', component: EventExamples},
+	{ path: '/eventlist', component: EventList},
+	{ path: '/eventexamples/:id', component: EventExamples},
 
-//ADMIN
-{ path: '/adminexample/:id', component: AdminExample },
-{ path: '/adminexampletext/:id', component: AdminExampleText },
-{ path: '/adminexamplelist/:id', component: AdminExampleList },
-{ path: '/adminexamplerepository', component: AdminExampleRepository },
-{ path: '/admingroup/:id', component: AdminGroup },
-{ path: '/admingroupmember/:id', component: AdminGroupMember },
-{ path: '/admingrouplist/:id', component: AdminGroupList },
-{ path: '/adminevent/:id', component: AdminEvent },
-{ path: '/admineventlist/:id', component: AdminEventList },
-{ path: '/admineventexamplelist/:id', component: AdminEventExampleList },
-{ path: '/adminexamplecart/:id', component: AdminExampleCart },
-//AUTH
-{
-path: '/dashboard',
+	//ADMIN
+	{ path: '/adminexample/:id', component: AdminExample },
+	{ path: '/adminexampletext/:id', component: AdminExampleText },
+	{ path: '/adminexamplelist/:id', component: AdminExampleList },
+	{ path: '/adminexamplerepository', component: AdminExampleRepository },
+	{ path: '/admingroup/:id', component: AdminGroup },
+	{ path: '/admingroupmember/:id', component: AdminGroupMember },
+	{ path: '/admingrouplist/:id', component: AdminGroupList },
+	{ path: '/adminevent/:id', component: AdminEvent },
+	{ path: '/admineventlist/:id', component: AdminEventList },
+	{ path: '/admineventexamplelist/:id', component: AdminEventExampleList },
+	{ path: '/adminexamplecart/:id', component: AdminExampleCart },
+	//AUTH
+	{
+		path: '/dashboard',
 		component: DashBoard,
 		beforeEnter (to, from, next) {
 			if (store.state.idToken) { next() } else { next('/signin') }
 		}
-},
+	},
 
-{
-path: '/teacher',
+	{
+		path: '/teacher',
 		component: Teacher,
 		beforeEnter (to, from, next) {
 			if (store.state.idToken) { next() } else { next('/signin') }
 		}
-},
+	},
 
-{
-path: '/eventlist/:id',
+	{
+		path: '/eventlist/:id',
 		component: EventList,
 		beforeEnter (to, from, next) {
 			if (store.state.idToken) { next() } else { next('/signin') }
 		}
-},
-	];
+	},
+];
 
-	export default new VueRouter({mode: 'history', routes})
+export default new VueRouter({mode: 'history', routes})

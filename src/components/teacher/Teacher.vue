@@ -2,7 +2,7 @@
 <div class="container">
 
 	<div class="container, gap">
-		<div class="alert alert-info"><h4>Tanárok listája</h4> </div>
+		<div class="alert alert-info"><h4>Regisztrált felhasználók</h4> </div>
 	</div>
 
 			<div 

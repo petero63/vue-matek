@@ -1,40 +1,40 @@
 <template>
 	<div>
-	<div class="signin">Bejelentkezve:   {{this.$store.state.signedInEmail}} / [{{this.$store.state.signedUserId}}]</div><br>
+		<div class="signin">Bejelentkezve:   {{this.$store.state.signedInEmail}} / [{{this.$store.state.signedUserId}}]</div><br>
 		<div class="alert alert-info bg-danger text-white"><h4>{{pageTitle}}</h4> </div>
 		<div>
-          [<a  href="#" @click="goToAdminPage('adminexamplerepository')">Példák</a>]
-          [<a  href="#" @click="goToAdminPage('admingrouplist',$store.state.signedInUserId)">Saját csoportok</a>]
-          [<a  href="#" @click="goToAdminPage('admineventlist',$store.state.signedInUserId)">Saját események</a>]
-          [<a  href="#" @click="goToAdminPage('adminexamplecart',$store.state.signedInUserId)">Példakosár</a>]
+			[<a  href="#" @click="goToAdminPage('adminexamplerepository')">Példák</a>]
+			[<a  href="#" @click="goToAdminPage('admingrouplist',$store.state.signedInUserId)">Saját csoportok</a>]
+			[<a  href="#" @click="goToAdminPage('admineventlist',$store.state.signedInUserId)">Saját események</a>]
+			[<a  href="#" @click="goToAdminPage('adminexamplecart',$store.state.signedInUserId)">Példakosár</a>]
 		</div>
 		<button class="btn btn-success" @click="goToPage(0)" v-show="!showForm">Saját eseményeim</button>
 		<div v-show="!showForm">{{message}}</div>
 		<div v-show="showForm">
-		<div id="example">
-			<div class="example-form">
-				<!-- FORM  -->
-				<form @submit.prevent="onSubmit(id)">
-					Az esemény neve:
-					<input id="eventName" v-model="eventName" class="form-control col-xs-12" rows="3" ><br>
-					Az esemény rövid leírása:
-					<textarea id="description" v-model="description" class="form-control col-xs-12" rows="3" ></textarea>
-					Az esemény kezdete [2019-01-20 10:00:00] alakban:
-					<input id="startTime" v-model="startTime" class="form-control col-xs-12" rows="3" ><br>
-					Az esemény vége [2019-01-20 10:00:00] alakban:
-					<input id="endTime" v-model="endTime" class="form-control col-xs-12" rows="3" ><br>
-					Az eseményen részt vevő csoport:
-					<select v-model="idGroup">
-					  <option v-for="option in ownGroups" v-bind:value="option.value">{{ option.text }}</option>
-					</select>
-					<span>Csoport: {{ idGroup }}</span>
-					<div class="submit"> <button type="submit">Ment</button><span class="responseMessage"></span>&nbsp;</div>
-					
-				</form>
-				<!-- FORM  --> 
-<button class="btn btn-success" @click="addExampleCart($route.params.id)" v-show="showForm">Példakosár hozzárendelése</button>
+			<div id="example">
+				<div class="example-form">
+					<!-- FORM  -->
+					<form @submit.prevent="onSubmit(id)">
+						Az esemény neve:
+						<input id="eventName" v-model="eventName" class="form-control col-xs-12" rows="3" ><br>
+						Az esemény rövid leírása:
+						<textarea id="description" v-model="description" class="form-control col-xs-12" rows="3" ></textarea>
+						Az esemény kezdete [2019-01-20 10:00:00] alakban:
+						<input id="startTime" v-model="startTime" class="form-control col-xs-12" rows="3" ><br>
+						Az esemény vége [2019-01-20 10:00:00] alakban:
+						<input id="endTime" v-model="endTime" class="form-control col-xs-12" rows="3" ><br>
+						Az eseményen részt vevő csoport:
+						<select v-model="idGroup">
+							<option v-for="option in ownGroups" v-bind:value="option.value">{{ option.text }}</option>
+						</select>
+						<span>Csoport: {{ idGroup }}</span>
+						<div class="submit"> <button type="submit">Ment</button><span class="responseMessage"></span>&nbsp;</div>
+
+					</form>
+					<!-- FORM  --> 
+					<button class="btn btn-success" @click="addExampleCart($route.params.id)" v-show="showForm">Példakosár hozzárendelése</button>
+				</div>
 			</div>
-		</div>
 		</div>
 
 	</div>
@@ -56,7 +56,7 @@ export default {
 			startTime:"",
 			endTime:"",
 			idGroup:2,
-    		options: [{ text: 'Válasszon csoportot', value: 0 }, { text: 'One', value: 1 }, { text: 'Two', value: 2 }, { text: 'Three', value: 3 } ],
+			options: [{ text: 'Válasszon csoportot', value: 0 }, { text: 'One', value: 1 }, { text: 'Two', value: 2 }, { text: 'Three', value: 3 } ],
 			idOwner:1,
 			ownGroups:[]
 		}
@@ -68,29 +68,29 @@ export default {
 
 	methods: {
 
-	loadOwnGroups(){
-		let row="";
-		this.ownGroups=[{ text: 'Válasszon csoportot', value: 0 }];
-		let link=`http://${this.$store.state.serverhost}/grouplist/${this.$store.state.signedUserId}`;
-		axios.get(link) .then(
-			response => {
-				const data = response.data;
-				for (let key in data) { 
-					row={text:data[key].groupName, value:data[key].id};
-					this.ownGroups.push(row);
+		loadOwnGroups(){
+			let row="";
+			this.ownGroups=[{ text: 'Válasszon csoportot', value: 0 }];
+			let link=`http://${this.$store.state.serverhost}/grouplist/${this.$store.state.signedUserId}`;
+			axios.get(link) .then(
+				response => {
+					const data = response.data;
+					for (let key in data) { 
+						row={text:data[key].groupName, value:data[key].id};
+						this.ownGroups.push(row);
+					}
+
+					this.$store.state.ownGroups=this.ownGroups;
+					this.$store.state.asyncCallCounter++;
 				}
+			);
 
-			this.$store.state.ownGroups=this.ownGroups;
-			this.$store.state.asyncCallCounter++;
-			}
-		);
-
-	},
+		},
 
 		addExampleCart (id) {
 			//alert("eee");
 			const formData={exampleCart:this.$store.state.exampleCart, idControler:id};
-			console.log("example cart Event.vue");
+			//console.log("example cart Event.vue");
 			this.$store.dispatch('addexamplecart', formData)
 			this.showForm=!this.showForm;
 			this.message="Sikeres példa hozzárendelés!";
@@ -102,7 +102,7 @@ export default {
 		},
 
 		onSubmit (id) {
-			console.log("id: "+id);
+			//console.log("id: "+id);
 
 			const formData = {
 				id: id,
@@ -132,13 +132,13 @@ export default {
 
 	mounted() {
 		let id=this.$route.params.id;
-		console.log("id at mounted: "+id);
+		//console.log("id at mounted: "+id);
 		this.loadOwnGroups();
 		if (id>0) {
 
 			this.pageTitle="Esemény módosítása";
 			this.idGroup=2;
-			
+
 			var records=[];
 			let link=`http://${this.$store.state.serverhost}/getevent/${this.$route.params.id}`;
 			axios.get(link).then(
@@ -186,7 +186,7 @@ export default {
 
 <style scoped>
 .mousepointer {
-cursor: pointer;
+	cursor: pointer;
 }
 
 .responseMessage {

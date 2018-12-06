@@ -57,7 +57,7 @@ export default {
 			const formData = {
 				groupName: this.groupName,
 				description: this.description,
-				idOwner: this.idOwner,
+				idOwner: this.$store.state.signedUserId,
 				id:0 
 				//content: this.content,
 			}

@@ -56,7 +56,7 @@ methods: {
 	},
 	renderEventList(){
 		this.records=[];
-		let link=`http://${this.$store.state.serverhost}/eventlist/${this.$store.state.signedUserId}`;
+		let link=`http://${this.$store.state.serverhost}/eventlistown/${this.$store.state.signedUserId}`;
 		axios.get(link) .then(
 			response => {
 				const data = response.data;

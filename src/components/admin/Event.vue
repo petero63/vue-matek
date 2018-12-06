@@ -108,7 +108,7 @@ export default {
 				id: id,
 				eventName: this.eventName,
 				description: this.description,
-				idOwner: this.idOwner,
+				idOwner: this.$store.state.signedUserId,
 				idGroup: this.idGroup,
 				startTime: this.startTime,
 				endTime: this.endTime,
